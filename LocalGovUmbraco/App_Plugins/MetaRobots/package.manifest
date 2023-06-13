@@ -1,0 +1,22 @@
+{
+  "propertyEditors": [
+    {
+      "alias": "LocalGovUmbraco.PropertyEditors.MetaRobots",
+      "name": "Meta Robots Generator",
+      "icon": "icon-info",
+      "group": "Metadata",
+      "version": "1.1.0",
+      "allowPackageTelemetry": false,
+      "editor": {
+        "view": "~/App_Plugins/MetaRobots/index.html",
+        "valueType": "TEXT"
+      }
+    }
+  ],
+  "javascript": [
+    "~/App_Plugins/MetaRobots/controller.js"
+  ],
+  "css": [
+    "~/App_Plugins/MetaRobots/styles.css"
+  ]
+}

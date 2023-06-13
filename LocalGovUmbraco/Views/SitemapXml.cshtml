@@ -1,0 +1,19 @@
+﻿@using Microsoft.Extensions.Primitives;
+@inherits UmbracoViewPage<Sitemap>
+@{
+  Layout = null;
+  Context.Response.Headers.ContentType = "text/xml";
+}
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet type="text/css" href="/css/sitemap-xml.css"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  @foreach (Main item in Umbraco.ContentAtRoot().SelectMany(x => x.Descendants().Prepend(x)).OfType<Main>().Where(x => !x.UmbracoSitemapHide && !(x.MetaRobots?.Contains("noindex") ?? false) && x is not Sitemap))
+  {
+    <url>
+      <loc>@item.Url(mode: UrlMode.Absolute)</loc>
+      <lastmod>@item.UpdateDate.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ssK")</lastmod>
+      <changefreq>@((item.ChangeFreq.IfNullOrWhiteSpace(Model.DefaultFrequency)?.ToLower()).IfNullOrWhiteSpace("monthly"))</changefreq>
+      <priority>@(item.Priority > 0 ? item.Priority : 0.5)</priority>
+    </url>
+  }
+</urlset>

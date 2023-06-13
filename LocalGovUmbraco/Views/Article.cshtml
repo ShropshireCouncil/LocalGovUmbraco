@@ -1,0 +1,7 @@
+﻿@inherits UmbracoViewPage<Article>
+<article class="max-width">
+  <time datetime="@Model.PublishDate.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss")" title="@Model.PublishDate.ToString("d MMMM") at @Model.PublishDate.ToString("h:mmtt").ToLower()">
+    @(Model.PublishDate.Day + (new[] { "th", "st", "nd", "rd" })[Math.Min(Model.PublishDate.Day % (Model.PublishDate.Day < 30 ? 20 : 30), 4) % 4]) @Model.PublishDate.ToString("MMMM yyyy")
+  </time>
+  @Model.Body
+</article>

@@ -1,0 +1,974 @@
+/* 
+ This file composes part of the core LocalGov Umbraco package. 
+ If you intend to include upstream changes, it is advised to not edit directly, but override any styles in a separate file. 
+
+ Derrived from the GovUk Design System; https://design-system.service.gov.uk/.
+*/
+
+:root {
+  --gds-max-width: 1020px;
+  --gds-red: #d4351c;
+  --gds-yellow: #ffdd00;
+  --gds-green: #00703c;
+  --gds-blue: #1d70b8;
+  --gds-dark-blue: #003078;
+  --gds-light-blue: #5694ca;
+  --gds-purple: #4c2c92;
+  --gds-black: #0b0c0c;
+  --gds-dark-grey: #505a5f;
+  --gds-mid-grey: #b1b4b6;
+  --gds-light-grey: #f3f2f1;
+  --gds-white: #ffffff;
+  --gds-light-purple: #6f72af;
+  --gds-bright-purple: #912b88;
+  --gds-pink: #d53880;
+  --gds-light-pink: #f499be;
+  --gds-orange: #f47738;
+  --gds-brown: #b58840;
+  --gds-light-green: #85994b;
+  --gds-turquoise: #28a197;
+  
+  /* Derrived from above colours */
+  --gds-grey--shade: #383f43;
+  --gds-grey--tint: #eeefef;
+  --gds-purple--shade: #3d2375;
+  --gds-purple--tint: #dbd5e9;
+  --gds-turquoise--shade: #10403c;
+  --gds-turquoise--tint: #bfe3e0;
+  --gds-blue--shade: #144e81;
+  --gds-blue--tint: #d2e2f1;
+  --gds-yellow--shade: #594d00;
+  --gds-yellow--tint: #fff7bf;
+  --gds-orange--shade: #6e3619;
+  --gds-orange--tint: #fcd6c3;
+  --gds-red--shade: #942514;
+  --gds-red--tint: #f6d7d2;
+  --gds-red--shadow: #55150b;
+  --gds-pink--shade: #80224d;
+  --gds-pink--tint: #f7d7e6;
+  --gds-green--shade: #005a30;
+  --gds-green--tint: #cce2d8;
+  --gds-green--shadow: #002d18;
+  --gds-light-grey--shadow: #929191;
+  --gds-arrow-left: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 15 13'%3E%3Cpath d='m6.5938-0.0078125-6.7266 6.7266 6.7441 6.4062 1.377-1.449-4.1856-3.9768h12.896v-2h-12.984l4.2931-4.293-1.414-1.414z'%3E%3C/path%3E%3C/svg%3E");
+  --gds-arrow-right: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 15 13'%3E%3Cpath d='m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z'%3E%3C/path%3E%3C/svg%3E");
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font: 400 16px/1.25 Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+@media (min-width: 1024px) {
+  html {
+    font-size: 18px;
+  }
+}
+
+body {
+  background-color: var(--gds-white);
+  color: var(--gds-black);
+}
+
+.max-width {
+  width: 100%;
+  max-width: 1020px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+a.skip-link:not(:focus),
+.screen-reader-text {
+  border: none;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+a.skip-link:any-link {
+  display: block;
+  color: var(--gds-black);
+  background-color: var(--gds-yellow);
+  outline: 3px solid var(--gds-yellow);
+  outline-offset: 0;
+  padding: 0.5rem;
+  padding-right: max(1rem, calc(1rem + env(safe-area-inset-right)));
+  padding-left: max(1rem, calc(1rem + env(safe-area-inset-left)));
+  text-decoration: underline;
+}
+
+a:link {
+  color: var(--gds-blue);
+}
+
+a:visited {
+  color: var(--gds-purple);
+}
+
+a:hover {
+  color: var(--gds-dark-blue);
+  text-decoration-thickness: max(3px, .1875rem, .12em);
+  text-decoration-skip-ink: none;
+}
+
+a:focus {
+  outline: 3px solid transparent;
+  background-color: var(--gds-yellow);
+  box-shadow: 0 -2px var(--gds-yellow), 0 4px var(--gds-black);
+  text-decoration: none;
+}
+
+a:is(:active, :focus) {
+  color: var(--gds-black);
+}
+
+h1, .heading-xl, .legend-xl, .label-xl {
+  margin: 0 0 1rem;
+  font-weight: 700;
+  font-size: 2rem;
+}
+
+h2, .heading-l, .legend-l, .label-l {
+  margin: 0 0 1rem;
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+h3, .heading-m, legend, .legend-m, label-m {
+  margin: 0 0 1rem;
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+h4, h5, h6, .heading-s, .legend-s, .label-s {
+  margin: 0 0 1rem;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.text-m {
+  font-size: 1rem;
+  margin: 0 0 1rem;
+}
+
+.text-l {
+  font-size: 1.125rem;
+  margin: 0 0 1rem;
+}
+
+.text-s {
+  font-size: 0.875rem;
+  margin: 0 0 1rem;
+}
+
+ul, ol {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  padding-left: 1.25rem;
+  list-style-type: none;
+}
+
+li {
+  margin: 0;
+}
+
+:is(ul, ol) *:is(ul, ol) {
+  margin-top: 1rem;
+}
+
+ul {
+  list-style: disc;
+}
+
+ol {
+  list-style-type: decimal;
+}
+
+dl {
+  display: grid;
+  margin: 0 0 1rem;
+}
+
+dt, dd {
+  text-align: left;
+}
+
+dt {
+  font-weight: 700;
+  padding-right: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+dd {
+  border-bottom: 1px solid var(--gds-mid-grey);
+  margin: 0 0 1rem;
+  padding-bottom: 1rem;
+}
+
+@media (min-width: 980px) {
+  dl {
+    grid-template-columns: 3fr 7fr;
+  }
+
+  dt, dd {
+    padding: 0.5rem 0 0.5rem;
+    margin: 0;
+  }
+
+  dt {
+    border-bottom: 1px solid var(--gds-mid-grey);
+  }
+}
+
+table {
+  width: 100%;
+  border: none;
+  border-spacing: 0;
+  border-collapse: collapse;
+  margin: 0 0 1rem;
+}
+
+caption, .caption, .caption-m, h3 .caption, .heading-m .caption {
+  display: block;
+  text-align: left;
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--gds-dark-grey);
+}
+
+.caption-xl, h1 .caption, .heading-xl .caption {
+  display: block;
+  text-align: left;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--gds-dark-grey);
+}
+
+.caption-l, h2 .caption, .heading-l .caption {
+  display: block;
+  text-align: left;
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--gds-dark-grey);
+}
+
+.caption-s, h4 .caption, h5 .caption, h6 .caption, .heading-s .caption {
+  display: block;
+  text-align: left;
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--gds-dark-grey);
+}
+
+td, th {
+  text-align: left;
+  padding: 0.5rem 1rem 0.5rem 0;
+  border-bottom: 1px solid var(--gds-mid-grey);
+}
+
+:where(td, th):last-child {
+  padding-right: 0;
+}
+
+td {
+  font-weight: 400;
+}
+
+th {
+  font-weight: 700;
+}
+
+mark, .tag {
+  display: inline-block;
+  outline: 2px solid rgba(0,0,0,0);
+  outline-offset: -2px;
+  color: var(--gds-white);
+  background-color: var(--gds-blue);
+  letter-spacing: 1px;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+}
+
+.tag-grey {
+  color: var(--gds-grey--shade);
+  background-color: var(--gds-grey--tint);
+}
+
+.tag-purple {
+  color: var(--gds-purple--shade);
+  background-color: var(--gds-purple--tint);
+}
+
+.tag-turquoise {
+  color: var(--gds-turquoise--shade);
+  background-color: var(--gds-turquoise--tint);
+}
+
+.tag-blue {
+  color: var(--gds-blue--shade);
+  background-color: var(--gds-blue--tint);
+}
+
+.tag-yellow {
+  color: var(--gds-yellow--shade);
+  background-color: var(--gds-yellow--tint);
+}
+
+.tag-orange {
+  color: var(--gds-orange--shade);
+  background-color: var(--gds-orange--tint);
+}
+
+.tag-red {
+  color: var(--gds-red--shade);
+  background-color: var(--gds-red--tint);
+}
+
+.tag-pink {
+  color: var(--gds-pink--shade);
+  background-color: var(--gds-pink--tint);
+}
+
+.tag-green {
+  color: var(--gds-green--shade);
+  background-color: var(--gds-green--tint);
+}
+
+blockquote, .inset {
+  margin: 1.65rem 0;
+  padding: 15px;
+  clear: both;
+  border-left: 10px solid var(--gds-mid-grey);
+}
+
+button, input[type="submit"], input[type="reset"], input[type="button"], .button {
+  font: inherit;
+  line-height: 1.1875;
+  display: inline-block;
+  position: relative;
+  margin: 0;
+  padding: 0.5rem;
+  border: 3px solid transparent;
+  border-radius: 0;
+  color: #fff;
+  background-color: var(--gds-green);
+  box-shadow: 0 2px 0 var(--gds-green--shadow);
+  text-align: center;
+  vertical-align: top;
+  cursor: pointer;
+  -webkit-appearance: none;
+}
+
+:is(button, input[type="submit"], input[type="reset"], input[type="button"], .button):where(:active, :hover, :link, :any-link, :visited) {
+  color: #fff;
+  text-decoration: none;
+}
+
+:is(button, input[type="submit"], input[type="reset"], input[type="button"], .button):hover {
+  background-color: var(--gds-green--shade);
+}
+
+:is(button, input[type="submit"], input[type="reset"], input[type="button"], .button):active {
+  top: 2px;
+}
+
+:is(button, input[type="submit"], input[type="reset"], input[type="button"], .button):focus {
+  border-color: var(--gds-yellow);
+  outline: 3px solid transparent;
+  box-shadow: inset 0 0 0 1px var(--gds-yellow);
+  background-color: var(--gds-green--shade);
+}
+
+:where(button, .button):before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  bottom: -4px;
+  left: -2px;
+  background-color: transparent;
+}
+
+:where(button, input[type="submit"], input[type="reset"], input[type="button"], .button):active:before {
+  top: -4px;
+}
+
+.button.disabled, :is(button, input[type="submit"], input[type="reset"], input[type="button"])[disabled] {
+  opacity: .5;
+}
+
+.button.disabled:hover, :is(button, input[type="submit"], input[type="reset"], input[type="button"])[disabled]:hover {
+  background-color: var(--gds-green);
+  cursor: default;
+}
+
+.button.disabled:active, :is(button, input[type="submit"], input[type="reset"], input[type="button"])[disabled]:active {
+  top: 0;
+  box-shadow: 0 2px 0 var(--gds-green--shadow);
+}
+
+:is(button, .button, input[type="submit"], input[type="button"]).secondary {
+  color: var(--gds-black);
+  background-color: var(--gds-light-grey);
+  box-shadow: 0 2px 0 var(--gds-light-grey--shadow);
+}
+
+:is(button, .button, input[type="submit"], input[type="button"]).secondary:where(:active, :hover, :link, :any-link, :visited) {
+  color: var(--gds-black);
+}
+
+:is(button, .button, input[type="submit"], input[type="button"]).secondary:hover {
+  background-color: #dbdad9;
+}
+
+:is(button, input[type="submit"], input[type="button"]).secondary[disabled]:hover {
+  background-color: var(--gds-light-grey);
+}
+
+:is(button, input)[type="reset"], :is(button, .button, input[type="submit"], input[type="button"]).warning {
+  background-color: var(--gds-red);
+  box-shadow: 0 2px 0 var(--gds-red--shadow);
+}
+
+:is(button, input)[type="reset"]:where(:active, :hover, :link, :any-link, :visited), :is(button, .button, input[type="submit"], input[type="button"]).warning:where(:active, :hover, :link, :any-link, :visited) {
+  color: #fff;
+}
+
+:is(button, input)[type="reset"]:hover, :is(button, .button, input[type="submit"], input[type="button"]).warning:hover {
+  background-color: var(--gds-red--shade);
+}
+
+:is(button, input)[type="reset"][disabled]:hover, :is(button, input[type="submit"], input[type="button"]).warning[disabled]:hover {
+  background-color: var(--gds-red);
+}
+
+fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+fieldset:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+@supports not (caret-color:auto) {
+  .govuk-fieldset, x:-moz-any-link {
+    display: table-cell;
+  }
+}
+
+legend {
+  box-sizing: border-box;
+  display: table;
+  max-width: 100%;
+  padding: 0;
+  white-space: normal;
+}
+
+.legend > :is(h1, h2, h3, h4, h5, h6) {
+  margin: 0;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+select, textarea, input:not(:is([type="submit"], [type="button"], [type="reset"])) {
+  border: 2px solid var(--gds-black);
+  background-color: var(--gds-white);
+  padding: 0.5rem;
+  min-height: 2.5rem;
+  min-width: 12rem;
+  max-width: 100%;
+  border-radius: 0;
+  font: inherit;
+}
+
+input:not(:is([type="submit"], [type="button"], [type="reset"])):focus, :is(select, textarea):focus {
+  outline: 3px solid var(--gds-yellow);
+  outline-offset: 0;
+  box-shadow: inset 0 0 0 2px;
+}
+
+input[type="color"] {
+  padding: 0;
+}
+
+textarea {
+  min-height: 2.25rem;
+  resize: vertical;
+  display: block;
+  width: 100%;
+}
+
+input:is([type="radio"], [type="checkbox"]) {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 2px solid currentColor;
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  min-width: 0;
+  margin: 2px;
+}
+
+input:is([type="radio"], [type="checkbox"]) + label {
+  position: relative;
+  min-height: 2.5rem;
+  padding: calc(0.5rem + 4px) 0 calc(0.5rem + 4px) 3.5rem;
+}
+
+input:is([type="radio"], [type="checkbox"]) + label:before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 2px solid currentColor;
+  background: var(--gds-white);
+  cursor: pointer;
+  z-index: 1;
+}
+
+input:is([type="radio"], [type="checkbox"]) + label:after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: calc(0.5rem + 2px);
+  left: calc(0.5rem + 2px);
+  z-index: 2;
+  opacity: 0;
+}
+
+input:is([type="radio"], [type="checkbox"]):focus + label:before {
+  outline: 3px solid var(--gds-yellow);
+  outline-offset: 0;
+  box-shadow: inset 0 0 0 2px;
+}
+
+input[type="checkbox"] + label:after {
+  width: 1.15rem;
+  height: 0.5rem;
+  transform: rotate(-45deg);
+  border: solid currentcolor;
+  border-width: 0 0 5px 5px;
+  border-top-color: transparent;
+  margin: 2px 0 0 -1px;
+}
+
+input[type="radio"] + label:before,
+input[type="radio"] + label:after {
+  border-radius: 50%;
+}
+
+input[type="radio"] + label:after {
+  width: 1.25rem;
+  height: 1.25em;
+  background-color: currentColor;
+}
+
+input:is([type="radio"], [type="checkbox"]):checked + label:after {
+  opacity: 1;
+}
+
+iframe {
+  border: 0;
+  width: 100%;
+  height: auto;
+}
+
+meter, progress {
+  display: block;
+  width: 100%;
+  border: 3px solid var(--gds-black);
+  border-radius: 0;
+  background: var(--gds-white);
+  min-height: 2.5rem;
+  margin: 1rem 0;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+:-moz-meter-optimum::-moz-meter-bar {
+  background: var(--gds-green);
+}
+
+:-moz-meter-sub-optimum::-moz-meter-bar {
+  background: var(--gds-orange);
+}
+
+:-moz-meter-sub-sub-optimum::-moz-meter-bar {
+  background: var(--gds-red);
+}
+
+::-webkit-meter-optimum-value {
+  background: var(--gds-green);
+}
+
+::-webkit-meter-suboptimum-value {
+  background: var(--gds-orange);
+}
+
+::-webkit-meter-even-less-good-value {
+  background: var(--gds-red);
+}
+
+::-webkit-progress-bar {
+  background: var(--gds-blue); 
+}
+
+::-moz-progress-bar {
+  background: var(--gds-blue);
+}
+
+progress:not([value])::-moz-progress-bar {
+  background-image: linear-gradient(135deg, var(--gds-blue) 33%, var(--gds-dark-blue) 33%, var(--gds-dark-blue) 66%, var(--gds-blue) 66%);
+  background-size: 5rem 2.5rem;
+}
+
+hr {
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 1rem 0;
+  border-bottom: 3px solid var(--gds-mid-grey);
+}
+
+img {
+  aspect-ratio: 3/2;
+  object-fit: cover;
+}
+
+a:focus img {
+  outline: 3px solid var(--gds-yellow);
+  outline-offset: -2px;
+}
+
+details  {
+  margin-bottom: 1rem;
+  display: block;
+}
+
+details > summary {
+  display: inline-block;
+  position: relative;
+  margin-bottom: 5px;
+  padding-left: 25px;
+  color: var(--gds-blue);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+details > summary:hover {
+  color: var(--gds-dark-blue);
+}
+
+details > summary:focus {
+  outline: 3px solid transparent;
+  color: var(--gds-black);
+  background-color: var(--gds-yellow);
+  box-shadow: 0 -2px var(--gds-yellow), 0 4px var(--gds-black);
+  text-decoration: none;
+}
+
+details > summary:only-child {
+  display: block;
+}
+
+details > summary::-webkit-details-marker {
+  display: none;
+}
+
+details > summary:before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  display: block;
+  width: 0;
+  height: 0;
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+  border: solid transparent;
+  border-width: 0.5rem 0 0.5rem 0.75rem;
+  border-left-color: inherit;
+}
+
+details[open] > summary:before {
+  transform: translateX(0.125rem) rotateZ(90deg);
+}
+
+details > :is(p, div):nth-child(2):last-child {
+  padding: 1rem 0 1rem 1rem;
+  border-left: 5px solid var(--gds-mid-grey);
+}
+
+details > summary:after {
+  content: '';
+  display: table;
+}
+
+ul.pagination {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 0 1rem;
+  padding: 0;
+}
+
+ul.pagination li {
+  padding: 0.5rem 0.85rem;
+}
+
+ul.pagination *:is(.prev, .next) {
+  font-weight: 700;
+}
+
+ul.pagination li:not(.current):hover {
+  background-color: var(--gds-light-grey);
+}
+
+ul.pagination a {
+  display: inline-flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+ul.pagination .current {
+  background-color: var(--gds-blue);
+  color: var(--gds-white);
+}
+
+@supports (--gds-icon: url(data:)) and ((mask: url(data:)) or (-webkit-mask: url(data:))) {
+  ul.pagination .prev {
+    padding-left: 0;
+  }
+
+  ul.pagination .next {
+    padding-right: 0;
+  }
+
+  ul.pagination .prev a:before,
+  ul.pagination .next a:after {
+    content: '';
+    display: block;
+    height: 0.85rem;
+    width: 0.85rem;
+    background-color: var(--gds-dark-grey);
+  }
+
+  ul.pagination .prev a:before {
+    -webkit-mask: var(--gds-arrow-left) no-repeat center center;
+    -webkit-mask-size: contain;
+    mask: var(--gds-arrow-left) no-repeat center center;
+    mask-size: contain;
+  }
+
+  ul.pagination .next a:after {
+    -webkit-mask: var(--gds-arrow-right) no-repeat center center;
+    -webkit-mask-size: contain;
+    mask: var(--gds-arrow-right) no-repeat center center;
+    mask-size: contain;
+  }
+
+  ul.pagination li a:focus:before,
+  ul.pagination li a:focus:after {
+    background-color: currentColor;
+  }
+}
+
+.breadcrumb > :is(ul, ol) {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 1rem 0;
+}
+
+.breadcrumb li {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.breadcrumb li:not(:first-child) {
+  margin-left: 0.5rem;
+}
+
+.breadcrumb li:not(:first-child):before {
+  content: '';
+  display: block;
+  left: -0.25rem;
+  width: 0.4rem;
+  height: 0.4rem;
+  margin: auto 0;
+  transform: rotate(45deg);
+  border: solid var(--gds-dark-grey);
+  border-width: 1px 1px 0 0;
+}
+
+.notification {
+  position: relative;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 5px solid var(--gds-blue);
+  padding: 1rem;
+  font-size: 1rem;
+}
+
+.notification.dismissable {
+  padding-bottom: 2rem;
+}
+
+.notification > :where(h1, h2, h3, h4, h5, h6):first-child {
+  margin: -1rem -1rem 1rem;
+  padding: 0.3rem 1rem;
+  background-color: var(--gds-blue);
+  color: var(--gds-white);
+  font-size: 1.1875rem;
+  border-bottom: inherit;
+}
+
+.notification p {
+  font-size: inherit;
+  font-weight: bold;
+}
+
+.notification p:last-child {
+  margin-bottom: 0;
+}
+
+.notification .close {
+  background: none;
+  border: none;
+  display: inline-flex;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 0;
+  color: var(--gds-blue);
+  position: absolute;
+  right: 0.5rem;
+  bottom: 0.5rem;
+  font-size: 0.9em;
+  box-shadow: none;
+  text-decoration: underline;
+}
+
+.notification .close:active {
+  top: auto;
+}
+
+.notification .close:hover {
+  background: none;
+  color: var(--gds-dark-blue);
+}
+
+.notification .close:focus {
+  outline: 3px solid transparent;
+  background-color: var(--gds-yellow);
+  box-shadow: 0 -2px var(--gds-yellow), 0 4px var(--gds-black);
+  text-decoration: none;
+}
+
+.notification .close:is(:active, :focus) {
+  color: var(--gds-black);
+}
+
+@media (min-width: 1024px) {
+  .notification {
+    font-size: 1.2rem;
+  }
+
+  .notification.dismissable {
+    padding-bottom: 1rem;
+  }
+
+  .notification.dismissable p:nth-last-child(2) {
+    margin-bottom: 0;
+  }
+
+  .notification > :where(h1, h2, h3, h4, h5, h6):first-child {
+    padding-right: 5rem;
+  }
+
+  .notification .close {
+    top: 3px;
+    bottom: auto;
+    color: var(--gds-white);
+    padding: 0.2rem 0.2rem;
+    margin-right: -0.2rem;
+    text-decoration: none;
+  }
+
+  .notification .close:after {
+    content: '×';
+    display: inline-block;
+    aspect-ratio: 1/1;
+    font-size: 2rem;
+    line-height: 0.55;
+  }
+
+  .notification .close:active {
+    top: 0;
+    bottom: auto;
+  }
+
+  .notification .close:hover {
+    color: var(--gds-white);
+    box-shadow: 0 4px var(--gds-white);
+  }
+
+  .notification .close:is(:active, :focus) {
+    color: var(--gds-black);
+    box-shadow: 0 4px var(--gds-black);
+  }
+}
+
+ul.menu {
+  line-height: 2;
+  position: relative;
+}
+
+ul.menu:not([data-horizontal]) li:before {
+  content: '';
+  display: inline-block;
+  border: solid transparent;
+  border-width: 0 0 0 4px;
+  vertical-align: middle;
+  position: absolute;
+  left: calc(-0.5rem - 4px);
+  height: 2em;
+}
+
+ul.submenu {
+  margin-left: 0.5rem;
+  width: 100%;
+  font-size: 0.8rem;
+}
+
+ul.menu li.current-page:before {
+  border-color: var(--gds-blue);
+}

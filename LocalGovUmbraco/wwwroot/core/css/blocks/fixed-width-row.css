@@ -1,0 +1,13 @@
+/* 
+ This file composes part of the core LocalGov Umbraco package. 
+ If you intend to include upstream changes, it is advised to not edit directly, but override any styles in a separate file. 
+*/
+
+.block-type--fixed-width-row {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.block-type--fixed-width-row .block-grid {
+  gap: 1rem;
+}

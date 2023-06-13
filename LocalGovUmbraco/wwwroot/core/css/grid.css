@@ -1,0 +1,66 @@
+/*
+  Umbraco block grid layout.
+  Using data attributes to avoid CSP needing unsafe-inline.
+*/
+
+[data-grid-columns="1"] { --grid-cols: 1 }
+[data-grid-columns="2"] { --grid-cols: 2 }
+[data-grid-columns="3"] { --grid-cols: 3 }
+[data-grid-columns="4"] { --grid-cols: 4 }
+[data-grid-columns="5"] { --grid-cols: 5 }
+[data-grid-columns="6"] { --grid-cols: 6 }
+[data-grid-columns="7"] { --grid-cols: 7 }
+[data-grid-columns="8"] { --grid-cols: 8 }
+[data-grid-columns="9"] { --grid-cols: 9 }
+[data-grid-columns="10"] { --grid-cols: 10 }
+[data-grid-columns="11"] { --grid-cols: 11 }
+[data-grid-columns="12"] { --grid-cols: 12 }
+
+[data-col-span="1"] { --col-span: 1 }
+[data-col-span="2"] { --col-span: 2 }
+[data-col-span="3"] { --col-span: 3 }
+[data-col-span="4"] { --col-span: 4 }
+[data-col-span="5"] { --col-span: 5 }
+[data-col-span="6"] { --col-span: 6 }
+[data-col-span="7"] { --col-span: 7 }
+[data-col-span="8"] { --col-span: 8 }
+[data-col-span="9"] { --col-span: 9 }
+[data-col-span="10"] { --col-span: 10 }
+[data-col-span="11"] { --col-span: 11 }
+[data-col-span="12"] { --col-span: 12 }
+
+[data-row-span="1"] { --row-span: 1 }
+[data-row-span="2"] { --row-span: 2 }
+[data-row-span="3"] { --row-span: 3 }
+[data-row-span="4"] { --row-span: 4 }
+[data-row-span="5"] { --row-span: 5 }
+[data-row-span="6"] { --row-span: 6 }
+[data-row-span="7"] { --row-span: 7 }
+[data-row-span="8"] { --row-span: 8 }
+[data-row-span="9"] { --row-span: 9 }
+[data-row-span="10"] { --row-span: 10 }
+[data-row-span="11"] { --row-span: 11 }
+[data-row-span="12"] { --row-span: 12 }
+
+.block-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-cols, 1), minmax(0, 1fr));
+  grid-auto-rows: minmax(50px, min-content);
+}
+
+.block-grid, .block-grid > .block {
+  position: relative;
+  grid-column-end: span min(calc(var(--col-span, 1) * 3), var(--grid-cols, 1));
+  grid-row-end: span var(--row-span, 1);
+}
+
+@media (min-width: 1024px) {
+  .block-grid {
+    grid-column-end: span var(--col-span, 1);
+    grid-auto-rows: auto;
+  }
+
+  .block-grid > .block {
+    grid-column-end: span min(var(--col-span, 1), var(--grid-cols, 1));
+  }
+}

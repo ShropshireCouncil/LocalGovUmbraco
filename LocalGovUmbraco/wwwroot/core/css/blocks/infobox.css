@@ -1,0 +1,29 @@
+/* 
+ This file composes part of the core LocalGov Umbraco package. 
+ If you intend to include upstream changes, it is advised to not edit directly, but override any styles in a separate file. 
+*/
+
+/* #region InfoBox */
+.block-type--info-box {
+  border: 1px solid var(--medium-grey, var(--gds-mid-grey, #b1b4b6));
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.block-type--info-box .heading {
+  margin: 0;
+}
+
+.block-type--info-box .menu {
+  margin-top: auto;
+}
+
+.block-type--info-box .heading + .menu {
+  margin-top: 1rem;
+}
+
+.block-type--info-box .content:not(:last-child) {
+  margin-bottom: 1rem;
+}
+/* #endregion */

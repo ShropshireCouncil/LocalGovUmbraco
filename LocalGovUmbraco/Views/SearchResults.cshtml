@@ -1,0 +1,48 @@
+@using Examine
+@using Examine.Search;
+@inherits UmbracoViewPage<SearchResults>
+@inject IExamineManager examineManager;
+@inject IShortStringHelper shortStringHelper;
+<section id="search-results" class="max-width article-list">
+  @{
+    int perPage = 12;
+    IExamineValue[] searchParameters = Context.Request.Query.GetSearchRequest("query");
+    if (searchParameters.Any())
+    {
+      ISearchResults results = examineManager.GetSearchResults(searchParameters, new[] { "nodeName", "metaDesc", "body" }, new[] { "IndexPage", "SearchResults" });
+      IEnumerable<Main> contentItems = results.Select(result => Umbraco.Content(result.Id)).OfType<Main>().Where(content => content.TemplateId > 0);
+      if (contentItems.Any())
+      {
+        <p>@contentItems.Count() total results for <strong>@searchParameters.ToString(" ")</strong>.</p>
+
+        foreach (Main item in Context.Request.Paginate<Main>(contentItems, perPage))
+        {
+          <article class="@item.Name.Slug() @shortStringHelper.SplitPascalCasing(@item.ContentType.Alias, ' ').Slug()">
+            <h2 class="heading"><a href="@item.Url()">@item.Name</a></h2>
+            <small><a href="@item.Url()">@item.Url()</a></small>
+            <p>
+              @if (item.Value("body") is Umbraco.Cms.Core.Models.Blocks.BlockGridModel body)
+              {
+                @(new HtmlEncodedString(new Regex($"({string.Join("|", searchParameters.Select(x => Regex.Escape(x.Value)))})").Replace(Html.GetBlockGridHtml(body, "snippet").PlainText().Snippet(350, searchParameters.Select(x => x.Value).ToArray()), "<strong>$1</strong>")))
+              }
+              else if (!item.MetaDesc.IsNullOrWhiteSpace())
+              {
+                @item.MetaDesc
+              }
+            </p>
+          </article>
+        }
+
+        <pagination count="contentItems.Count()" context="Context.Request" perPage="perPage"></pagination>
+      }
+      else
+      {
+        <p class="no-results">There were no results for your query &mdash; <strong>@searchParameters.ToString(" ")</strong>. Please adjust your query and try again.</p>
+      }
+    }
+    else
+    {
+      <p class="no-query">Please enter a search query in the search box.</p>
+    }
+  }
+</section>

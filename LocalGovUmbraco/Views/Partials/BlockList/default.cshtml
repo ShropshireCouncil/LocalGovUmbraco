@@ -1,0 +1,8 @@
+@using Umbraco.Cms.Core.Models.Blocks;
+@inherits UmbracoViewPage<BlockListModel>
+@foreach (IPublishedElement block in Model.Select(x => x.Content))
+{
+  <div id="@block.Key" class="block block-type--@block.ContentType.Alias.Slug()">
+    <partial name="@("blocks/"+ block.ContentType.Alias)" model="block" view-data="new(ViewData)" view-data-depth="@(ViewData["depth"] is int depth ? ++depth : 2)" />
+  </div>
+}

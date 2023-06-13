@@ -1,0 +1,9 @@
+/* 
+ This file composes part of the core LocalGov Umbraco package. 
+ If you intend to include upstream changes, it is advised to not edit directly, but override any styles in a separate file. 
+*/
+
+.block-type--video iframe {
+  width: 100%;
+  aspect-ratio: 16/9;
+}

@@ -1,0 +1,11 @@
+@inherits UmbracoViewPage<LinkList>
+@if (Model.Links?.Any() ?? false)
+{
+  if (!Model.Heading.IsNullOrWhiteSpace())
+  {
+    <heading level="@(((ViewData.GetValue("depth") as int?) ?? 0) + 2)" class="heading">@Model.Heading</heading>
+  }
+
+  <partial name="linklist" model="Model.Links" view-data="new(ViewData)" view-data-horizontal="Model.Horizontal"/>
+}
+

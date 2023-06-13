@@ -1,0 +1,10 @@
+@inherits UmbracoViewPage<ResponsiveImage>
+@if (Model.Link is Link link) {
+  <a href="@link.Url" target="@link.Target">
+    <media src="Model.Image" height="Model.Height" width="Model.Width" caption="@(Model.Caption ? link.Name : null)" lazyload="Model.LazyLoad"></media>
+  </a>
+}
+else
+{
+  <media src="Model.Image" height="Model.Height" width="Model.Width" caption="@(Model.Caption ? Model.Image?.Name : null)" lazyload="Model.LazyLoad"></media>
+}

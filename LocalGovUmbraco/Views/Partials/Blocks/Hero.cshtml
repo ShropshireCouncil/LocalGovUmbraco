@@ -1,0 +1,12 @@
+@inherits UmbracoViewPage<Hero>
+<div class="hero-wrapper @(Model.Reverse ? "image-left" : "image-right")">
+  @if (Model.Image is not null)
+  {
+    <media src="Model.Image" height="420" width="960"></media>
+  }
+  <div class="content max-width">
+    <div class="inner">
+      @Model.Body
+    </div>
+  </div>
+</div>

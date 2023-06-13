@@ -1,0 +1,33 @@
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local(''), url('../typefaces/inter-v12-latin-regular.woff2') format('woff2'), url('../typefaces/inter-v12-latin-regular.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local(''), url('../typefaces/inter-v12-latin-700.woff2') format('woff2'), url('../typefaces/inter-v12-latin-700.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Fira Code';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local(''), url('../typefaces/fira-code-v21-latin-regular.woff2') format('woff2'), url('../typefaces/fira-code-v21-latin-regular.woff') format('woff');
+}
+
+html {
+  font-family: Inter, Helvetica, Arial, sans-serif;
+  font-weight: 400;
+}
+
+code, pre, kbd, samp {
+  font-family: 'Fira Code', monospace;
+  font-weight: 400;
+}

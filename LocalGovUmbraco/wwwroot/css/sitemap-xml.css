@@ -1,0 +1,56 @@
+* {
+  display: block;
+  box-sizing: border-box;
+}
+
+urlset {
+  max-width: 800px;
+  margin: auto;
+  padding: 0 1em;
+  font-size: 11pt;
+  color: #202020;
+}
+
+url {
+  margin: 1em 0;
+  border: 1px solid currentColor;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  background: #fafafa;
+}
+
+loc, lastmod, changefreq, priority {
+  display: flex;
+}
+
+loc {
+  color: #050;
+}
+
+lastmod {
+  color: #009;
+}
+
+:where(loc, lastmod, changefreq, priority):before {
+  flex: 0 0 200px;
+  font-weight: bold;
+  color: #202020;
+}
+
+loc:before {
+  content: 'URL: ';
+}
+
+lastmod:before {
+  content: 'Last Modified: ';
+}
+
+changefreq:before {
+  content: 'Change Frequency: ';
+}
+
+priority:before {
+  content: 'Priority: ';
+}

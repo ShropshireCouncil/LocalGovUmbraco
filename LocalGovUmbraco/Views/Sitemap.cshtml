@@ -1,0 +1,47 @@
+@inherits UmbracoViewPage<Sitemap>
+<div class="sitemap-wrapper max-width">
+  @{
+    bool predecate(Main x) => !x.UmbracoSitemapHide && !(x.MetaRobots?.Contains("noindex") ?? false) && x is not Sitemap;
+    async Task renderTier(IEnumerable<IPublishedContent> items, int depth = 0)
+    {
+      if (items.Any())
+      {
+        <ul class="@(depth == 0 ? "menu" : "submenu")">
+          @foreach (Main item in items)
+          {
+            <li>
+              <heading level="@(2 + depth++)" class="heading-s"><a href="@item.Url()">@item.Name</a></heading>
+              <time datetime="@item.UpdateDate.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ssK")" title="Last updated &mdash; @item.UpdateDate.ToString("d/MM/yyyy")" class="@((DateTime.Now - item.UpdateDate).Days > 90 ? "stale" : "fresh")">
+                Last updated &mdash; @item.UpdateDate.ToString("d MMMM yyyy")
+              </time>
+
+              @if (!item.MetaDesc.IsNullOrWhiteSpace())
+              {
+                <p>@item.MetaDesc</p>
+              }
+
+              @if (item is not IndexPage)
+              {
+                IEnumerable<IPublishedContent> children = item.Children.OfType<Main>().Where(predecate);
+                if (children.Any())
+                {
+                  <details>
+                    <summary>Explore @item.Name</summary>
+                    @{
+                      await renderTier(children, depth + 1);
+                    }
+                  </details>
+                }
+              }
+            </li>
+          }
+        </ul>
+      }
+    }
+
+    await renderTier(Umbraco.ContentAtRoot().OfType<IndexPage>().SelectMany(x => x.Children.Prepend(x)).OfType<Main>().Where(predecate));
+  }
+</div>
+@section stylesheets {
+  <link href="~/css/sitemap.css" rel="stylesheet" asp-append-version="true" />
+}

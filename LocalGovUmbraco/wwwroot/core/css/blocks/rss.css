@@ -1,0 +1,42 @@
+/* 
+ This file composes part of the core LocalGov Umbraco package. 
+ If you intend to include upstream changes, it is advised to not edit directly, but override any styles in a separate file. 
+*/
+
+.block-type--rss-feed article {
+  display: flex;
+  gap: 1rem;
+}
+
+.block-type--rss-feed article img {
+  display: block;
+  flex: 0;
+  max-width: 200px;
+}
+
+.block-type--rss-feed article .inner {
+  flex: 1;
+}
+
+.block-type--rss-feed article .heading {
+  margin-bottom: 1rem;
+}
+
+.block-type--rss-feed .categories ul {
+  display: inline;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.block-type--rss-feed .categories li {
+  display: inline;
+}
+
+.block-type--rss-feed .categories li:where(:not(:last-child):after) {
+  content: ',';
+}
+
+.block-type--rss-feed .article-archive {
+  margin-top: 1rem;
+}

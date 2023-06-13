@@ -1,0 +1,13 @@
+/.config
+
+/[Uu]mbraco/*
+!/[Uu]mbraco/Data/
+/[Uu]mbraco/Data/*
+!/[Uu]mbraco/Data/UmbracoForms/
+!/[Uu]mbraco/Models/
+
+/[Uu][Ss]ync/*/Content
+/[Uu][Ss]ync/*/Domains
+/[Uu][Ss]ync/*/Media
+
+/wwwroot/media/

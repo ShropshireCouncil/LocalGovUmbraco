@@ -1,0 +1,31 @@
+@using Umbraco.Cms.Core.Models.Blocks;
+@inherits UmbracoViewPage<BlockGridModel>
+@functions {
+  async Task RenderBlocks(IEnumerable<BlockGridItem> blocks)
+  {
+    foreach (BlockGridItem item in blocks)
+    {
+      switch(item.Content)
+      {
+        case FixedWidthRow fixedWidthRow:
+        case ContextMenu contextMenu:
+        case Video video:
+          break;
+
+        default:
+          IHtmlContent content = await Html.PartialAsync("blocks/" + item.Content.ContentType.Alias, item.Content);
+          @(" " + content.PlainText() + " ")
+          break;
+      }
+
+      @foreach (BlockGridArea area in item.Areas)
+      {
+        await RenderBlocks(area);
+      }
+    }
+  }
+}
+
+@{
+  await RenderBlocks(Model);
+}

@@ -1,0 +1,38 @@
+/* 
+ This file composes part of the core LocalGov Umbraco package. 
+ If you intend to include upstream changes, it is advised to not edit directly, but override any styles in a separate file. 
+*/
+
+/* #region Rows & Spacing */
+.block.padding-small {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.block.padding-medium {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+.block.padding-large {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.block.align-top > .inner > .block-grid {
+  align-items: start;
+}
+
+.block.align-centre > .inner > .block-grid {
+  align-items: center;
+}
+
+.block.align-bottom > .inner > .block-grid {
+  align-items: end;
+}
+
+@media (max-width: 1023px) {
+  .block-type--spacer {
+    display: none;
+  }
+}

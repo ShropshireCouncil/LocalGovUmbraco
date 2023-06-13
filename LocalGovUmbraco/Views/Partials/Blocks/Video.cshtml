@@ -1,0 +1,5 @@
+@inherits UmbracoViewPage<Video>
+@if (!Model.VideoUrl.IsNullOrWhiteSpace()) {
+  <iframe id="video-@Guid.NewGuid()" preload="none" src="@(new Uri(Model.VideoUrl).SetQuery(new() { { "modestbranding" , "1" }, { "rel" , "0" }, }))"></iframe>
+}
+

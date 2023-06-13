@@ -1,0 +1,6 @@
+@inherits UmbracoViewPage<ContextMenu>
+@if (Model.ShowHeader)
+{
+  <heading level="@(((ViewData.GetValue("depth") as int?) ?? 0) + 2)" class="heading">@Model.Context.IfNull(x => Umbraco.AssignedContentItem.Parent ?? Umbraco.AssignedContentItem).Name</heading>
+}
+<nav-menu aria-label="In this section" context="Umbraco.AssignedContentItem" content="(Model.Context.IfNull(x => Umbraco.AssignedContentItem.Parent ?? Umbraco.AssignedContentItem)).Children" recurseWhen="x => Model.Recurse && Umbraco.AssignedContentItem.AncestorsOrSelf().Contains(x)"></nav-menu>

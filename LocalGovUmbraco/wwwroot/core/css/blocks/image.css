@@ -1,0 +1,51 @@
+/* 
+ This file composes part of the core LocalGov Umbraco package. 
+ If you intend to include upstream changes, it is advised to not edit directly, but override any styles in a separate file. 
+*/
+
+.block-type--responsive-image *:is(a, figure, picture) {
+  display: block;
+}
+
+.block-type--responsive-image *:is(a, figure) {
+  height: 100%;
+}
+
+.block-type--responsive-image picture > img {
+  aspect-ratio: auto;
+  margin: auto;
+}
+
+.block-type--responsive-image a:not(:focus) {
+  color: var(--primary-contrast, var(--gds-white, white));
+  text-decoration: none;
+  box-shadow: none;
+}
+
+.block-type--responsive-image a figure {
+  display: flex;
+  flex-direction: column;
+}
+
+.block-type--responsive-image a picture:not(:last-child) img {
+  width: 100%;
+}
+
+.block-type--responsive-image a figcaption {
+  color: inherit;
+  background-color: var(--primary, var(--gds-dark-blue, black));
+  text-align: center;
+  padding: 0.5rem 1rem;
+  font-weight: 700;
+  text-decoration: none !important;
+  margin: 0;
+  font-size: inherit;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.block-type--responsive-image a:focus figcaption {
+  background: none;
+}

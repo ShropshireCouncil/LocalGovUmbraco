@@ -1,0 +1,14 @@
+@inherits UmbracoViewPage<IEnumerable<Link>>
+<ul @(ViewData.GetValue("horizontal", false) is true ? "data-horizontal" : null)>
+  @foreach (Link link in Model)
+  {
+    Uri.TryCreate(link.Url, UriKind.Absolute, out Uri? uri);
+    <li class="@string.Join(" ", new string?[] {
+      link.Name.Slug(),
+      link.Udi is Udi ? Umbraco.Content(link.Udi)?.ContentType.Alias.Slug() : null,
+      !(uri?.Scheme.StartsWith("http") ?? false) ? uri?.Scheme.Slug() : uri?.Host != Context.Request.Host.Host ? "ext" : null,
+    }.Distinct().WhereNotNull())">
+      <a href="@link.Url" target="@link.Target">@link.Name</a>
+    </li>
+  }
+</ul>

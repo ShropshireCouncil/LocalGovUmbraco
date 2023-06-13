@@ -1,0 +1,53 @@
+.meta-robots-generator {
+  max-width: 800px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1em;
+}
+
+.meta-robots-generator .settings {
+  flex: 1 1 auto;
+}
+
+.meta-robots-generator .meta {
+  flex: 0 0 auto;
+  text-align: right;
+}
+
+.meta-robots-generator :is(a, button) {
+  color: #2152a3;
+}
+
+.meta-robots-generator button {
+  appearance: none;
+  border: none;
+  background: none;
+  margin: 0;
+  padding: 0;
+  flex: 0 0 auto;
+  font-size: 0.85em;
+}
+
+.meta-robots-generator label {
+  margin: 0;
+}
+
+.meta-robots-generator input:is([type="text"], [type="datetime-local"]) {
+  flex: 0 0 300px;
+}
+
+.meta-robots-generator .translate {
+  margin-bottom: 1em;
+}
+
+.meta-robots-generator :where(.notafter, .custom) {
+  display: flex;
+  gap: 1em;
+  align-items: center;
+  margin-top: 0.5em;
+}
+
+.meta-robots-generator :where(.notafter, .custom) label {
+  flex: 0 0 130px;
+}

@@ -1,0 +1,160 @@
+@inherits UmbracoViewPage<Main>
+@inject IWebHostEnvironment env;
+@{
+  Layout = null;
+  IndexPage settings = Umbraco.ContentAtRoot().FirstOfType<IndexPage>() ?? throw new NullReferenceException();
+  SmidgeHelper.CreateCssBundle("style").RequiresCss(
+    "~/css/global.css" // custom global styles
+  );
+}
+<!DOCTYPE html>
+<html lang="en-gb" class="no-js">
+<head>
+  <title>@(Model is not IndexPage ? Model.Name + " | " + settings.SiteName : settings.SiteName)</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  @if (!string.IsNullOrWhiteSpace(Model.MetaDesc))
+  {
+    <meta name="description" content="@Model.MetaDesc">
+  }
+  @if (!string.IsNullOrWhiteSpace(Model.MetaKeywords))
+  {
+    <meta name="keywords" content="@Model.MetaKeywords">
+  }
+  @if (!string.IsNullOrWhiteSpace(Model.MetaRobots))
+  {
+    <meta name="robots" content="@Model.MetaRobots)">
+  }
+
+  @if (settings.Favicon is MediaWithCrops icon)
+  {
+    <link rel="icon" href="@icon.GetCropUrl(192, 192, imageCropMode: ImageCropMode.BoxPad)">
+  }
+
+  <link rel="stylesheet" href="core-styles">
+  <link rel="stylesheet" href="blocks">
+  <link rel="stylesheet" href="style" debug="@env.IsDevelopment()">
+  @RenderSection("stylesheets", false)
+
+  <script nws-csp-add-nonce="true">document.documentElement.classList.remove('no-js'); document.documentElement.classList.add('js');</script>
+</head>
+<body class="@string.Join(" ", new HashSet<string?> { Model.UrlSegment, Model.ContentType.Alias, Model.GetTemplateAlias() }.Concat(Model.ContentType.CompositionAliases.Where(x => x.ToLowerInvariant() != "main")).WhereNotNull().Select(x => x.Slug()))">
+  <a id="top" href="#content" class="skip-link" title="Skip to content">Skip to content</a>
+
+  <header id="site-header">
+    <div class="inner max-width">
+      <div id="site-identity">
+        <a href="@settings.Url()">
+          @if (settings.Logo is MediaWithCrops logo)
+          {
+            <img id="logo" src="@logo.GetCropUrl(280)" alt="@settings.SiteName">
+          }
+          else
+          {
+            <span id="site-name">@settings.SiteName</span>
+          }
+        </a>
+      </div>
+
+      @if (settings.ShowSearch && Umbraco.ContentSingleAtXPath("//searchResults") is IPublishedContent searchResults)
+      {
+        <form id="search" role="search" method="get" action="@searchResults.Url()" aria-label="Search the site">
+          <label for="search-query-@Model.Id" class="screen-reader-text">Search keywords:</label>
+          <input type="search" name="query" id="search-query-@Model.Id" placeholder="Search for…" value="@Context.Request.Query.GetSearchRequest("query").ToString(" ")">
+          <button>Search</button>
+        </form>
+      }
+
+      <nav-menu id="main-menu" aria-label="Menu" data-breakpoint="768" content="Umbraco.ContentAtRoot().SelectMany(content => (content.Children() ?? new List<IPublishedContent>()).Prepend(content))" recurseWhen="x => false" context="Umbraco.AssignedContentItem"></nav-menu>
+    </div>
+  </header>
+
+  @if (settings.Beta)
+  {
+    <aside id="phase-banner">
+      <div class="inner max-width">
+        <p>
+          <mark>Beta</mark>
+          <span>This is a new service &mdash; your @(settings.Feedback is not null ? new HtmlEncodedString($"<a href=\"{Html.Encode(settings.Feedback.Url)}\">feedback</a>") : "feedback") will help us to improve it.</span>
+        </p>
+      </div>
+    </aside>
+  }
+
+  <main id="content">
+    <breadcrumb for="Model" class="max-width"></breadcrumb>
+
+    @if (!Model.HideTitle)
+    {
+      <h1 class="max-width">
+        @{
+          string? caption = Model.Caption.IfNullOrWhiteSpace(Model is Article article ? article.Parent?.Name : null);
+          if (!caption.IsNullOrWhiteSpace())
+          {
+            <span class="caption">@caption</span>
+          }
+        }
+        @Model.Name
+      </h1>
+    }
+
+    @foreach (Newsflash notice in Umbraco.ContentAtRoot().Where(x => x is Newsflash n && (!(n.PageRestrictions?.Any() ?? false) || n.PageRestrictions.Where(t => t.IsEqual(Model) || (n.Inherit && t.IsAncestor(Model))).Any())))
+    {
+      <aside id="nf-@notice.Id" class="notification max-width">
+        <h2>@notice.Name</h2>
+        @notice.Content
+      </aside>
+    }
+
+    @RenderBody()
+  </main>
+
+  <footer id="site-footer">
+    <div class="inner max-width">
+      @if (settings.FooterLinks?.Any() ?? false)
+      {
+        <section id="footer-links">
+          <h2 class="screen-reader-text">Support links</h2>
+          <ul class="menu">
+            @foreach (Link footerLink in settings.FooterLinks)
+            {
+              <li class="@footerLink.Name.Slug()"><a href="@footerLink.Url" target="@footerLink.Target">@footerLink.Name</a></li>
+            }
+          </ul>
+        </section>
+      }
+
+      @if (!settings.SiteInformation.IsNullOrWhiteSpace())
+      {
+        <section id="information">
+          <h2 class="screen-reader-text">Information</h2>
+          @settings.SiteInformation
+      </section>
+      }
+
+      <section id="copyright">
+        &copy; @settings.SiteName @Umbraco.ContentAtXPath("//*").Select(x => x.CreateDate.Year).Min()
+      </section>
+    </div>
+  </footer>
+
+  <script src="core-scripts"></script>
+  @RenderSection("scripts", false)
+  @if (!string.IsNullOrWhiteSpace(settings.GoogleAnalytics) && env.IsProduction())
+  {
+    <script nws-csp-add-nonce="true">
+      if (window.$cookieControl?.allowAnalyticsCookies !== false) {
+        document.body.appendChild(Object.assign(document.createElement('script'), {
+          'src': "https://www.googletagmanager.com/gtag/js?id=@(settings.GoogleAnalytics)",
+          'async': true,
+        }));
+
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', '@settings.GoogleAnalytics', { 'anonymize_ip': true });
+      }
+    </script>
+  }
+</body>
+</html>

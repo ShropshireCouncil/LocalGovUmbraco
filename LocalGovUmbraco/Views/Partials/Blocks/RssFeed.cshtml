@@ -1,0 +1,99 @@
+@using HtmlAgilityPack
+@using LocalGovUmbraco.Models.Rss
+@using System.IO
+@using System.Net.Mime
+@using System.Net
+@using System.Net.Http
+@using System.Xml
+@inherits UmbracoViewPage<RssFeed>
+@inject IWebHostEnvironment env
+@if (Uri.TryCreate(Model.FeedUrl, UriKind.RelativeOrAbsolute, out Uri? feedUrl))
+{
+  int depth = (ViewData.GetValue("depth") as int?) ?? 0;
+  if (!Model.Heading.IsNullOrWhiteSpace())
+  {
+    <heading level="@(2 + depth++)" class="heading">@Model.Heading</heading>
+  }
+
+  try
+  {
+    Feed rssFeed = await Feed.FromRemoteAsync(feedUrl);
+    <div class="article-list">
+      @foreach (Item item in rssFeed.Take(Model.Count > 0 ? Model.Count : rssFeed.Length))
+      {
+        HtmlDocument htmlDoc = new();
+        htmlDoc.LoadHtml(item.Description);
+        Uri? imgSrc = item.Enclosures.Where(x => x.MimeType?.StartsWith("image/") ?? false).FirstOrDefault()?.Url;
+        if (imgSrc is null && Uri.TryCreate(htmlDoc.DocumentNode.SelectSingleNode("//img")?.GetAttributeValue("src", null), UriKind.RelativeOrAbsolute, out imgSrc) && !imgSrc.IsAbsoluteUri)
+        {
+          imgSrc = imgSrc?.MakeAbsolute(feedUrl);
+        }
+
+        <article>
+          @if (Model.Image && imgSrc is not null) {
+            <img src="@imgSrc" alt="@item.Title" loading="lazy"/>
+          }
+          <div class="inner">
+            <heading level="@(depth + 2)" class="heading">
+              @if (item.Link is Uri link)
+              {
+                <a href="@link">@item.Title</a>
+              }
+              else
+              {
+                @item.Title
+              }
+            </heading>
+            @if (item.Published is DateTime published) {
+              <time datetime="@published.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss")" title="@published.ToString("d MMMM") at @published.ToString("h:mmtt").ToLower()">
+                @(published.Day + (new[] { "th", "st", "nd", "rd" })[Math.Min(published.Day % (published.Day < 30 ? 20 : 30), 4) % 4]) @published.ToString("MMMM")
+                @if (published < DateTime.Now.AddMonths(-11))
+                {
+                  @published.ToString("yyyy")
+                }
+              </time>
+            }
+
+            @if (Model.Excerpt && (!item.Description?.PlainText().IsNullOrWhiteSpace() ?? false))
+            {
+              <p class="excerpt">@item.Description?.PlainText()</p>
+            }
+            
+            @if (item.Categories.Any())
+            {
+              <div class="categories">
+                <strong>Tagged under: </strong>
+                <ul>
+                  @foreach(string category in item.Categories)
+                  {
+                    <li class="@category.Slug()">@category</li>
+                  }
+                </ul>
+              </div>
+            }
+          </div>
+        </article>
+      }
+    </div>
+    
+    @if(Model.ArchiveLink is Link archiveLink)
+    {
+      <div class="article-archive">
+        <a href="@archiveLink.Url" target="@archiveLink.Target">@archiveLink.Name</a>
+      </div>
+    }
+  }
+  catch (Exception ex)
+  {
+    <div class="feed-error">
+      <p>We are unable to diplay the contents of the feed at this time. Please try again later.</p>
+      @if (env.IsDevelopment())
+      {
+        <p class="error-message">
+          <strong>@ex.GetType()</strong><br>
+          @ex.Message
+        </p>
+      }
+    </div>
+  }
+}

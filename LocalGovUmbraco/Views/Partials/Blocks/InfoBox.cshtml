@@ -1,0 +1,20 @@
+@inherits UmbracoViewPage<InfoBox>
+@if (!Model.Heading.IsNullOrWhiteSpace())
+{
+  <heading level="@(((ViewData.GetValue("depth") as int?) ?? 0) + 2)" class="heading">@Model.Heading</heading>
+}
+@if (!Model.Body.IsNullOrWhiteSpace())
+{
+  <div class="content">@Model.Body</div>
+}
+@if (Model.Links?.Any() ?? false)
+{
+  <ul class="menu">
+    @foreach (Link link in Model.Links)
+    {
+      <li>
+        <a href="@link.Url" target="@link.Target" class="button">@link.Name</a>
+      </li>
+    }
+  </ul>
+}

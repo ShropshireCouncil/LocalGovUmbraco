@@ -1,0 +1,23 @@
+.block-type--latest-articles .teaser {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--medium-grey, var(--gds-mid-grey, #b1b4b6));
+}
+
+.block-type--latest-articles .teaser picture {
+  flex: 2;
+  min-width: 320px;
+}
+
+.block-type--latest-articles .teaser .inner {
+  flex: 3;
+  min-width: 50%;
+}
+
+.block-type--latest-articles .archive-link {
+  margin: 1rem 0;
+  text-align: right;
+}

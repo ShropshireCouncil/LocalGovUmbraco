@@ -1,0 +1,28 @@
+@inherits UmbracoViewPage<LatestArticles>
+@{
+  int depth = (ViewData.GetValue("depth") as int?) ?? 0;
+  Queue<Article> articles = new(Model.Archive?.Children.OfType<Article>().OrderByDescending(x => x.PublishDate).Take(Model.Count > 0 ? Model.Count : 3) ?? Enumerable.Empty<Article>());
+}
+@if (!Model.Heading.IsNullOrWhiteSpace())
+{
+  <heading level="@(2 + depth++)" class="heading">@Model.Heading</heading>
+}
+<div class="article-wrapper">
+  @if (articles.Any())
+  {
+    foreach (Article article in articles)
+    {
+      <partial name="Teaser" model="article" view-data="new(ViewData)" view-data-depth="depth" view-data-show-excerpt="Model.ShowExcerpts" view-data-show-image="Model.ShowImages" />
+    }
+  }
+  else
+  {
+    <p class="no-results">There are no articles to display.</p>
+  }
+</div>
+
+@if (Model.ShowArchiveLink && Model.Archive is Archive archive) {
+  <div class="archive-link">
+    <a href="@archive.Url()">@Model.ArchiveLabel.IfNullOrWhiteSpace(archive.Name)</a>
+  </div>
+}

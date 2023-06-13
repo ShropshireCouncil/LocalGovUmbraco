@@ -1,0 +1,216 @@
+/* 
+ This file composes part of the core LocalGov Umbraco package. 
+ If you intend to include upstream changes, it is advised to not edit directly, but override any styles in a separate file. 
+*/
+
+* {
+  box-sizing: border-box;
+}
+
+.screen-reader-text {
+  border: none;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+body {
+  margin: 0;
+}
+
+body#tinymce {
+  margin: 1rem;
+}
+
+hr {
+  height: 0;
+  border: solid currentColor;
+  border-width: 0 0 1px;
+  margin: 1rem auto;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--heading-colour, inherit);
+}
+
+p:empty {
+  display: none;
+}
+
+img {
+  max-width: 100%;
+}
+
+img:not([src*=".svg?"]):not([src$=".svg"])[height] {
+  height: auto !important;
+}
+
+picture, a:has(img) {
+  display: inline-block;
+}
+
+picture > img,
+figure > img  {
+  width: 100%;
+}
+
+picture > img,
+figure > img,
+a > img:only-of-type {
+  display: block;
+}
+
+figure {
+  margin: 0;
+  display: inline-block;
+}
+
+figcaption {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.8rem;
+  text-align: right;
+  line-height: 2;
+  color: var(--dark-grey);
+}
+
+iframe {
+  border: none;
+}
+
+iframe:focus,
+body:focus {
+  outline: none;
+}
+
+:where(ol, ul):is(.menu, .submenu) {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+:where(thead, tbody) th {
+  background-color: var(--gds-blue);
+  color: white;
+}
+
+th, td, td:last-child {
+  padding: 0.5rem;
+}
+
+audio, video {
+  display: block;
+  width: 100%;
+}
+
+video {
+  aspect-ratio: 16/9;
+}
+
+input:not(:is([type="button"], [type="reset"], [type="submit"], [type="radio"], [type="checkbox"])), select {
+  max-width: 100%;
+  min-width: 15rem;
+}
+
+.left {
+  text-align: left;
+}
+
+img.left, picture.left, audio.left, video.left {
+  float: left;
+}
+
+table.left {
+  margin-left: 0px;
+  margin-right: auto;
+}
+
+.right {
+  text-align: right;
+}
+
+img.right, picture.right, audio.right, video.right {
+  float: right;
+}
+
+table.right {
+  margin-left: auto;
+  margin-right: 0px;
+}
+
+.center {
+  text-align: center;
+}
+
+img.center, picture.center, audio.center, video.center {
+  display: block;
+  margin: 0 auto;
+}
+
+table.center {
+  margin: 0 auto;
+}
+
+.full {
+  text-align: justify;
+}
+
+img.full, picture.full, audio.full, video.full {
+  display: block;
+  margin: 0 auto;
+}
+
+table.full {
+  margin: 0 auto;
+}
+
+code {
+  font-size: 0.875em;
+  display: inline-block;
+  padding: 0 3px;
+  border-radius: 1px;
+}
+
+code,
+.umb-rte code[data-mce-selected="inline-boundary"] {
+  background-color: #f5f2f0;
+  outline: 3px solid #f5f2f0;
+  color: #2d2d2d;
+}
+
+pre > code:only-child {
+  display: block;
+  padding: 1rem;
+  margin: 1rem 0;
+  overflow-x: auto;
+}
+
+@media (prefers-color-scheme: dark) {
+  code,
+  .umb-rte code[data-mce-selected="inline-boundary"] {
+    background-color: #2d2d2d;
+    outline: 3px solid #2d2d2d;
+    color: #e5e2e0;
+  }
+}
+
+ul {
+  list-style: disc;
+  margin: 1rem 0;
+}
+
+ul[data-horizontal] {
+  padding-left: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1rem;
+}

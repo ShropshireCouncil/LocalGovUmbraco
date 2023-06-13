@@ -1,0 +1,57 @@
+@using Microsoft.Extensions.Primitives;
+@inherits UmbracoViewPage<Archive>
+@Html.GetBlockGridHtml(Model.Body)
+@{
+  IEnumerable<Article> articles = Model.Children<Article>()?.OrderByDescending(x => x.UmbracoSticky).ThenByDescending(x => x.PublishDate) ?? Enumerable.Empty<Article>();
+  IEnumerable<string> tags = articles.SelectMany(a => a.Tags ?? Array.Empty<string>()).Distinct().Order();
+
+  string[] activeTags = Array.Empty<string>();
+  if (Context.Request.Query.TryGetValue("tag", out StringValues rawTags))
+  {
+    activeTags = tags.Intersect(rawTags.ToArray()).WhereNotNull().ToArray();
+    if (activeTags.Any())
+    {
+      articles = articles.Where(x => x.Tags?.ContainsAny(activeTags) ?? false);
+    }
+  }
+}
+
+@if (articles.Any())
+{
+  int perPage = Model.PerPage != 0 ? Model.PerPage : 12;
+  <section id="articles" class="max-width">
+    @if (activeTags.Any())
+    {
+      <h2>Articles tagged with: @string.Join(", ", activeTags.ToArray())</h2>
+    }
+    <div class="inner">
+      <div class="article-list">
+        @foreach (Article article in Context.Request.Paginate<Article>(articles, perPage))
+        {
+          <partial name="Teaser" model="article" view-data="new(ViewData)" view-data-depth="activeTags.Any() ? 1 : 0" view-data-show-excerpt="Model.Excerpts" view-data-show-image="Model.Thumbnails" />
+        }
+      </div>
+
+      <aside class="metadata">
+        @if (tags.Any())
+        {
+          <section id="tags">
+            <h2>Filter by tag</h2>
+            <ul class="menu">
+              @if (activeTags.Any())
+              {
+                <li><a href="?@Context.Request.QueryCollection().RemoveKey("tag").ToQueryString()">Show all</a></li>
+              }
+              @foreach (string tag in tags)
+              {
+                <li class="@(activeTags.Contains(tag) ? "active" : null)"><a href="?@Context.Request.SetQueryValue("tag", tag)">@tag</a></li>
+              }
+            </ul>
+          </section>
+        }
+      </aside>
+    </div>
+
+    <pagination count="articles.Count()" context="Context.Request" perPage="perPage" class="max-width"></pagination>
+  </section>
+}

@@ -1,0 +1,147 @@
+.cookie-control-widget {
+  padding: 2rem 0;
+  background-color: #333333;
+  color: white;
+  position: relative;
+  z-index: 999;
+}
+
+.cookie-control-widget .screen-reader-text {
+  border: none;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+.cookie-control-widget input[type="checkbox"] {
+  all: revert;
+}
+
+.cookie-control-widget input[type="checkbox"] + label {
+  padding: 0;
+  min-height: 0;
+  margin: 0;
+}
+
+.cookie-control-widget input[type="checkbox"] + label:before,
+.cookie-control-widget input[type="checkbox"] + label:after {
+  content: none;
+}
+
+.cookie-control-widget h2 {
+  color: inherit;
+}
+
+.cookie-control-widget fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.cookie-control-widget fieldset legend {
+  font-weight: bold;
+  float: left;
+  margin-bottom: 1rem;
+  padding-bottom: 2px;
+  border-bottom: 1px solid currentColor;
+  width: 100%;
+}
+
+.cookie-control-widget fieldset legend + * {
+  clear: left;
+}
+
+.cookie-control-widget fieldset.settings {
+  display: flex;
+  gap: 1em;
+  justify-content: end;
+}
+
+@media (max-width: 680px) {
+  .cookie-control-widget fieldset.settings {
+    flex-direction: column;
+  }
+}
+
+.cookie-control-widget details {
+  margin: 0;
+}
+
+.cookie-control-widget details[open] {
+  width: 100%;
+}
+
+.cookie-control-widget details summary:before {
+  content: none;
+}
+
+.cookie-control-widget details[open] summary,
+.cookie-control-widget details[open] ~ button {
+  display: none;
+}
+
+.cookie-control-widget *:where(button, .button) {
+  font-size: 0.8em;
+  text-align: center;
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  text-decoration: none;
+}
+
+.cookie-control-widget button.accept {
+  background-color: #080;
+}
+
+.cookie-control-widget button.accept:where(:hover, :focus) {
+  background-color: #070;
+}
+
+.cookie-control-widget button.reject {
+  background-color: #900;
+}
+
+.cookie-control-widget button.reject:where(:hover, :focus) {
+  background-color: #800;
+}
+
+.cookie-control-widget summary.button {
+  background-color: #555;
+  width: 100%;
+  list-style: none;
+}
+
+.cookie-control-widget summary.button:before {
+  content: none;
+}
+
+.cookie-control-widget summary.button::marker,
+.cookie-control-widget summary.button::-webkit-details-marker {
+  display: none;
+}
+
+.cookie-control-widget summary.button:where(:hover, :focus) {
+  background-color: #444;
+}
+
+.cookie-control-widget .form-element.checkbox {
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  gap: 5px;
+}
+
+.cookie-control-widget .form-element.checkbox input {
+  grid-row: 1 / span 2;
+  align-self: start;
+}
+
+.cookie-control-widget .form-element.checkbox p {
+  font-size: 0.8em;
+  margin: 0 0 1.3em;
+}

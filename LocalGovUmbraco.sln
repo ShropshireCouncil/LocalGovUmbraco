@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33103.184
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocalGovUmbraco", "LocalGovUmbraco\LocalGovUmbraco.csproj", "{F3C5743C-336D-4F2B-97DB-6B596FDB21B0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Development|Any CPU = Development|Any CPU
+		Production|Any CPU = Production|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F3C5743C-336D-4F2B-97DB-6B596FDB21B0}.Development|Any CPU.ActiveCfg = Development|Any CPU
+		{F3C5743C-336D-4F2B-97DB-6B596FDB21B0}.Development|Any CPU.Build.0 = Development|Any CPU
+		{F3C5743C-336D-4F2B-97DB-6B596FDB21B0}.Production|Any CPU.ActiveCfg = Production|Any CPU
+		{F3C5743C-336D-4F2B-97DB-6B596FDB21B0}.Production|Any CPU.Build.0 = Production|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EBC4E747-00EF-4EE1-8BA3-BF6703EEDEA9}
+	EndGlobalSection
+EndGlobal

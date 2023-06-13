@@ -1,0 +1,13 @@
+@inherits UmbracoViewPage<Accordion>
+@{
+  int depth = (ViewData.GetValue("depth") as int?) ?? 0;
+}
+<details>
+  <summary id="@Model.Heading.Slug()"><heading level="@(2 + depth++)" class="heading">@Model.Heading</heading></summary>
+  <div class="inner">
+    @foreach (IPublishedElement item in Model.Content?.Select(x => x.Content) ?? Enumerable.Empty<IPublishedElement>())
+    {
+      <partial name="blocks/@(item.ContentType.Alias)" model="item" view-data="new(ViewData)" view-data-depth="depth" />
+    }
+  </div>
+</details>

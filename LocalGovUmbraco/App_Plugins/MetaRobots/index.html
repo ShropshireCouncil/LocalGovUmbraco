@@ -1,0 +1,52 @@
+<div ng-controller="LocalGovUmbraco.PropertyEditors.MetaRobots" class="meta-robots-generator property-editor">
+  <div class="settings">
+    <div class="basic-settings">
+      <div class="form-element index">
+        <input type="checkbox" id="meta-index" ng-model="index" ng-change="rebuildMeta()" />
+        <label title="Sets/unsets noindex" for="meta-index">Allow page content to be indexed </label>
+      </div>
+
+      <div class="form-element follow">
+        <input type="checkbox" id="meta-follow" ng-model="follow" ng-change="rebuildMeta()" />
+        <label title="Sets/unsets nofollow" for="meta-follow">Follow links on this page </label>
+      </div>
+    </div>
+
+    <div class="advanced-settings" ng-show="advancedMode">
+      <div class="form-element image">
+        <input type="checkbox" id="meta-image" ng-model="image" ng-change="rebuildMeta()" />
+        <label title="Sets/unsets noimageindex" for="meta-image">Allow images to be indexed </label>
+      </div>
+
+      <div class="form-element snippet">
+        <input type="checkbox" id="meta-snippet" ng-model="snippet" ng-change="rebuildMeta()" />
+        <label title="Sets/unsets nosnippet" for="meta-snippet">Allow automatic snippet generation </label>
+      </div>
+
+      <div class="form-element archive">
+        <input type="checkbox" id="meta-archive" ng-model="archive" ng-change="rebuildMeta()" />
+        <label title="Sets/unsets noarchive" for="meta-archive">Allow cached results </label>
+      </div>
+
+      <div class="form-element translate">
+        <input type="checkbox" id="meta-translate" ng-model="translate" ng-change="rebuildMeta()" />
+        <label title="Sets/unsets notranslate" for="meta-translate">Allow automatic translation </label>
+      </div>
+
+      <div class="form-element notafter">
+        <label for="meta-notafter">Do not index after</label>
+        <input type="datetime-local" id="meta-notafter" ng-model="notafter" ng-change="rebuildMeta()" />
+      </div>
+
+      <div class="form-element custom">
+        <label for="meta-custom">Custom rules</label>
+        <input type="text" id="meta-custom" ng-model="custom" ng-change="rebuildMeta()" ng-blur="cleanCustom()" />
+      </div>
+      <small>For all available tags, see <a href="https://developers.google.com/search/docs/crawling-indexing/robots-meta-tag" target="_blank">documentation on Google Search Central</a>.</small>
+    </div>
+  </div>
+
+  <div class="meta">
+    <button type="button" class="advanced" ng-click="toggleAdvanced()">Switch to {{advancedMode ? "simple" : "advanced"}} mode</button>
+  </div>
+</div>

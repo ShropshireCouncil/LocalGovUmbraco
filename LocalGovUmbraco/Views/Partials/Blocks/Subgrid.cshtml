@@ -1,0 +1,5 @@
+@inherits UmbracoViewPage<Subgrid>
+@if (!Model.Heading.IsNullOrWhiteSpace())
+{
+  <heading level="@(((ViewData.GetValue("depth") as int?) ?? 0) + 2)" class="heading">@Model.Heading</heading>
+}
