@@ -21,7 +21,7 @@ Reach out to the maintainers at one of the following places:
 
 ## Contributing
 
-Please read [our contribution guidelines](CONTRIBUTING.md).
+Please read [our contribution guidelines](.github/CONTRIBUTING.md).
 
 ## Authors & contributors
 
@@ -34,7 +34,7 @@ For a full list of all authors and contributors, see [the contributors page](htt
 LocalGov Umbraco follows good practices of security, but 100% security cannot be assured.
 LocalGov Umbraco is provided **"as is"** without any **warranty**. Use at your own risk.
 
-_For more information and to report security issues, please refer to our [security documentation](SECURITY.md)._
+_For more information and to report security issues, please refer to our [security documentation](.github/SECURITY.md)._
 
 ## License
 
