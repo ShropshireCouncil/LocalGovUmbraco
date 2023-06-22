@@ -44,10 +44,10 @@
   <header id="site-header">
     <div class="inner max-width">
       <div id="site-identity">
-        <a href="@settings.Url()">
+        <a href="@settings.Url()" title="Return to @settings.SiteName homepage">
           @if (settings.Logo is MediaWithCrops logo)
           {
-            <img id="logo" src="@logo.GetCropUrl(280)" alt="@settings.SiteName">
+            <img id="logo" src="@logo.GetCropUrl(280)" alt="@logo.Name">
           }
           else
           {

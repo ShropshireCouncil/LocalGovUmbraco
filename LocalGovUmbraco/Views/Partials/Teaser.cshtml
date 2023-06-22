@@ -17,6 +17,6 @@
     {
       <p class="excerpt">@Model.Summary.IfNullOrWhiteSpace(Model.Body?.Truncate(350))</p>
     }
-    <p class="read-more"><a href="@Model.Url()">Read more<span class="screen-reader-text"> about @Model.Name</span></a></p>
+    <p class="read-more" aria-label="Read more about @Model.Name"><a href="@Model.Url()">Read more<span class="screen-reader-text"> about @Model.Name</span></a></p>
   </div>
 </article>
