@@ -9,6 +9,10 @@
   background-color: var(--primary, var(--gds--black, black));
 }
 
+.block-type--hero a:not(.button, :focus) {
+  color: inherit;
+}
+
 .block-type--hero .content {
   padding: 1rem;
 }
@@ -71,6 +75,7 @@
 
   .block-type--hero .content > .inner {
     align-self: center;
+    width: 100%;
     max-width: calc((var(--max-width, var(--gds--max-width, 100vw)) / 2) - 2rem);
   }
 
