@@ -109,7 +109,7 @@ namespace LocalGovUmbraco.TagHelpers
 
       if ((ShowPrevNext || MaxDisplay == 0) && currentPage > 1)
       {
-        output.Content.AppendHtml($"<li class=\"prev\"><a href=\"{Context.Path}?{string.Join(" & ", paginationQuery.Concat(new[] { "page=" + (currentPage - 1) }))}\" title=\"Page {currentPage - 1}\">Previous<span class=\"screen-reader-text\"> page</span><span class=\"screen-reader-text pagination-page-count\"> ({currentPage - 1} of {pageCount})</span></a></li>");
+        output.Content.AppendHtml($"<li class=\"prev\"><a href=\"{Context.Path}?{string.Join("&", paginationQuery.Concat(new[] { "page=" + (currentPage - 1) }))}\" title=\"Page {currentPage - 1}\">Previous<span class=\"screen-reader-text\"> page</span><span class=\"screen-reader-text pagination-page-count\"> ({currentPage - 1} of {pageCount})</span></a></li>");
       }
 
       if (MaxDisplay != 0)
@@ -140,7 +140,7 @@ namespace LocalGovUmbraco.TagHelpers
 
       if ((ShowPrevNext || MaxDisplay == 0) && currentPage < pageCount)
       {
-        output.Content.AppendHtml($"<li class=\"next\"><a href=\"{Context.Path}?{string.Join(" & ", paginationQuery.Concat(new[] { "page=" + (currentPage + 1) }))}\" title=\"Page {currentPage + 1}\">Next<span class=\"screen-reader-text\"> page</span><span class=\"screen-reader-text pagination-page-count\"> ({currentPage + 1} of {pageCount})</span></a></li>");
+        output.Content.AppendHtml($"<li class=\"next\"><a href=\"{Context.Path}?{string.Join("&", paginationQuery.Concat(new[] { "page=" + (currentPage + 1) }))}\" title=\"Page {currentPage + 1}\">Next<span class=\"screen-reader-text\"> page</span><span class=\"screen-reader-text pagination-page-count\"> ({currentPage + 1} of {pageCount})</span></a></li>");
       }
     }
   }
