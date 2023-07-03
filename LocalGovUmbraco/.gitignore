@@ -1,4 +1,5 @@
 /.config
+/Properties
 
 /[Uu]mbraco/*
 !/[Uu]mbraco/Data/
