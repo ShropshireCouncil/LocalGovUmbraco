@@ -36,6 +36,13 @@ namespace LocalGovUmbraco.TagHelpers
     [HtmlAttributeName("descendantsWhere")]
     public Func<IPublishedContent, bool>? DescendantsWhere { get; set; }
 
+    /// <summary>
+    ///  <para>A LINQ Where() callback function to filter the label for a particular link.</para>
+    ///  <para>Accepts a single <see cref="IPublishedContent"/> parameter.</para>
+    /// </summary>
+    [HtmlAttributeName("label")]
+    public Func<IPublishedContent, string> FilterLabel { get; set; } = x => x.Name;
+
     /// <inheritdoc/>
     public override void Process(TagHelperContext context, TagHelperOutput output)
     {
@@ -58,17 +65,17 @@ namespace LocalGovUmbraco.TagHelpers
           output.Content.AppendHtml("<li>");
           if (i < CurrentPage.Level)
           {
-            output.Content.AppendHtml($"<a href=\"{@item.Url()}\" title=\"{item.Name}\">{item.Name}</a>");
+            output.Content.AppendHtml($"<a href=\"{@item.Url()}\" title=\"{FilterLabel(item)}\">{FilterLabel(item)}</a>");
           }
           else if ((DescendantsWhen is not null ? DescendantsWhen(CurrentPage) : Descendants) && CurrentPage.Children?.Where(x => x.TemplateId > 0).Where(DescendantsWhere ?? (x => x.IsVisible())) is IEnumerable<IPublishedContent> children && children.Any())
           {
             output.Content.AppendHtml("<details class=\"current-page\">");
-            output.Content.AppendHtml($"<summary>More in {item.Name}</summary>");
+            output.Content.AppendHtml($"<summary>More in {FilterLabel(item)}</summary>");
             output.Content.AppendHtml("<ul class=\"menu\">");
             foreach (IPublishedContent child in children)
             {
               output.Content.AppendHtml("<li>");
-              output.Content.AppendHtml($"<a href=\"{child.Url()}\" title=\"{child.Name}\">{child.Name}</a>");
+              output.Content.AppendHtml($"<a href=\"{child.Url()}\" title=\"{FilterLabel(child)}\">{FilterLabel(child)}</a>");
               output.Content.AppendHtml("</li>");
             }
             output.Content.AppendHtml("</ul>");
@@ -76,7 +83,7 @@ namespace LocalGovUmbraco.TagHelpers
           }
           else
           {
-            output.Content.AppendHtml($"<span class=\"current-page\">{item.Name}</span>");
+            output.Content.AppendHtml($"<span class=\"current-page\">{FilterLabel(item)}</span>");
           }
           output.Content.AppendHtml("</li>");
         }

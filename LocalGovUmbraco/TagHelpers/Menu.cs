@@ -38,6 +38,13 @@ namespace LocalGovUmbraco.TagHelpers
     public Func<IPublishedContent, bool> FilterRecurse { get; set; } = x => x.Parent is not null;
 
     /// <summary>
+    ///  <para>A LINQ Where() callback function to filter the label for a particular link.</para>
+    ///  <para>Accepts a single <see cref="IPublishedContent"/> parameter.</para>
+    /// </summary>
+    [HtmlAttributeName("label")]
+    public Func<IPublishedContent, string> FilterLabel { get; set; } = x => x.Name;
+
+    /// <summary>
     ///   (Optional) context for setting ancestor classes.
     /// </summary>
     [HtmlAttributeName("context")]
@@ -98,7 +105,7 @@ namespace LocalGovUmbraco.TagHelpers
         }
 
         output += $"<li class=\"{string.Join(" ", classes)}\">";
-        output += $"<a href=\"{item.Url()}\">{item.Name}</a>";
+        output += $"<a href=\"{item.Url()}\">{FilterLabel(item)}</a>";
         if (children.Any())
         {
           output += RenderMenuTier(children, depth + 1);
