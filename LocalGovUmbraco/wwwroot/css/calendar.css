@@ -1,0 +1,463 @@
+.calendar-month {
+  border: 1px solid var(--medium-grey, #777);
+  margin-bottom: 1rem;
+}
+
+.calendar-month:nth-child(n+13) {
+  display: none;
+}
+
+.calendar-month > .heading {
+  padding: 1rem;
+  background-color: var(--primary, black);
+  color: var(--primary-contrast, white);
+}
+
+.calendar-grid {
+  margin: 1rem;
+  padding: 0;
+  list-style: none;
+}
+
+.calendar-date > time,
+.calendar-event .index,
+.calendar-month.historical,
+.calendar-event.historical,
+.calendar-event .event-dates time .year,
+.calendar-event[data-event-count="0"],
+.calendar-date:not(:first-of-type) .calendar-event:not(.start),
+.calendar-event[data-span="1"] [itemprop="endDate"] > :where(.day-of-week, .day, .ord, .month) {
+  display: none;
+}
+
+[data-month="1"] .calendar-date:first-of-type [itemprop="startDate"] .year {
+  display: inline;
+}
+
+.calendar-event {
+  margin-bottom: 1rem;
+}
+
+.calendar-event .label {
+  flex: 1;
+  margin: 0;
+}
+
+div.calendar {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+div.calendar > .toolbar {
+  display: none;
+}
+
+@media (min-width: 1080px) {
+  div.calendar {
+    position: relative;
+  }
+
+  div.calendar * {
+    box-sizing: border-box;
+  }
+
+  .calendar-month {
+    border: 0;
+  }
+
+  .calendar-month:nth-child(n+13) {
+    display: block;
+  }
+
+  .calendar-month > .heading {
+    padding: 0 0 0.5rem;
+    background: white;
+    color: inherit;
+    border-bottom: 1px solid var(--medium-grey, #777);
+  }
+
+  .calendar-grid {
+    margin: 0;
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-auto-rows: auto;
+    background: linear-gradient(180deg, var(--light-grey, #f4f4f4) 0, var(--light-grey, #f4f4f4) calc(3rem - 1px), var(--medium-grey, #777) calc(3rem - 1px), var(--medium-grey, #777) 3rem, transparent 3rem, transparent 100%) repeat-x left top white;
+    padding: 3rem 0 0;
+    border: solid var(--medium-grey, #777);
+    border-width: 1px 1px 0;
+  }
+
+  .calendar-grid:not([data-start-index="0"]):before,
+  .calendar-grid:not([data-end-index="0"]):after {
+    content: '';
+    display: block;
+    background-color: #FDFDFD;
+    border: solid var(--medium-grey, #777);
+    border-width: 0 0 1px;
+  }
+
+  .calendar-grid:not([data-start-index="0"]):before {
+    border-right-width: 1px;
+  }
+
+  .calendar-grid[data-start-index="1"]:before {
+    grid-column: 1 / span 1;
+  }
+
+  .calendar-grid[data-start-index="2"]:before {
+    grid-column: 1 / span 2;
+  }
+
+  .calendar-grid[data-start-index="3"]:before {
+    grid-column: 1 / span 3;
+  }
+
+  .calendar-grid[data-start-index="4"]:before {
+    grid-column: 1 / span 4;
+  }
+
+  .calendar-grid[data-start-index="5"]:before {
+    grid-column: 1 / span 5;
+  }
+
+  .calendar-grid[data-start-index="6"]:before {
+    grid-column: 1 / span 6;
+  }
+
+  .calendar-grid[data-end-index="1"]:after {
+    grid-column-end: span 6;
+  }
+
+  .calendar-grid[data-end-index="2"]:after {
+    grid-column-end: span 5;
+  }
+
+  .calendar-grid[data-end-index="3"]:after {
+    grid-column-end: span 4;
+  }
+
+  .calendar-grid[data-end-index="4"]:after {
+    grid-column-end: span 3;
+  }
+
+  .calendar-grid[data-end-index="5"]:after {
+    grid-column-end: span 2;
+  }
+
+  .calendar-grid[data-end-index="6"]:after {
+    grid-column-end: span 1;
+  }
+
+  .calendar-month.historical:not([hidden]) {
+    display: block;
+  }
+
+  .calendar-date {
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    border: solid var(--medium-grey, #777);
+    border-width: 0 1px 1px 0;
+    min-height: 10rem;
+  }
+
+  .calendar-grid[data-start-index="0"] .calendar-date:nth-child(7n),
+  .calendar-grid[data-start-index="1"] .calendar-date:nth-child(7n - 1),
+  .calendar-grid[data-start-index="2"] .calendar-date:nth-child(7n - 2),
+  .calendar-grid[data-start-index="3"] .calendar-date:nth-child(7n - 3),
+  .calendar-grid[data-start-index="4"] .calendar-date:nth-child(7n - 4),
+  .calendar-grid[data-start-index="5"] .calendar-date:nth-child(7n - 5),
+  .calendar-grid[data-start-index="6"] .calendar-date:nth-child(7n - 6) {
+    border-right: 0;
+  }
+
+  .calendar-date:nth-child(-n+7):before {
+    content: attr(data-day);
+    display: block;
+    padding: 1rem 0.5rem;
+    line-height: 1;
+    position: absolute;
+    top: 0;
+  }
+
+  .calendar-date.today {
+    outline: 5px solid var(--secondary, currentColor);
+    outline-offset: -5px;
+  }
+
+  .calendar-date[data-event-count="0"],
+  .calendar-date > time {
+    display: block;
+  }
+
+  .calendar-date > time {
+    color: #767676;
+    flex: 0;
+  }
+
+  .calendar-date > time span:not(.day) {
+    display: none;
+  }
+
+  .calendar-events {
+    margin-bottom: auto;
+    align-items: start;
+    display: grid;
+    grid-auto-rows: auto;
+    gap: 0.5rem;
+  }
+
+  .calendar-event {
+    display: flex !important;
+    flex-wrap: wrap;
+    overflow: hidden;
+    gap: 0 0.5rem;
+    background-color: var(--calendar-bg, var(--primary, #fafafa));
+    border: 1px solid var(--calendar-border, --medium-grey, #777);
+    color: var(--calendar-text, var(--primary-contrast, black));
+    padding: 0.225em 0.5rem;
+    border-radius: 4px;
+    position: relative;
+    z-index: 100;
+    margin: 0;
+    transition: 0.2s background-color, 0.2s color;
+  }
+
+  .calendar-event :link:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  .calendar-event.historical {
+    background-color: var(--calendar-bg--historical, var(--light-grey, #EFEFEF));
+    color: var(--calendar-bg--historical, var(--dark-grey, #666666));
+  }
+
+  .calendar-event.has-focus {
+    background-color: var(--calendar-bg--focus, var(--secondary, #777));
+    color: var(--calendar-bg--focus, var(--secondary-contrast, white));
+  }
+
+  .calendar-event :is(.label, a) {
+    font: inherit;
+    font-weight: bold;
+    text-decoration: none;
+    margin: 0;
+  }
+
+  .calendar-event :is(.label, a:not(:focus)) {
+    color: inherit;
+  }
+
+  .calendar-event:not(.start.end) .label {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  .calendar-event:not(.start) {
+    margin-left: -0.5rem;
+    padding-left: 0.5rem;
+    border-left: none;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  .calendar-date[data-day="Monday"] .calendar-event:not(.end):not(:where([data-offset="1"], [data-offset="2"], [data-offset="3"], [data-offset="4"], [data-offset="5"], [data-offset="6"])),
+  .calendar-date[data-day="Tuesday"] .calendar-event:not(.end):not(:where([data-offset="1"], [data-offset="2"], [data-offset="3"], [data-offset="4"], [data-offset="5"])),
+  .calendar-date[data-day="Wednesday"] .calendar-event:not(.end):not(:where([data-offset="1"], [data-offset="2"], [data-offset="3"], [data-offset="4"])),
+  .calendar-date[data-day="Thursday"] .calendar-event:not(.end):not(:where([data-offset="1"], [data-offset="2"], [data-offset="3"])),
+  .calendar-date[data-day="Friday"] .calendar-event:not(.end):not(:where([data-offset="1"], [data-offset="2"])),
+  .calendar-date[data-day="Saturday"] .calendar-event:not(.end):not(:where([data-offset="1"])),
+  .calendar-date[data-day="Sunday"] .calendar-event:not(.end),
+  .calendar-date:nth-last-child(-n+7) .calendar-event.multi-month:not(.end):not(:where([data-offset="1"], [data-offset="2"], [data-offset="3"], [data-offset="4"], [data-offset="5"], [data-offset="6"])),
+  .calendar-date:nth-last-child(-n+6) .calendar-event.multi-month:not(.end):not(:where([data-offset="1"], [data-offset="2"], [data-offset="3"], [data-offset="4"], [data-offset="5"])),
+  .calendar-date:nth-last-child(-n+5) .calendar-event.multi-month:not(.end):not(:where([data-offset="1"], [data-offset="2"], [data-offset="3"], [data-offset="4"])),
+  .calendar-date:nth-last-child(-n+4) .calendar-event.multi-month:not(.end):not(:where([data-offset="1"], [data-offset="2"], [data-offset="3"])),
+  .calendar-date:nth-last-child(-n+3) .calendar-event.multi-month:not(.end):not(:where([data-offset="1"], [data-offset="2"])),
+  .calendar-date:nth-last-child(-n+2) .calendar-event.multi-month:not(.end):not([data-offset="1"]),
+  .calendar-date:last-child .calendar-event.multi-month:not(.end) {
+    border-right: none;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .calendar-date .calendar-event:not(.end)[data-offset="6"] {
+    margin-right: calc(6 * (-100% - 1rem - 1px));
+  }
+
+  .calendar-date .calendar-event:not(.end)[data-offset="5"] {
+    margin-right: calc(5 * (-100% - 1rem - 1px));
+  }
+
+  .calendar-date .calendar-event:not(.end)[data-offset="4"] {
+    margin-right: calc(4 * (-100% - 1rem - 1px));
+  }
+
+  .calendar-date .calendar-event:not(.end)[data-offset="3"] {
+    margin-right: calc(3 * (-100% - 1rem - 1px));
+  }
+
+  .calendar-date .calendar-event:not(.end)[data-offset="2"] {
+    margin-right: calc(2 * (-100% - 1rem - 1px));
+  }
+
+  .calendar-date .calendar-event:not(.end)[data-offset="1"] {
+    margin-right: calc(1 * (-100% - 1rem - 1px));
+  }
+
+  .calendar-date[data-day="Monday"] .calendar-event:not(.end):not(:where([data-offset="1"], [data-offset="2"], [data-offset="3"], [data-offset="4"], [data-offset="5"], [data-offset="6"])) {
+    margin-right: calc(6 * (-100% - 1rem - 1px) - 0.5rem - 2px);
+  }
+
+  .calendar-date[data-day="Tuesday"] .calendar-event:not(.end):not(:where([data-offset="1"], [data-offset="2"], [data-offset="3"], [data-offset="4"], [data-offset="5"])) {
+    margin-right: calc(5 * (-100% - 1rem - 1px) - 0.5rem - 2px);
+  }
+
+  .calendar-date[data-day="Wednesday"] .calendar-event:not(.end):not(:where([data-offset="1"], [data-offset="2"], [data-offset="3"], [data-offset="4"])) {
+    margin-right: calc(4 * (-100% - 1rem - 1px) - 0.5rem - 2px);
+  }
+
+  .calendar-date[data-day="Thursday"] .calendar-event:not(.end):not(:where([data-offset="1"], [data-offset="2"], [data-offset="3"])) {
+    margin-right: calc(3 * (-100% - 1rem - 1px) - 0.5rem - 2px);
+  }
+
+  .calendar-date[data-day="Friday"] .calendar-event:not(.end):not(:where([data-offset="1"], [data-offset="2"])) {
+    margin-right: calc(2 * (-100% - 1rem - 1px) - 0.5rem - 2px);
+  }
+
+  .calendar-date[data-day="Saturday"] .calendar-event:not(.end):not([data-offset="1"]) {
+    margin-right: calc(1 * (-100% - 1rem - 1px) - 0.5rem - 2px);
+  }
+
+  .calendar-date[data-day="Sunday"] .calendar-event:not(.end)[data-offset] {
+    margin-right: calc(-0.5rem - 1px);
+  }
+
+  .calendar-grid[data-end-index="6"] .calendar-date:nth-last-child(-n+6) .calendar-event.multi-month:not(.end):not(:where([data-offset="1"], [data-offset="2"], [data-offset="3"], [data-offset="4"], [data-offset="5"])) {
+    margin-right: calc(5 * (-100% - 1rem - 1px) - 0.5rem);
+  }
+
+  .calendar-grid[data-end-index="5"] .calendar-date:nth-last-child(-n+5) .calendar-event.multi-month:not(.end):not(:where([data-offset="1"], [data-offset="2"], [data-offset="3"], [data-offset="4"])) {
+    margin-right: calc(4 * (-100% - 1rem - 1px) - 0.5rem);
+  }
+
+  .calendar-grid[data-end-index="4"] .calendar-date:nth-last-child(-n+4) .calendar-event.multi-month:not(.end):not(:where([data-offset="1"], [data-offset="2"], [data-offset="3"])) {
+    margin-right: calc(3 * (-100% - 1rem - 1px) - 0.5rem);
+  }
+
+  .calendar-grid[data-end-index="3"] .calendar-date:nth-last-child(-n+3) .calendar-event.multi-month:not(.end):not(:where([data-offset="1"], [data-offset="2"])) {
+    margin-right: calc(2 * (-100% - 1rem - 1px) - 0.5rem);
+  }
+
+  .calendar-grid[data-end-index="2"] .calendar-date:nth-last-child(-n+2) .calendar-event.multi-month:not(.end):not([data-offset="1"]) {
+    margin-right: calc(1 * (-100% - 1rem - 1px) - 0.5rem);
+  }
+
+  .calendar-date:not([data-day="Monday"]):not(:first-child) .calendar-event:not(.start) {
+    opacity: 0;
+    user-select: none;
+    pointer-events: none;
+    background: none;
+    border-color: transparent;
+    color: transparent;
+  }
+
+  .calendar-date:not([data-day="Monday"]):not(:first-child) .calendar-event:not(.start):before {
+    content: '\A0';
+  }
+
+  .calendar-date:not([data-day="Monday"]):not(:first-child) .calendar-event:not(.start) h3 {
+    display: none;
+  }
+
+  .calendar-event[data-margin="1"] {
+    margin-top: calc(1 * 2.2rem);
+    grid-row-end: span 2;
+  }
+
+  .calendar-event[data-margin="2"] {
+    margin-top: calc(2 * 2.2rem);
+    grid-row-end: span 3;
+  }
+
+  .calendar-event[data-margin="3"] {
+    margin-top: calc(3 * 2.2rem);
+    grid-row-end: span 4;
+  }
+
+  .calendar-event[data-margin="4"] {
+    margin-top: calc(4 * 2.2rem);
+    grid-row-end: span 5;
+  }
+
+  .calendar-event[data-margin="5"] {
+    margin-top: calc(5 * 2.2rem);
+    grid-row-end: span 6;
+  }
+
+  .calendar-event h3 .index,
+  .calendar-event.all-day .event-dates,
+  .calendar-event .event-dates span:not(.time),
+  .calendar-event .event-dates time:not([itemprop="startDate"]) {
+    display: none;
+  }
+
+  .calendar-event .event-dates {
+    order: -1;
+  }
+
+  div.calendar > .toolbar {
+    display: flex;
+    gap: 0.5rem;
+    order: -1;
+    justify-content: end;
+    margin-bottom: -3rem;
+  }
+
+  div.calendar > .toolbar button {
+    padding: 0.5em;
+    font-size: 1rem;
+  }
+
+  div.calendar > .toolbar button[disabled] {
+    background-color: var(--medium-grey, #777);
+    color: var(--light-grey, #f4f4f4);
+    cursor: not-allowed;
+  }
+
+  div.calendar > .toolbar .previous,
+  div.calendar > .toolbar .next {
+    font-size: 0;
+  }
+
+  div.calendar > .toolbar .previous:before,
+  div.calendar > .toolbar .next:after {
+    content: '';
+    position: static;
+    display: inline-block;
+    vertical-align: middle;
+    border: solid transparent;
+    border-width: 0.5rem 0;
+    margin: 0.25rem;
+  }
+
+  div.calendar > .toolbar .previous:before {
+    border-right: 0.7rem solid currentColor;
+  }
+
+  div.calendar > .toolbar .next:after {
+    border-left: 0.8rem solid currentColor;
+  }
+
+  .calendar.js .calendar-month > .heading {
+    padding-right: 10rem;
+  }
+}

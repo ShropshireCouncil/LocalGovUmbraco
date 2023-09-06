@@ -1,0 +1,57 @@
+<div class="event-instances repeat-form property-editor overlay" ng-controller="LocalGovUmbraco.PropertyEditors.EventInstances">
+  <div class="interval input-wrapper">
+    <span class="input-label">Repeat every</span>
+    <span class="inputs">
+      <input type="number" class="repeat-increment" ng-model="model.value.increment" min="1" ng-change="model.calculateRepeats(model)">
+      <select class="repeat-interval" ng-model="model.value.interval" ng-options="interval.toLowerCase() as (interval | pluralise: model.value.increment) for interval in EventIntervals" ng-change="model.calculateRepeats(model)"></select>
+    </span>
+  </div>
+
+  <div ng-switch="model.value.interval" ng-if="['week', 'month'].includes(model.value.interval)">
+    <div class="repeat-on input-wrapper" ng-switch-when="week">
+      <span class="input-label">on</span>
+      <div class="inputs repeat-days">
+        <span class="repeat-day" ng-repeat="day in DaysOfWeek track by $index">
+          <input type="checkbox" id="day-{{ $index }}-{{ day.toLowerCase() }}" class="repeat-{{ day.toLowerCase() }}" ng-model="model.value.days[$index]" ng-change="model.calculateRepeats(model)">
+          <label for="day-{{ $index }}-{{ day.toLowerCase() }}" class="repeat-{{ day.toLowerCase() }}" title="{{ day }}">
+            {{ day.substr(0, 3) }}
+          </label>
+        </span>
+      </div>
+    </div>
+
+    <div class="repeat-on input-wrapper" ng-switch-when="month">
+      <span class="input-label">on the</span>
+      <span class="inputs">
+        <select class="repeat-month-options" name="index" ng-model="model.monthOption" ng-change="model.calculateRepeats(model)">
+          <option value="date">{{ model.instance.startDate.getDate() | withOrdinal }}</option>
+          <option value="nthDay">{{ model.instance.startDate | nthDay | withOrdinal }} {{ DaysOfWeek[(model.instance.startDate.getDay() | normalizeDay)] }}</option>
+          <option value="lastDay" ng-if="(model.instance.startDate | isLastDayOfMonth)">last {{ DaysOfWeek[(model.instance.startDate.getDay() | normalizeDay)] }}</option>
+          <option value="last" ng-if="(model.instance.startDate | isLastOfMonth)">last day</option>
+        </select>
+        of the month
+      </span>
+    </div>
+  </div>
+
+  <div class="repeat-end">
+    <div class="repeat-count input-wrapper" ng-if="!model.dateInput">
+      <span class="input-label">ending after</span>
+      <span class="inputs">
+        <input type="number" class="repeat-end-count" step="1" min="1" ng-model="model.value.count" ng-change="model.calculateRepeats(model)">
+        {{ ("occurrence" | pluralise: model.value.count) }}
+      </span>
+    </div>
+
+    <div class="repeat-date input-wrapper" ng-if="model.dateInput">
+      <span class="input-label">until</span>
+      <span class="inputs">
+        <input type="date" class="repeat-end-date" ng-model="model.dateValue" ng-change="model.calculateRepeats(model)" min="{{ model.minDate | date:'yyyy-MM-dd' }}" />
+      </span>
+    </div>
+
+    <button type="button" class="icon {{ model.dateInput ? 'count' : 'date' }}" ng-click="model.dateInput = !model.dateInput" title="Switch to {{ model.dateInput ? 'occurance count' : 'date' }} input">
+      <span class="screen-reader-text">Switch to {{ model.dateInput ? 'occurance count' : 'date' }} input</span>
+    </button>
+  </div>
+</div>

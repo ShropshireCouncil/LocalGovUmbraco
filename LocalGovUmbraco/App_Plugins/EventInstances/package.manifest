@@ -1,0 +1,27 @@
+{
+  "propertyEditors": [
+    {
+      "alias": "LocalGovUmbraco.PropertyEditors.EventInstances",
+      "name": "Event Instances",
+      "version": "2.0.0",
+      "icon": "icon-calendar",
+      "group": "Common",
+      "allowPackageTelemetry": false,
+      "bundleOptions": "Independent",
+      "editor": {
+        "view": "~/App_Plugins/EventInstances/index.html",
+        "valueType": "JSON"
+      }
+    }
+  ],
+  "javascript": [
+    "~/App_Plugins/EventInstances/DateImmutable.class.js",
+    "~/App_Plugins/EventInstances/EventInstances.class.js",
+    "~/App_Plugins/EventInstances/EventInstance.class.js",
+    "~/App_Plugins/EventInstances/pluralise.filter.js",
+    "~/App_Plugins/EventInstances/controller.js"
+  ],
+  "css": [
+    "~/App_Plugins/EventInstances/style.css"
+  ]
+}

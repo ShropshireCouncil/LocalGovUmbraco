@@ -1,0 +1,33 @@
+@inherits UmbracoViewPage<EventDate>
+@using LocalGovUmbraco.PropertyEditors.EventInstances
+<time class="start-date" datetime="@Model.Start.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss")" title="@Model.Start.ToString("d MMMM") at @Model.Start.ToString("h:mmtt").ToLower()">
+  <span class="date">@(Model.Start.Day + (new[] { "th", "st", "nd", "rd" })[Math.Min(Model.Start.Day % (Model.Start.Day < 30 ? 20 : 30), 4) % 4])</span>
+  <span class="month">@Model.Start.ToString("MMMM")</span>
+  @if (Model.Start.Year != DateTime.Now.Year || Model.Start.Year < Model.End.Year)
+  {
+    <span class="year">@Model.Start.ToString("yyyy")</span>
+  }
+  @if (!Model.AllDay)
+  {
+    <span class="time">@Model.Start.ToString("h:mmtt").ToLower()</span>
+  }
+</time>
+@if (!Model.AllDay || Model.MultiDay)
+{
+  <span class="separator">&ndash;</span>
+  <time class="end-date" datetime="@Model.End.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss")" title="@Model.End.ToString("d MMMM") at @Model.End.ToString("h:mmtt").ToLower()">
+    @if (Model.MultiDay)
+    {
+      <span class="date">@(Model.End.Day + (new[] { "th", "st", "nd", "rd" })[Math.Min(Model.End.Day % (Model.End.Day < 30 ? 20 : 30), 4) % 4])</span>
+      <span class="month">@Model.End.ToString("MMMM")</span>
+      @if (Model.End.Year != DateTime.Now.Year || Model.End.Year < Model.End.Year)
+      {
+        <span class="year">@Model.End.ToString("yyyy")</span>
+      }
+    }
+    @if (!Model.AllDay)
+    {
+      <span class="time">@Model.End.ToString("h:mmtt").ToLower()</span>
+    }
+  </time>
+}

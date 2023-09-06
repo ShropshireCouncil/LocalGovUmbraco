@@ -1,0 +1,26 @@
+﻿@inherits UmbracoViewPage<Event>
+@using LocalGovUmbraco.PropertyEditors.EventInstances
+<article class="max-width">
+  @if (Model.Dates?.Display is EventDate date)
+  {
+    <p class="event-date"><partial name="EventDate" model="date"></p>
+  }
+
+  @if (!Model.Body.IsNullOrWhiteSpace())
+  {
+    <div class="content-wrapper">
+      @Model.Body
+    </div>
+  }
+
+  @if (Model.Dates?.Current.Count() > 1)
+  {
+    <h2>Other occurrences of @Model.Name</h2>
+    <ul class="other-instances">
+      @foreach (EventDate instance in (Model.Dates?.Current).EmptyNull().Skip(1))
+      {
+        <li><partial name="EventDate" model="instance"></li>
+      }
+    </ul>
+  }
+</article>

@@ -1,0 +1,29 @@
+﻿@inherits UmbracoViewPage<Events>
+@using LocalGovUmbraco.Events
+@using LocalGovUmbraco.PropertyEditors.EventInstances
+@Html.GetBlockGridHtml(Model.Body)
+@{
+  IEnumerable<Event> events = Model.Children<Event>().EmptyNull();
+}
+<div class="max-width">
+  @if (Model.ShowAsCalendar)
+  {
+    <partial name="Calendar" model="events.SelectMany(x => x.Dates?.StartsAfter(new (DateTime.Now.Year, DateTime.Now.Month, 1)).Select(_ => new EventInstance(x, _.Start, _.End)) ?? Enumerable.Empty<EventInstance>())" />
+    @section stylesheets {
+    <link rel="stylesheet" href="~/css/calendar.css" asp-append-version="true" />
+  }
+    @section scripts {
+    <script src="~/scripts/calendar.js" asp-append-version="true"></script>
+  }
+  }
+  else
+  {
+    IEnumerable<EventInstance> eventInstances = events.SelectMany(x => x.Dates?.Current.Select(_ => new EventInstance(x, _.Start, _.End)) ?? Enumerable.Empty<EventInstance>());
+    int perPage = Model.PerPage != 0 ? Model.PerPage : 12;
+    foreach (EventInstance instance in Context.Request.Paginate<EventInstance>(eventInstances, perPage))
+    {
+      <partial name="Teaser" model="instance.Content" view-data="new(ViewData)" view-data-show-excerpt="Model.Excerpts" view-data-show-image="Model.Thumbnails" view-data-event-dates="new EventDate(instance.Start, instance.End)" />
+    }
+    <pagination count="eventInstances.Count()" context="Context.Request" perPage="perPage" class="max-width"></pagination>
+  }
+</div>

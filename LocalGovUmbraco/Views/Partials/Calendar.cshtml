@@ -1,0 +1,96 @@
+@using LocalGovUmbraco.Events
+@using LocalGovUmbraco.PropertyEditors.EventInstances
+@inherits UmbracoViewPage<IEnumerable<EventInstance>>
+<div class="calendar">
+  @{
+    IOrderedEnumerable<EventInstance> eventInstances = Model.Order();
+    DateTime date = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+    while (date <= eventInstances.Last().End)
+    {
+      int daysInMonth = date.AddMonths(1).AddDays(-1).Day;
+      int offset = (((int) date.DayOfWeek - 1) % 7 + 7) % 7;
+      <div class="@string.Join(" ", new[] { "calendar-month", new DateTime(date.Year, date.Month, daysInMonth) < DateTime.Now.Date ? "historical" : null})" data-month="@date.Month" data-year="@date.Year">
+        <h2 class="heading">@date.ToString("MMMM yyyy")</h2>
+        <ol class="calendar-grid" data-start-index="@offset" data-end-index="@((daysInMonth + offset) % 7)">
+          @for (int i = 1; i <= daysInMonth; i++)
+          {
+            DateTime day = new DateTime(date.Year, date.Month, i);
+            IEnumerable<EventInstance> instancesForDay = eventInstances.Where(x => x.Start.Date <= day && x.End.Date >= day).OrderBy(x => !x.MultiDay).ThenBy(x => x);
+            <li class="@string.Join(" ", new[] { "calendar-date", day.Date == DateTime.Now.Date ? "today" : null }.WhereNotNull())" data-day="@day.ToString("dddd")" data-event-count="@instancesForDay.Count()">
+              <time datetime="@day.ToString("yyyy-MM-dd")"><span class="day">@day.Day</span><span class="ord">@((new[] { "th", "st", "nd", "rd" })[Math.Min(day.Day % (day.Day < 30 ? 20 : 30), 4) % 4])</span> <span class="month">@day.ToString("MMMM")</span> <span class="year">@day.ToString("yyyy")</span></time>
+              <div class="calendar-events">
+                @if (instancesForDay.Any())
+                {
+                  EventInstance? lastInstance = null;
+                  DateTime weekStart = day.WeekStart();
+                  foreach (EventInstance instance in instancesForDay)
+                  {
+                    string id = $"event-{instance.GetHashCode() & 0x7fffffff}";
+                    int index = Math.Abs((int) Math.Ceiling((day - instance.Start).TotalDays));
+                    int duration = (int) Math.Ceiling(instance.Duration.TotalDays);
+                    int offsetEnd = (int)Math.Max(Math.Ceiling((instance.End - day).TotalDays) - 1, 0);
+
+                    var x = eventInstances.Skip(eventInstances.IndexOf(lastInstance) + 1).TakeWhile(x => x != instance).Where(x => x.MultiDay && x.End.Date >= day.WeekStart());
+                    int margin = instance.MultiDay ? x.Count() : 0;
+
+                    IEnumerable<string> classes = new[] {
+                      "calendar-event",
+                      instance.AllDay ? "all-day" : null,
+                      instance.Start.Date == day.Date ? "start" : null,
+                      instance.End.Date == day.Date ? "end" : null,
+                      instance.End < DateTime.Now ? "historical" : null,
+                      new DateTime(instance.Start.Year, instance.Start.Month, 1) < new DateTime(instance.End.Year, instance.End.Month, 1) ? "multi-month" : null
+                    }.WhereNotNull();
+
+                    <article itemscope itemtype="http://schema.org/Event" id="@id-@index" class="@string.Join(" ", classes)" data-id="@id" data-index="@index" data-offset="@offsetEnd" data-span="@duration" data-margin="@margin" title="@((await Html.PartialAsync("EventDate", new EventDate(instance.Start, instance.End))).PlainText())">
+                      <h3 itemprop="name" class="label">
+                        <a href="@instance.Content.Url()">@instance.Content.Name</a>
+                      </h3>
+
+                      @if (instance.MultiDay)
+                      {
+                        <small class="index">(day @((day.Date - instance.Start.Date).TotalDays + 1) of @(Math.Ceiling(instance.Duration.TotalDays)))</small>
+                      }
+
+                      <div class="event-dates">
+                        <time itemprop="startDate" datetime="@instance.Start.ToString("s")">
+                          <span class="day-of-week">@instance.Start.ToString("dddd")</span>
+                          <span class="day">@instance.Start.Day</span><span class="ord">@((new[] { "th", "st", "nd", "rd" })[Math.Min(instance.Start.Day % (instance.Start.Day < 30 ? 20 : 30), 4) % 4])</span>
+                          <span class="month">@instance.Start.ToString("MMMM")</span>
+                          <span class="year">@instance.Start.ToString("yyyy")</span>
+
+                          @if (!instance.AllDay)
+                          {
+                            <span class="time">@instance.Start.ToString("HH:mm")</span>
+                          }
+                        </time>
+                        <span class="delimiter" @(instance.AllDay && !instance.MultiDay ? "hidden" : string.Empty)>&ndash;</span>
+                        <time itemprop="endDate" @(instance.AllDay && !instance.MultiDay ? "hidden" : string.Empty) datetime="@instance.End.ToString("s")">
+                          <span class="day-of-week">@instance.End.ToString("dddd")</span>
+                          <span class="day">@instance.End.Day</span><span class="ord">@((new[] { "th", "st", "nd", "rd" })[Math.Min(instance.End.Day % (instance.End.Day < 30 ? 20 : 30), 4) % 4])</span>
+                          <span class="month">@instance.End.ToString("MMMM")</span>
+                          <span class="year">@instance.End.ToString("yyyy")</span>
+
+                          @if (!instance.AllDay)
+                          {
+                            <span class="t">@instance.End.ToString("HH:mm")</span>
+                          }
+                        </time>
+                      </div>
+                    </article>
+                    lastInstance = instance;
+                  }
+                }
+                else
+                {
+                  <span class="screen-reader-text">There are no events on this day.</span>
+                }
+              </div>
+            </li>
+          }
+        </ol>
+      </div>
+      date = new DateTime(date.AddMonths(1).Year, date.AddMonths(1).Month, 1);
+    }
+  }
+</div>

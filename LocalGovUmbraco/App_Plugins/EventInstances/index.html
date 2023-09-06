@@ -1,0 +1,65 @@
+<div ng-controller="LocalGovUmbraco.PropertyEditors.EventInstances" class="event-instances property-editor">
+  <table ng-if="event.instances.length">
+    <caption ng-if="event.historical.length < event.instances.length">
+      <button type="button" class="icon" ng-class="{'visible': !showExpired, 'not-visible': showExpired }" ng-click="toggleExpired()">
+        {{ showExpired ? "Hide" : "Show" }} {{ expiredCount }} historical occurance(s)
+      </button>
+    </caption>
+
+    <thead>
+      <tr>
+        <th class="starts">Starts</th>
+        <th class="separator"></th>
+        <th class="ends">Ends</th>
+        <th class="all-day">All Day?</th>
+        <th class="duration">Duration</th>
+        <td class="actions">
+          <button type="button" class="icon sort" title="Sort instances by date" ng-click="event.sort()"><span class="screen-reader-text">Sort</span></button>
+        </td>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr ng-repeat="instance in event.instances track by $index" ng-hide="!showExpired && event.historical.length < event.instances.length && instance.historical">
+        <td class="starts">
+          <div class="start datetime-wrapper">
+            <span class="date-input start-date">
+              <input type="date" ng-model="instance.startDate" ng-change="instance.balanceDates(true)" />
+            </span>
+            <span class="time-input start-time">
+              <input type="time" ng-model="instance.startDate" step="60" ng-model-options="{ timeSecondsFormat: '' }" ng-hide="instance.allDay" ng-change="instance.balanceDates(true)" />
+            </span>
+          </div>
+        </td>
+
+        <td class="separator">&ndash;</td>
+
+        <td class="ends">
+          <div class="end datetime-wrapper">
+            <span class="time-input end-time">
+              <input type="time" ng-model="instance.endDate" step="60" ng-model-options="{ timeSecondsFormat: '' }" ng-hide="instance.allDay" ng-change="instance.balanceDates()" />
+            </span>
+            <span class="date-input end-date">
+              <input type="date" ng-model="instance.endDate" min="{{ instance.startDate | date:'yyyy-MM-dd' }}" ng-change="instance.balanceDates()" />
+            </span>
+          </div>
+        </td>
+
+        <td class="all-day">
+          <input type="checkbox" ng-model="instance.allDay" />
+        </td>
+
+        <td class="duration"><output>{{ duration(instance) }}</output></td>
+
+        <td class="actions">
+          <span class="button-wrapper">
+            <button type="button" class="icon repeat" title="Repeat event instance" ng-click="repeatInstance(event.instances[$index])"><span class="screen-reader-text">Repeat</span></button>
+            <button type="button" class="icon delete" title="Delete event instance" ng-click="event.removeInstance($index)"><span class="screen-reader-text">Delete</span></button>
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button type="button" class="add" ng-click="event.addInstance()">Add occurrence</button>
+</div>
