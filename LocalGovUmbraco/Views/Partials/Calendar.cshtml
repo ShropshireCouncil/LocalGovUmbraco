@@ -5,7 +5,7 @@
   @{
     IOrderedEnumerable<EventInstance> eventInstances = Model.Order();
     DateTime date = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-    while (date <= eventInstances.Last().End)
+    while (date <= eventInstances.LastOrDefault()?.End)
     {
       int daysInMonth = date.AddMonths(1).AddDays(-1).Day;
       int offset = (((int) date.DayOfWeek - 1) % 7 + 7) % 7;
