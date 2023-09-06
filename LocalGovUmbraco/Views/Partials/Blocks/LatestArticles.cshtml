@@ -12,7 +12,7 @@
   {
     foreach (Article article in articles)
     {
-      <partial name="Teaser" model="article" view-data="new(ViewData)" view-data-depth="depth" view-data-show-excerpt="Model.ShowExcerpts" view-data-show-image="Model.ShowImages" />
+      <partial name="Teaser" model="article" view-data="new(ViewData)" view-data-depth="depth" view-data-show-excerpt="Model.ShowExcerpts" view-data-show-date="Model.ShowDate" view-data-show-image="Model.ShowImages" view-data-show-read-more="Model.ShowReadMore"/>
     }
   }
   else

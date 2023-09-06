@@ -6,17 +6,24 @@
   }
   <div class="inner">
     <heading level="@(((ViewData.GetValue("depth") as int?) ?? 0) + 2)" class="heading"><a href="@Model.Url()">@Model.Name</a></heading>
-    <time datetime="@Model.PublishDate.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss")" title="@Model.PublishDate.ToString("d MMMM") at @Model.PublishDate.ToString("h:mmtt").ToLower()">
-      @(Model.PublishDate.Day + (new[] { "th", "st", "nd", "rd" })[Math.Min(Model.PublishDate.Day % (Model.PublishDate.Day < 30 ? 20 : 30), 4) % 4]) @Model.PublishDate.ToString("MMMM")
-      @if (Model.PublishDate < DateTime.Now.AddMonths(-11))
-      {
-        @Model.PublishDate.ToString("yyyy")
-      }
-    </time>
+    @if (ViewData.GetValue("show-date", true) is true)
+    {
+      <time datetime="@Model.PublishDate.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss")" title="@Model.PublishDate.ToString("d MMMM") at @Model.PublishDate.ToString("h:mmtt").ToLower()">
+        @(
+            Model.PublishDate.Day + (new[] { "th", "st", "nd", "rd" })[Math.Min(Model.PublishDate.Day % (Model.PublishDate.Day < 30 ? 20 : 30), 4) % 4]
+            ) @Model.PublishDate.ToString("MMMM")
+        @if (Model.PublishDate < DateTime.Now.AddMonths(-11))
+        {
+          @Model.PublishDate.ToString("yyyy")
+        }
+      </time>
+    }
     @if (ViewData.GetValue("show-excerpt", true) is true && (!Model.Summary.IsNullOrWhiteSpace() || !Model.Body.IsNullOrWhiteSpace()))
     {
       <p class="excerpt">@Model.Summary.IfNullOrWhiteSpace(Model.Body?.Truncate(350))</p>
     }
-    <p class="read-more" aria-label="Read more about @Model.Name"><a href="@Model.Url()">Read more<span class="screen-reader-text"> about @Model.Name</span></a></p>
+    @if (ViewData.GetValue("show-read-more", true) is true) {
+      <p class="read-more" aria-label="Read more about @Model.Name"><a href="@Model.Url()">Read more<span class="screen-reader-text"> about @Model.Name</span></a></p>
+    }
   </div>
 </article>

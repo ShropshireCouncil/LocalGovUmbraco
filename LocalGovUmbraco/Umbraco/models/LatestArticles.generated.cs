@@ -88,6 +88,13 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		public virtual bool ShowArchiveLink => this.Value<bool>(_publishedValueFallback, "showArchiveLink");
 
 		///<summary>
+		/// Show Date
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "12.0.1+20a4e47")]
+		[ImplementPropertyType("showDate")]
+		public virtual bool ShowDate => this.Value<bool>(_publishedValueFallback, "showDate");
+
+		///<summary>
 		/// Show Excerpts: Show the article excerpt in the teaser
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "12.0.1+20a4e47")]
@@ -100,5 +107,12 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "12.0.1+20a4e47")]
 		[ImplementPropertyType("showImages")]
 		public virtual bool ShowImages => this.Value<bool>(_publishedValueFallback, "showImages");
+
+		///<summary>
+		/// Show "Read more" link
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "12.0.1+20a4e47")]
+		[ImplementPropertyType("showReadMore")]
+		public virtual bool ShowReadMore => this.Value<bool>(_publishedValueFallback, "showReadMore");
 	}
 }
