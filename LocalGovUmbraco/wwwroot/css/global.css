@@ -12,6 +12,14 @@
   --light-grey: var(--gds-light-grey, #f3f2f1);
 }
 
+html {
+  overflow-x: hidden;
+}
+
+a:visited {
+  color: var(--gds-blue);
+}
+
 .max-width {
   max-width: var(--max-width, var(--gds-max-width, 1020px));
 }
@@ -93,7 +101,7 @@
 #logo {
   max-width: 150px;
   aspect-ratio: auto;
-  object-fit: none;
+  object-fit: initial;
 }
 
 #site-identity a:focus #logo {
@@ -139,19 +147,68 @@
   }
 
   #main-menu li {
+    position: relative;
     padding: 0.35rem 0 calc(0.35rem - 4px);
+  }
+
+  #main-menu li.has-children {
+    display: flex;
+    gap: 0.25em;
+  }
+
+  #main-menu li.has-children a {
+    flex: 1;
+  }
+
+  #main-menu li.has-children:after {
+    content: '';
+    margin-left: auto;
+    display: block;
+    height: 1em;
+    width: 1em;
+    margin: 0.5em 0;
+    background-color: var(--primary);
+    --expand-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512'%3E%3Cpath d='M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z'/%3E%3C/svg%3E");
+    -webkit-mask: var(--expand-icon) no-repeat center center;
+    mask: var(--expand-icon) no-repeat center center;
   }
 
   #main-menu li.current-page {
     border-bottom: 4px solid var(--accent);
   }
+
+  #main-menu ul.submenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 200px;
+    background: var(--light-grey);
+    margin: 0;
+    padding: 0 0.5rem;
+  }
+
+  #main-menu ul.submenu ul.submenu {
+    top: 0;
+    left: calc(100% + 0.5rem);
+  }
+
+  #main-menu ul.submenu li.has-children:after {
+    transform: rotate(270deg);
+  }
+
+  #main-menu li:not(:is(:hover, :focus-within)) > ul.submenu {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
 }
 
 @media (min-width: calc(1020px + 2rem)) {
-  #site-header {
-    overflow-x: hidden;
-  }
-
   #main-menu {
     margin: 0 calc(-1 * (50vw - 510px)) -0.5rem;
   }
