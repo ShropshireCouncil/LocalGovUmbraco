@@ -91,10 +91,10 @@ a:visited {
 }
 
 #site-identity a:focus #site-name {
-  color: black;
+  color: var(--gds-black, black);
   outline: 3px solid transparent;
-  background-color: var(--gds-yellow);
-  box-shadow: 0 -2px var(--gds-yellow), 0 4px var(--gds-black);
+  background-color: var(--focus);
+  box-shadow: 0 -2px var(--focus), 0 4px var(--gds-black, black);
   text-decoration: none;
 }
 
