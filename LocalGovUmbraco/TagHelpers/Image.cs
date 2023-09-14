@@ -111,7 +111,7 @@ namespace LocalGovUmbraco.TagHelpers
 
       if (Media.Content is UmbracoMediaVectorGraphics)
       {
-        output.Content.AppendHtml($"<img src=\"{Media.MediaUrl()}\"{(Height is int ? " height=\"" + Height + "\"" : null)}{(Width is int ? " width=\"" + Width + "\"" : null)}{(LazyLoad ? " loading=\"lazy\"" : null)}>");
+        output.Content.AppendHtml($"<img src=\"{Media.MediaUrl()}\" alt=\"{AltText ?? Media.Name}{(Height is int ? " height=\"" + Height + "\"" : null)}{(Width is int ? " width=\"" + Width + "\"" : null)}{(LazyLoad ? " loading=\"lazy\"" : null)}>");
         return;
       }
 
