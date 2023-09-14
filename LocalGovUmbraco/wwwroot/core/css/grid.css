@@ -64,3 +64,53 @@
     grid-column-end: span min(var(--col-span, 1), var(--grid-cols, 1));
   }
 }
+
+.block-grid.align-top {
+  align-content: start;
+}
+
+.block-grid.align-centre {
+  align-content: center;
+}
+
+.block-grid.align-bottom {
+  align-content: end;
+}
+
+.block[data-align="top"],
+.block[data-align="start"] {
+  align-self: start;
+}
+
+.block[data-align="middle"],
+.block[data-align="center"],
+.block[data-align="centre"] {
+  align-self: center;
+}
+
+.block[data-align="bottom"],
+.block[data-align="end"] {
+  align-self: end;
+}
+
+.block[data-justify="left"] {
+  justify-self: left;
+}
+
+.block[data-justify="start"] {
+  justify-self: start;
+}
+
+.block[data-justify="middle"],
+.block[data-justify="center"],
+.block[data-justify="centre"] {
+  justify-self: center;
+}
+
+.block[data-justify="right"] {
+  justify-self: right;
+}
+
+.block[data-justify="end"] {
+  justify-self: end;
+}

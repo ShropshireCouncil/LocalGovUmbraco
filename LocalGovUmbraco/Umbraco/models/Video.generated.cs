@@ -20,7 +20,7 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 {
 	/// <summary>YouTube Video</summary>
 	[PublishedModel("video")]
-	public partial class Video : PublishedElementModel
+	public partial class Video : PublishedElementModel, IBlockStyles
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
@@ -56,5 +56,29 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("videoUrl")]
 		public virtual string VideoUrl => this.Value<string>(_publishedValueFallback, "videoUrl");
+
+		///<summary>
+		/// Custom CSS Classes
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "12.0.1+20a4e47")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("classes")]
+		public virtual string Classes => global::Umbraco.Cms.Web.Common.PublishedModels.BlockStyles.GetClasses(this, _publishedValueFallback);
+
+		///<summary>
+		/// Horizontal Alignment
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "12.0.1+20a4e47")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("horizontalAlignment")]
+		public virtual string HorizontalAlignment => global::Umbraco.Cms.Web.Common.PublishedModels.BlockStyles.GetHorizontalAlignment(this, _publishedValueFallback);
+
+		///<summary>
+		/// Vertical Alignment
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "12.0.1+20a4e47")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("verticalAlignment")]
+		public virtual string VerticalAlignment => global::Umbraco.Cms.Web.Common.PublishedModels.BlockStyles.GetVerticalAlignment(this, _publishedValueFallback);
 	}
 }

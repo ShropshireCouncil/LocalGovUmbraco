@@ -18,11 +18,11 @@
             "block",
             "block-type--" + item.Content.ContentType.Alias.Slug(),
             item.Content.Value<string?>("heading")?.Slug(),
-            item.Content is FixedWidthRow rowClass ? rowClass.Classes : null,
+            item.Content is IBlockStyles blockClasses ? blockClasses.Classes : null,
+            item.Content is FixedWidthRow rowAlignment && !rowAlignment.Alignment.IsNullOrWhiteSpace() ? "align-" + rowAlignment.Alignment.Slug() : null,
             item.Content is FixedWidthRow rowPad && !rowPad.Padding.IsNullOrWhiteSpace() ? "padding-" + rowPad.Padding.Slug() : null,
-            item.Content is FixedWidthRow alignment && !alignment.Alignment.IsNullOrWhiteSpace() ? "align-" + alignment.Alignment.Slug() : null,
           }.Distinct().WhereNotNull();
-          <div id="@(item.Content.Value("htmlId") ?? "block-" + item.Content.Key)" class="@string.Join(" ", classes)" data-col-span="@item.ColumnSpan" data-row-span="@item.RowSpan">
+          <div id="@(item.Content.Value("htmlId") ?? "block-" + item.Content.Key)" class="@string.Join(" ", classes)" data-col-span="@item.ColumnSpan" data-row-span="@item.RowSpan" data-align="@((item.Content as IBlockStyles)?.VerticalAlignment.Slug())" data-justify="@((item.Content as IBlockStyles)?.HorizontalAlignment.Slug())">
             @if (item.Content is FixedWidthRow)
             {
               <div class="inner max-width">
