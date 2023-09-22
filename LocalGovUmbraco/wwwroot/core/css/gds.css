@@ -354,6 +354,14 @@ blockquote, .inset {
   border-left: 10px solid var(--gds-mid-grey);
 }
 
+*:where(blockquote, .inset) p:first-child {
+  margin-top: 0;
+}
+
+*:where(blockquote, .inset) p:last-child {
+  margin-bottom: 0;
+}
+
 button, input[type="submit"], input[type="reset"], input[type="button"], .button {
   font: inherit;
   line-height: 1.1875;
