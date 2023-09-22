@@ -11,4 +11,5 @@
 /[Uu][Ss]ync/*/Domains
 /[Uu][Ss]ync/*/Media
 
-/wwwroot/media/
+/wwwroot/media/*
+!/wwwroot/media/.gitkeep
