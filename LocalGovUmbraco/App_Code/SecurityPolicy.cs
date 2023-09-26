@@ -3,15 +3,15 @@ using Umbraco.Cms.Core.Services;
 namespace LocalGovUmbraco
 {
   /// <summary>
-  /// Static extention class for security policy middleware.
+  /// Static extension class for security policy middleware.
   /// </summary>
-  public static class SecurityPolicyAppBuilderExtention
+  public static class SecurityPolicyAppBuilderExtension
   {
     /// <summary>
-    /// Security Policy middlewear.
+    /// Security Policy middleware.
     /// </summary>
     /// 
-    /// <param name="app">The app to attach the middlewear to.</param>
+    /// <param name="app">The app to attach the middleware to.</param>
     /// 
     /// <returns>The extended <see cref="IApplicationBuilder"/> instance</returns>
     public static IApplicationBuilder UseSecurityPolicy(this IApplicationBuilder app) => app
