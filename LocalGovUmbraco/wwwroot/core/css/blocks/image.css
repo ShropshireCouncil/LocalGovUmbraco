@@ -12,7 +12,6 @@
 }
 
 .block-type--responsive-image picture > img {
-  aspect-ratio: auto;
   margin: auto;
 }
 

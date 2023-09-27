@@ -666,11 +666,6 @@ hr {
   border-bottom: 3px solid var(--gds-mid-grey);
 }
 
-img {
-  aspect-ratio: 3/2;
-  object-fit: cover;
-}
-
 a:focus img {
   outline: 3px solid var(--gds-yellow);
   outline-offset: -2px;
