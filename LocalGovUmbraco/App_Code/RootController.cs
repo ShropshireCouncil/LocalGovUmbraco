@@ -36,8 +36,7 @@ namespace LocalGovUmbraco.Controllers
       _smidge.CreateJsBundle("core-scripts").RequiresJs(
         "~/core/scripts/cookie-control.js", // Cookie pop-up
         "~/core/scripts/newsflash.js", // Makes 'newsflashes' dismissable
-        "~/core/scripts/menu.js", // Mobile menu
-        "~/core/scripts/external-links.js" // Mark external links
+        "~/core/scripts/menu.js" // Mobile menu
       );
 
       _smidge.CreateCssBundle("core-styles").RequiresCss(
