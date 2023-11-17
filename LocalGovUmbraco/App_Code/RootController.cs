@@ -39,7 +39,7 @@ namespace LocalGovUmbraco.Controllers
         "~/core/scripts/menu.js" // Mobile menu
       );
 
-      _smidge.CreateCssBundle("core-styles").RequiresCss(
+      ISmidgeRequire cssBundle = _smidge.CreateCssBundle("core-styles").RequiresCss(
         "~/core/css/grid.css", // Layout for the block grid editor
         "~/core/css/gds.css", // High-level GDS Design patterns
         "~/core/css/cookie-control.css", // Cookie pop-up
@@ -47,16 +47,16 @@ namespace LocalGovUmbraco.Controllers
         "~/core/css/defaults.css" // Set element defaults
       );
 
-      ISmidgeRequire blocksBundle = _smidge.CreateCssBundle("blocks");
       DirectoryInfo coreBlocksDir = new(Path.Combine(_env.WebRootPath, "core", "css", "blocks"));
       if (coreBlocksDir.Exists)
       {
         foreach (FileInfo coreBlockCss in coreBlocksDir.GetFiles("*.css"))
         {
-          blocksBundle.RequiresCss("~/core/css/blocks/" + coreBlockCss.Name);
+          cssBundle.RequiresCss("~/core/css/blocks/" + coreBlockCss.Name);
         }
       }
 
+      ISmidgeRequire blocksBundle = _smidge.CreateCssBundle("blocks");
       DirectoryInfo customBlocksDir = new(Path.Combine(_env.WebRootPath, "css", "blocks"));
       if (customBlocksDir.Exists)
       {
