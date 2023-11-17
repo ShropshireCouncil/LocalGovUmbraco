@@ -56,16 +56,6 @@ namespace LocalGovUmbraco.Controllers
         }
       }
 
-      ISmidgeRequire blocksBundle = _smidge.CreateCssBundle("blocks");
-      DirectoryInfo customBlocksDir = new(Path.Combine(_env.WebRootPath, "css", "blocks"));
-      if (customBlocksDir.Exists)
-      {
-        foreach (FileInfo customBlockCss in customBlocksDir.GetFiles("*.css"))
-        {
-          blocksBundle.RequiresCss("~/css/blocks/" + customBlockCss.Name);
-        }
-      }
-
       return base.Index();
     }
   }
