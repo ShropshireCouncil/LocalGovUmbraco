@@ -1,4 +1,7 @@
 using LocalGovUmbraco.Controllers;
+using Smidge.Cache;
+using Smidge.Options;
+using Umbraco.Cms.Core.Configuration.Models;
 using Umbraco.Cms.Web.Website.Controllers;
 
 namespace LocalGovUmbraco
@@ -44,6 +47,24 @@ namespace LocalGovUmbraco
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddUmbraco(_env, _config).AddBackOffice().AddWebsite().AddComposers().Build();
+
+      services.Configure<SmidgeOptions>(options =>
+      {
+        string cachebuster = _config.GetSection("Umbraco:CMS:RuntimeMinification").GetValue<string>("CacheBuster") ?? "AppDomain";
+        Type cacheBusterType = Enum.Parse<RuntimeMinificationCacheBuster>(cachebuster) switch
+        {
+          RuntimeMinificationCacheBuster.AppDomain => typeof(AppDomainLifetimeCacheBuster),
+          RuntimeMinificationCacheBuster.Version => typeof(ConfigCacheBuster),
+          RuntimeMinificationCacheBuster.Timestamp => typeof(TimestampCacheBuster),
+          _ => throw new NotImplementedException(),
+        };
+
+        options.DefaultBundleOptions.DebugOptions.FileWatchOptions.Enabled = true;
+        options.DefaultBundleOptions.DebugOptions.SetCacheBusterType(cacheBusterType);
+        options.DefaultBundleOptions.ProductionOptions.SetCacheBusterType(cacheBusterType);
+        options.DefaultBundleOptions.ProductionOptions.ProcessAsCompositeFile = true;
+      });
+
       services.Configure<UmbracoRenderingDefaultsOptions>(c => c.DefaultControllerType = typeof(RootController));
     }
 
