@@ -55,7 +55,7 @@
         </a>
       </div>
 
-      @if (settings.ShowSearch && Umbraco.ContentSingleAtXPath("//searchResults") is IPublishedContent searchResults)
+      @if (settings.ShowSearch && settings.Descendant<SearchResults>() is SearchResults searchResults)
       {
         <form id="search" role="search" method="get" action="@searchResults.Url()" aria-label="Search the site">
           <label for="search-query-@Model.Id" class="screen-reader-text">Search keywords:</label>
@@ -132,7 +132,7 @@
       }
 
       <section id="copyright">
-        &copy; @settings.SiteName @Umbraco.ContentAtXPath("//*").Select(x => x.CreateDate.Year).Min()
+        &copy; @settings.SiteName @settings.DescendantsOrSelf().Select(x => x.CreateDate.Year).Min()
       </section>
     </div>
   </footer>
