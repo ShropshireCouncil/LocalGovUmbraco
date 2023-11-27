@@ -24,7 +24,7 @@
     }
     @if (ViewData.GetValue("show-excerpt", true) is true && (!Model.Summary.IsNullOrWhiteSpace() || !Umbraco.AssignedContentItem.Value<string>("body").IsNullOrWhiteSpace()))
     {
-      <p class="excerpt">@Model.Summary.IfNullOrWhiteSpace(Umbraco.AssignedContentItem.Value<string>("body")?.Truncate(350))</p>
+      <p class="excerpt">@Model.Summary.IfNullOrWhiteSpace(Umbraco.AssignedContentItem.Value<string>("body")?.PlainText().Truncate(350))</p>
     }
     @if (ViewData.GetValue("show-read-more", true) is true) {
       <p class="read-more" aria-label="Read more about @Umbraco.AssignedContentItem.Name"><a href="@Umbraco.AssignedContentItem.Url()">Read more<span class="screen-reader-text"> about @Umbraco.AssignedContentItem.Name</span></a></p>
