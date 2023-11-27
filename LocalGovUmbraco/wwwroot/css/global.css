@@ -305,26 +305,31 @@ ul.pagination {
   margin-top: 2rem;
 }
 
-.block.fixed-width-row.brand-primary {
+.block-type--responsive-image a:hover:not(:focus) figcaption {
+  background-color: var(--secondary);
+  color: var(--secondary-contrast);
+}
+
+.block-type--fixed-width-row.brand-primary {
   background-color: var(--primary);
   color: var(--primary-contrast);
 }
 
-.block.fixed-width-row:where(.brand-primary, .brand-secondary) * :is(a:not(:focus), figcaption) {
+.block-type--fixed-width-row:where(.brand-primary, .brand-secondary) * :is(a:not(:focus), figcaption) {
   color: inherit;
 }
 
-.block.fixed-width-row.brand-primary .block.responsive-image a:not(:focus) figcaption {
+.block-type--fixed-width-row.brand-primary .block-type--responsive-image a:not(:focus) figcaption {
   background-color: var(--secondary);
   color: var(--secondary-contrast);
 }
 
-.block.fixed-width-row.brand-secondary {
+.block-type--fixed-width-row.brand-secondary {
   background-color: var(--secondary);
   color: var(--secondary-contrast);
 }
 
-.block.fixed-width-row.brand-grey {
+.block-type--fixed-width-row.brand-grey {
   background-color: var(--light-grey);
 }
 
