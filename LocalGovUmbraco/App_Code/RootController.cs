@@ -33,6 +33,13 @@ namespace LocalGovUmbraco.Controllers
     /// <inheritdoc/>
     public override IActionResult Index()
     {
+      // Canonical URL redirects
+      string requestUrl = Request.Path.ToString().Trim('/');
+      if (CurrentPage?.Url().Trim('/') is string cannonicalUrl && !cannonicalUrl.InvariantEquals(requestUrl) && (CurrentPage.Value<string>("umbracoUrlAlias")?.Split('/').Select(x => x.Trim()).InvariantContains(requestUrl) ?? false))
+      {
+        Response.Redirect(CurrentPage.Url(), true);
+      }
+
       _smidge.CreateJsBundle("core-scripts").RequiresJs(
         "~/core/scripts/cookie-control.js", // Cookie pop-up
         "~/core/scripts/newsflash.js", // Makes 'newsflashes' dismissable
