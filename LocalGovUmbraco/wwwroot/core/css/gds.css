@@ -82,18 +82,6 @@ body {
   margin-right: auto;
 }
 
-a.skip-link:not(:focus),
-.screen-reader-text {
-  border: none;
-  clip: rect(0 0 0 0);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  width: 1px;
-}
-
 a.skip-link:any-link {
   display: block;
   color: var(--gds-black);
@@ -104,6 +92,20 @@ a.skip-link:any-link {
   padding-right: max(1rem, calc(1rem + env(safe-area-inset-right)));
   padding-left: max(1rem, calc(1rem + env(safe-area-inset-left)));
   text-decoration: underline;
+  position: relative;
+  z-index: 99999;
+}
+
+a.skip-link:not(:focus),
+.screen-reader-text {
+  border: none;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
 }
 
 a:link {
