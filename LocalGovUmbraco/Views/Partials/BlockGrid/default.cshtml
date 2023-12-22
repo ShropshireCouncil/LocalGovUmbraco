@@ -3,48 +3,52 @@
 @functions {
   async Task RenderBlocks(IEnumerable<BlockGridItem> blocks, int? cols = 12, int depth = -1)
   {
-    if (blocks.Any())
+    if (!blocks.Any())
     {
-      <div class="block-grid" data-grid-columns="@(cols ?? 12)">
-        @foreach (BlockGridItem item in blocks)
+      return;
+    }
+
+    <div class="block-grid" data-grid-columns="@(cols ?? 12)">
+      @foreach (BlockGridItem item in blocks)
+      {
+        if (item.Content is FixedWidthRow row && row.Hide)
         {
-          if (item.Content is FixedWidthRow row && row.Hide)
-          {
-            continue;
-          }
+          continue;
+        }
 
-          IEnumerable<string> classes = new[]
+        IEnumerable<string> classes = new[]
+        {
+          "block",
+          "block-type--" + item.Content.ContentType.Alias.Slug(),
+          item.Content.Value<string?>("heading")?.Slug(),
+          item.Content is IBlockStyles blockClasses ? blockClasses.Classes : null,
+          item.Content is FixedWidthRow rowAlignment && !rowAlignment.Alignment.IsNullOrWhiteSpace() ? "align-" + rowAlignment.Alignment.Slug() : null,
+          item.Content is FixedWidthRow rowPad && !rowPad.Padding.IsNullOrWhiteSpace() ? "padding-" + rowPad.Padding.Slug() : null,
+        }.Distinct().WhereNotNull();
+        <div id="@(item.Content.Value("htmlId") ?? "block-" + item.Content.Key)" class="@string.Join(" ", classes)" data-col-span="@item.ColumnSpan" data-row-span="@item.RowSpan" data-align="@((item.Content as IBlockStyles)?.VerticalAlignment.Slug())" data-justify="@((item.Content as IBlockStyles)?.HorizontalAlignment.Slug())">
+          @if (item.Content is FixedWidthRow)
           {
-            "block",
-            "block-type--" + item.Content.ContentType.Alias.Slug(),
-            item.Content.Value<string?>("heading")?.Slug(),
-            item.Content is IBlockStyles blockClasses ? blockClasses.Classes : null,
-            item.Content is FixedWidthRow rowAlignment && !rowAlignment.Alignment.IsNullOrWhiteSpace() ? "align-" + rowAlignment.Alignment.Slug() : null,
-            item.Content is FixedWidthRow rowPad && !rowPad.Padding.IsNullOrWhiteSpace() ? "padding-" + rowPad.Padding.Slug() : null,
-          }.Distinct().WhereNotNull();
-          <div id="@(item.Content.Value("htmlId") ?? "block-" + item.Content.Key)" class="@string.Join(" ", classes)" data-col-span="@item.ColumnSpan" data-row-span="@item.RowSpan" data-align="@((item.Content as IBlockStyles)?.VerticalAlignment.Slug())" data-justify="@((item.Content as IBlockStyles)?.HorizontalAlignment.Slug())">
-            @if (item.Content is FixedWidthRow)
-            {
-              <div class="inner max-width">
-                @foreach (BlockGridArea area in item.Areas)
-                {
-                  await RenderBlocks(area, item.AreaGridColumns ?? cols ?? 12, depth + 1);
-                }
-              </div>
-            }
-            else
-            {
-              <partial name="@("blocks/"+ item.Content.ContentType.Alias)" model="item.Content" view-data="new(ViewData)" view-data-depth="depth" />
-
+            <div class="inner max-width">
               @foreach (BlockGridArea area in item.Areas)
               {
-                await RenderBlocks(area, item.AreaGridColumns ?? cols ?? 12, depth + (item.Content is not Subgrid subgrid || !subgrid.Heading.IsNullOrWhiteSpace() ? 1 : 0));
+                await RenderBlocks(area, item.AreaGridColumns ?? cols ?? 12, depth + 1);
               }
+            </div>
+          }
+          else
+          {
+            ViewDataDictionary<BlockGridModel> blockViewData = new(ViewData);
+            blockViewData.Add("dataDepth", depth);
+            @await Html.PartialAsync("blocks/"+ item.Content.ContentType.Alias, item.Content, blockViewData);
+
+            @foreach (BlockGridArea area in item.Areas)
+            {
+              await RenderBlocks(area, item.AreaGridColumns ?? cols ?? 12, depth + (item.Content is not Subgrid subgrid || !subgrid.Heading.IsNullOrWhiteSpace() ? 1 : 0));
             }
-          </div>
-        }
-      </div>
-    }
+          }
+        </div>
+      }
+    </div>
   }
 }
 
