@@ -5,7 +5,6 @@ using System.Text.Encodings.Web;
 using System.Text.RegularExpressions;
 using System.Web;
 using Umbraco.Cms.Core.Strings;
-using Umbraco.Extensions;
 
 namespace LocalGovUmbraco.Extensions
 {
@@ -132,6 +131,6 @@ namespace LocalGovUmbraco.Extensions
     /// <param name="input">The string to slug.</param>
     /// 
     /// <returns>A CSS safe slug.</returns>
-    public static string Slug(this string? input) => input is not null ? NonAlphaNum().Replace(string.Concat(input.Replace("\'", string.Empty).Select((x, i) => (i > 0 && char.IsUpper(x)) ? $" {x}" : x.ToString())).ToLower(), "-") : string.Empty;
+    public static string Slug(this string? input) => input is not null ? NonAlphaNum().Replace(string.Concat(input.Replace("\'", string.Empty).Select((x, i) => (i > 0 && char.IsUpper(x)) ? $" {x}" : x.ToString())).ToLower(), "-").Trim('-') : string.Empty;
   }
 }
