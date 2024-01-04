@@ -19,6 +19,18 @@
   padding-bottom: 5rem;
 }
 
+.block.margin-small {
+  margin-bottom: 1rem;
+}
+
+.block.margin-medium {
+  margin-bottom: 3rem;
+}
+
+.block.margin-large {
+  margin-bottom: 5rem;
+}
+
 .block.align-top > .inner > .block-grid {
   align-items: start;
 }

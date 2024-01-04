@@ -66,14 +66,15 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		public virtual string Classes => this.Value<string>(_publishedValueFallback, "classes");
 
 		///<summary>
-		/// Hide Row: If you wish to temporarily hide a row from display you can do so here.
+		/// Row Margin: Add a margin after the row
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "12.3.6+e8a81e3")]
-		[ImplementPropertyType("hide")]
-		public virtual bool Hide => this.Value<bool>(_publishedValueFallback, "hide");
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("margin")]
+		public virtual string Margin => this.Value<string>(_publishedValueFallback, "margin");
 
 		///<summary>
-		/// Row Padding
+		/// Row Padding: Add top/bottom whitepsace inside the row.
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "12.3.6+e8a81e3")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
