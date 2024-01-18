@@ -38,7 +38,7 @@
   <script nws-csp-add-nonce="true">document.documentElement.classList.remove('no-js'); document.documentElement.classList.add('js');</script>
 </head>
 <body class="@string.Join(" ", new HashSet<string?> { Model.UrlSegment, Model.ContentType.Alias, Model.GetTemplateAlias() }.Concat(Model.ContentType.CompositionAliases.Where(x => x.ToLowerInvariant() != "main")).WhereNotNull().Select(x => x.Slug()))">
-  <a id="top" href="#content" class="skip-link" title="Skip to content">Skip to content</a>
+  <a id="top" href="#content" class="skip-link">Skip to content</a>
 
   <header id="site-header">
     <div class="inner max-width">

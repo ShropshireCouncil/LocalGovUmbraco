@@ -75,7 +75,7 @@ namespace LocalGovUmbraco.TagHelpers
             foreach (IPublishedContent child in children)
             {
               output.Content.AppendHtml("<li>");
-              output.Content.AppendHtml($"<a href=\"{child.Url()}\" title=\"{FilterLabel(child)}\">{FilterLabel(child)}</a>");
+              output.Content.AppendHtml($"<a href=\"{child.Url()}\">{FilterLabel(child)}</a>");
               output.Content.AppendHtml("</li>");
             }
             output.Content.AppendHtml("</ul>");
