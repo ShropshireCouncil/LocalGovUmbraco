@@ -117,6 +117,36 @@ namespace LocalGovUmbraco.Extensions
     public static string Snippet(this string input, int length, string lookup) => input.Snippet(length, new[] { lookup });
 
     /// <summary>
+    /// Highlight regex matches in another string.
+    /// </summary>
+    /// 
+    /// <param name="input">The input string to search.</param>
+    /// <param name="highlight">A <see cref="Regex"/> representing the content to highlight.</param>
+    /// 
+    /// <returns>The input string with any matches of the regex marked up in HTML.</returns>
+    public static IHtmlEncodedString Highlight(this string input, Regex highlight) => new HtmlEncodedString(highlight.Replace(input, "<strong>$1</strong>"));
+
+    /// <summary>
+    /// Highlight given strings in another string.
+    /// </summary>
+    /// 
+    /// <param name="input">The input string to search.</param>
+    /// <param name="highlight">The strings to highlight.</param>
+    /// 
+    /// <returns>The input string with any instances of the search strings marked up in HTML.</returns>
+    public static IHtmlEncodedString Highlight(this string input, string[] highlight) => Highlight(input, new Regex($"({string.Join("|", highlight.Select(Regex.Escape))})"));
+
+    /// <summary>
+    /// Highlight a given string in another string.
+    /// </summary>
+    /// 
+    /// <param name="input">The input string to search.</param>
+    /// <param name="highlight">The string to highlight.</param>
+    /// 
+    /// <returns>The input string with any instances of the search string marked up in HTML.</returns>
+    public static IHtmlEncodedString Highlight(this string input, string highlight) => Highlight(input, new[] { highlight });
+
+    /// <summary>
     /// Compiled regex to match one or more non-alphanumeric characters.
     /// </summary>
     /// 

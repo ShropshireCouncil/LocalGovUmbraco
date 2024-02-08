@@ -1,4 +1,4 @@
-﻿@using Examine
+@using Examine
 @using Examine.Search;
 @inherits UmbracoViewPage<SearchResults>
 @inject IExamineManager examineManager;
@@ -23,7 +23,10 @@
             <p>
               @if (item.Value("body") is Umbraco.Cms.Core.Models.Blocks.BlockGridModel body)
               {
-                @(new HtmlEncodedString(new Regex($"({string.Join("|", searchParameters.Select(x => Regex.Escape(x.Value)))})").Replace(Html.GetBlockGridHtml(body, "snippet").PlainText().Snippet(350, searchParameters.Select(x => x.Value).ToArray()), "<strong>$1</strong>")))
+                string[] snippetParams = searchParameters.Select(x => x.Value).ToArray();
+                string snippet = Html.GetBlockGridHtml(body, "snippet").PlainText().Snippet(350, snippetParams);
+                @snippet.Highlight(snippetParams.Where(x => x.Length > 3).ToArray())
+                ;
               }
               else if (!item.MetaDesc.IsNullOrWhiteSpace())
               {
