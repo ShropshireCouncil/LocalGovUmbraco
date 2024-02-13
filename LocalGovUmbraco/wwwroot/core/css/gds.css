@@ -791,15 +791,13 @@ ul.pagination .current {
 }
 
 .breadcrumb > :is(ul, ol) {
-  display: flex;
-  flex-wrap: wrap;
+  display: block;
   margin: 1rem 0;
 }
 
 .breadcrumb li {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
+  display: inline;
+  vertical-align: middle;
 }
 
 .breadcrumb li:not(:first-child) {
@@ -808,14 +806,14 @@ ul.pagination .current {
 
 .breadcrumb li:not(:first-child):before {
   content: '';
-  display: block;
-  left: -0.25rem;
+  display: inline-block;
   width: 0.4rem;
   height: 0.4rem;
-  margin: auto 0;
-  transform: rotate(45deg);
+  margin: -2px 0.25rem 0;
+  transform: translateX(-0.35rem) rotate(45deg);
   border: solid var(--gds-dark-grey);
   border-width: 1px 1px 0 0;
+  vertical-align: middle;
 }
 
 .notification {
