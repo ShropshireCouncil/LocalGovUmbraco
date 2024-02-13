@@ -10,12 +10,12 @@
     if (searchParameters.Any())
     {
       ISearchResults results = examineManager.GetSearchResults(searchParameters, new[] { "nodeName", "metaDesc", "body" }, new[] { "IndexPage", "SearchResults" });
-      IEnumerable<Main> contentItems = results.Select(result => Umbraco.Content(result.Id)).OfType<Main>().Where(content => content.TemplateId > 0);
+      IEnumerable<IPublishedContent> contentItems = results.Select(result => Umbraco.Content(result.Id)).WhereNotNull().Where(content => content.TemplateId > 0);
       if (contentItems.Any())
       {
         <p>@contentItems.Count() total results for <strong>@searchParameters.ToString(" ")</strong>.</p>
 
-        foreach (Main item in Context.Request.Paginate<Main>(contentItems, perPage))
+        foreach (IPublishedContent item in Context.Request.Paginate<IPublishedContent>(contentItems, perPage))
         {
           <article class="@item.Name.Slug() @shortStringHelper.SplitPascalCasing(@item.ContentType.Alias, ' ').Slug()">
             <h2 class="heading"><a href="@item.Url()">@item.Name</a></h2>
@@ -32,10 +32,10 @@
               }
 
             }
-            else if (!item.MetaDesc.IsNullOrWhiteSpace())
+            else if (item.Value("metaDesc") is string metadesc && !metadesc.IsNullOrWhiteSpace())
             {
               <p>
-                @item.MetaDesc
+                @metadesc;
               </p>
             }
           </article>
