@@ -134,7 +134,7 @@ namespace LocalGovUmbraco.Extensions
     /// <param name="highlight">The strings to highlight.</param>
     /// 
     /// <returns>The input string with any instances of the search strings marked up in HTML.</returns>
-    public static IHtmlEncodedString Highlight(this string input, string[] highlight) => Highlight(input, new Regex($"({string.Join("|", highlight.Select(Regex.Escape))})"));
+    public static IHtmlEncodedString Highlight(this string input, string[] highlight) => highlight.Length > 0 ? Highlight(input, new Regex($"({string.Join("|", highlight.Select(Regex.Escape))})")) : new HtmlEncodedString(input);
 
     /// <summary>
     /// Highlight a given string in another string.
@@ -144,7 +144,7 @@ namespace LocalGovUmbraco.Extensions
     /// <param name="highlight">The string to highlight.</param>
     /// 
     /// <returns>The input string with any instances of the search string marked up in HTML.</returns>
-    public static IHtmlEncodedString Highlight(this string input, string highlight) => Highlight(input, new[] { highlight });
+    public static IHtmlEncodedString Highlight(this string input, string highlight) => !highlight.IsNullOrWhiteSpace() ? Highlight(input, new[] { highlight }) : new HtmlEncodedString(input);
 
     /// <summary>
     /// Compiled regex to match one or more non-alphanumeric characters.
