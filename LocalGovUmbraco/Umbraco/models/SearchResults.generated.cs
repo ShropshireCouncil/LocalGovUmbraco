@@ -48,5 +48,12 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		}
 
 		// properties
+
+		///<summary>
+		/// Include media: Enable the returning of "article" media types in the search results.
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "13.1.1+cd47bdb")]
+		[ImplementPropertyType("includeMedia")]
+		public virtual bool IncludeMedia => this.Value<bool>(_publishedValueFallback, "includeMedia");
 	}
 }
