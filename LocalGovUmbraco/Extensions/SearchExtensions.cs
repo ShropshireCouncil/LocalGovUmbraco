@@ -2,6 +2,7 @@ using Examine;
 using Examine.Search;
 using Microsoft.Extensions.Primitives;
 using System.Text.RegularExpressions;
+using Umbraco.Cms.Infrastructure.Examine;
 
 namespace LocalGovUmbraco.Extensions
 {
@@ -97,11 +98,12 @@ namespace LocalGovUmbraco.Extensions
     /// <param name="searchParameters">The pre-formatted search parameters.</param>
     /// <param name="searchFields">A list of indexed fields to search.</param>
     /// <param name="excludedTypes">An optional list of content types to exclude from the results.</param>
+    /// <param name="indexType">The type of indexed content to return.</param>
     /// 
     /// <returns>An <see cref="ISearchResults"/> objects containing the matching <see cref="ISearchResult">ISearchResults</see></returns>
-    public static ISearchResults GetSearchResults(this IExamineManager examineManager, IExamineValue[] searchParameters, string[] searchFields, string[]? excludedTypes = null) =>
+    public static ISearchResults GetSearchResults(this IExamineManager examineManager, IExamineValue[] searchParameters, string[] searchFields, string[]? excludedTypes = null, string indexType = IndexTypes.Content) =>
       examineManager.TryGetIndex("ExternalIndex", out IIndex index)
-      ? index.Searcher.CreateQuery("content", BooleanOperation.And).GroupedOr(searchFields, searchParameters).Not().Field("umbracoSearchHide", "1").ExcludeTypes(excludedTypes).Execute()
+      ? index.Searcher.CreateQuery(indexType, BooleanOperation.And).GroupedOr(searchFields, searchParameters).Not().Field("umbracoSearchHide", "1").ExcludeTypes(excludedTypes).Execute()
       : EmptySearchResults.Instance;
   }
 }
