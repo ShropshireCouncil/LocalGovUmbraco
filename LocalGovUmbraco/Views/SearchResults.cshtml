@@ -20,19 +20,24 @@
           <article class="@item.Name.Slug() @shortStringHelper.SplitPascalCasing(@item.ContentType.Alias, ' ').Slug()">
             <h2 class="heading"><a href="@item.Url()">@item.Name</a></h2>
             <small><a href="@item.Url()">@item.Url()</a></small>
-            <p>
-              @if (item.Value("body") is Umbraco.Cms.Core.Models.Blocks.BlockGridModel body)
+            @if (item.Value("body") is Umbraco.Cms.Core.Models.Blocks.BlockGridModel body)
+            {
+              string[] snippetParams = searchParameters.Select(x => x.Value).ToArray();
+              string snippet = Html.GetBlockGridHtml(body, "snippet").PlainText().Snippet(350, snippetParams);
+              if (!snippet.IsNullOrWhiteSpace())
               {
-                string[] snippetParams = searchParameters.Select(x => x.Value).ToArray();
-                string snippet = Html.GetBlockGridHtml(body, "snippet").PlainText().Snippet(350, snippetParams);
-                @snippet.Highlight(snippetParams.Where(x => x.Length > 3).ToArray())
-                ;
+                <p>
+                  @snippet.Highlight(snippetParams.Where(x => x.Length > 3).ToArray());
+                </p>
               }
-              else if (!item.MetaDesc.IsNullOrWhiteSpace())
-              {
+
+            }
+            else if (!item.MetaDesc.IsNullOrWhiteSpace())
+            {
+              <p>
                 @item.MetaDesc
-              }
-            </p>
+              </p>
+            }
           </article>
         }
 
