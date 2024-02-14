@@ -1,4 +1,4 @@
-﻿@inherits UmbracoViewPage<Sitemap>
+@inherits UmbracoViewPage<Sitemap>
 <div class="sitemap-wrapper max-width">
   @{
     bool predecate(Main x) => !x.UmbracoSitemapHide && !(x.MetaRobots?.Contains("noindex") ?? false) && x is not Sitemap;
@@ -10,7 +10,7 @@
           @foreach (Main item in items)
           {
             <li>
-              <heading level="@(2 + depth++)" class="heading-s"><a href="@item.Url()">@item.Name</a></heading>
+              <heading level="@(2 + depth)" class="heading-s"><a href="@item.Url()">@item.Name</a></heading>
               <time datetime="@item.UpdateDate.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ssK")" title="Last updated &mdash; @item.UpdateDate.ToString("d/MM/yyyy")" class="@((DateTime.Now - item.UpdateDate).Days > 90 ? "stale" : "fresh")">
                 Last updated &mdash; @item.UpdateDate.ToString("d MMMM yyyy")
               </time>
