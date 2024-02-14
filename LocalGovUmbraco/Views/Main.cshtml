@@ -97,7 +97,7 @@
       </h1>
     }
 
-    @foreach (Newsflash notice in Umbraco.ContentAtRoot().Where(x => x is Newsflash n && (!(n.PageRestrictions?.Any() ?? false) || n.PageRestrictions.Where(t => t.IsEqual(Model) || (n.Inherit && t.IsAncestor(Model))).Any())))
+    @foreach (Newsflash notice in Umbraco.ContentAtRoot().Where(x => x is Newsflash n && n.IsPublished() && (!(n.PageRestrictions?.Any() ?? false) || n.PageRestrictions.Where(t => t.IsEqual(Model) || (n.Inherit && !Umbraco.ContentAtRoot().OfType<IndexPage>().Contains(t) && t.IsAncestor(Model))).Any())))
     {
       <aside id="nf-@notice.Id" class="notification max-width">
         <h2>@notice.Name</h2>
