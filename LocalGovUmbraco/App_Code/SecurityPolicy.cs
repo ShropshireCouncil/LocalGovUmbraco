@@ -62,6 +62,7 @@ namespace LocalGovUmbraco
           .ScriptSources(s => s.Self().UnsafeInline().UnsafeEval())
           .StyleSources(s => s.Self().UnsafeInline())
           .ImageSources(s => s.Self().CustomSources("data:", "dashboard.umbraco.com", "our.umbraco.com"))
+          .ChildSources(s => s.Self().CustomSources("marketplace.umbraco.com"))
           .ConnectSources(s => s.Self().CustomSources("our.umbraco.com"))
           .ObjectSources(s => s.None())
         );
