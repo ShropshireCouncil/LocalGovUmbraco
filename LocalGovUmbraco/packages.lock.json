@@ -49,13 +49,13 @@
       },
       "uSync": {
         "type": "Direct",
-        "requested": "[13.0.1, )",
-        "resolved": "13.0.1",
-        "contentHash": "fZhXyTYMnFgVj+Dc/4GRB99SlAQHcCRJLfrAymx46U75F/53N8/qEV/o30qFyOC6drONAxhPWpwpi42C9zMtnw==",
+        "requested": "[13.1.0, )",
+        "resolved": "13.1.0",
+        "contentHash": "/4PsvZpANRV7fRgY8otKcr92b/8FJt3Ss8oJIaYnVpNhkd4p14j2da3vwv9z/HoEITHODlHEb/pQp1HKnlJobw==",
         "dependencies": {
-          "uSync.BackOffice": "13.0.1",
-          "uSync.BackOffice.Assets": "13.0.1",
-          "uSync.History": "13.0.1"
+          "uSync.BackOffice": "13.1.0",
+          "uSync.BackOffice.Assets": "13.1.0",
+          "uSync.History": "13.1.0"
         }
       },
       "Asp.Versioning.Abstractions": {
@@ -2889,40 +2889,40 @@
       },
       "uSync.BackOffice": {
         "type": "Transitive",
-        "resolved": "13.0.1",
-        "contentHash": "AGDE7szSnI9knEDIf6KvkUtyDcUFRVmJYJ7s1uMlZ4B2/A8UItPhZZ5KPDYtP2vcns5IrEfNmGQkGWRheE3ylQ==",
+        "resolved": "13.1.0",
+        "contentHash": "9Kpt7wJmWN4jTKocRk533RIkv+bl393vq39dgIbLZi5UCIV3TSVlUuJ3GRa85MKaoDbvqb5mVl60k0yTtXgvdg==",
         "dependencies": {
-          "uSync.Community.Contrib": "13.0.1",
-          "uSync.Core": "13.0.1"
+          "uSync.Community.Contrib": "13.1.0",
+          "uSync.Core": "13.1.0"
         }
       },
       "uSync.BackOffice.Assets": {
         "type": "Transitive",
-        "resolved": "13.0.1",
-        "contentHash": "e1hDaRjJx4lUdNd3fPj9Utjk+s/jiG64etsfg1BQKYSid2kcKxvy4MrZFJcrczHZpewp+stZww++W+MkBB1NRw==",
+        "resolved": "13.1.0",
+        "contentHash": "dsqWbt2jC47iLS3Gz6bvqrOj730ptAIBcEiOAOh22rgPNDFrHLSjZHAI3O/43k2Q/GFW3fAkeSzxgKhEHavDDQ==",
         "dependencies": {
           "Microsoft.AspNetCore.Components.Web": "8.0.0",
-          "uSync.BackOffice": "13.0.1",
-          "uSync.BackOffice.Targets": "13.0.1"
+          "uSync.BackOffice": "13.1.0",
+          "uSync.BackOffice.Targets": "13.1.0"
         }
       },
       "uSync.BackOffice.Targets": {
         "type": "Transitive",
-        "resolved": "13.0.1",
-        "contentHash": "be0vBivps+NjZQl3ouv66Gq1RHyTWnFKcS+bMNxtubXIQTQeYTi3HX5sc5ABqmQD3Sp0mzAwFFwPxMsKYJVnEQ=="
+        "resolved": "13.1.0",
+        "contentHash": "t/MOwysq2xohMMmaovZD1JkwY3YagJgN5cadcW9FIJC8uvbdpcUIpIfsx1jIfLbkqLLnNiO9JdwU3+CZYt4p/A=="
       },
       "uSync.Community.Contrib": {
         "type": "Transitive",
-        "resolved": "13.0.1",
-        "contentHash": "fn3iQRq2iZdifw4zCzBZ9elcnXqOfX8+PqN0vKON96zCGleR79A3B5yQxP0q/yUei6rHV50o++U/6VcwBhaUTA==",
+        "resolved": "13.1.0",
+        "contentHash": "LGd+etc/upXvtXRrVfpXTcHtCFtpVaVyvMBpx3OeQ1Wkw3/h4nMII9Tv+1gb14sA8toX6imATjBAxPe6A6+QTw==",
         "dependencies": {
-          "uSync.Core": "13.0.1"
+          "uSync.Core": "13.1.0"
         }
       },
       "uSync.Core": {
         "type": "Transitive",
-        "resolved": "13.0.1",
-        "contentHash": "4YK9gIGy58vhPMHWhxdO8CkkUp4xNXjBoo+KtjzpSsdmbydIUgTgbvQVcNkGCgmGJ/QW5pZVYxe5AKl4t50MRg==",
+        "resolved": "13.1.0",
+        "contentHash": "/UK/WWYDz9yQP6PSn8xP8Vyi3r+Zor3Z1ltXhMyc+QgAPdt+NcvzRBT3jTusE1M8S3FsfaLgqwQmTKlhDIIRGA==",
         "dependencies": {
           "Umbraco.Cms.Web.BackOffice": "13.0.0",
           "Umbraco.Cms.Web.Website": "13.0.0"
@@ -2930,10 +2930,10 @@
       },
       "uSync.History": {
         "type": "Transitive",
-        "resolved": "13.0.1",
-        "contentHash": "CS4eRvWG/6YwpGy4W7ZpcDYel+tKmzJQ68be8D22IifPGRGmG+k/jAUeUACdThy/E1JpFsOHR3LHS7+nwjKMUQ==",
+        "resolved": "13.1.0",
+        "contentHash": "VmGib3SXb6OZlybslVyf3+xQyfePDkwmFu+6/Ol8DfgDZYYMRLSWnmLNu9hwnOJrVkOT//GgneywjczhzBodjQ==",
         "dependencies": {
-          "uSync.BackOffice": "13.0.1"
+          "uSync.BackOffice": "13.1.0"
         }
       }
     }
