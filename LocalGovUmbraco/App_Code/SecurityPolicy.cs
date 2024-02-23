@@ -18,7 +18,6 @@ namespace LocalGovUmbraco
       .UseXContentTypeOptions()
       .UseXfo(o => o.SameOrigin())
       .UseReferrerPolicy(o => o.StrictOrigin())
-      .UseXXssProtection(o => o.EnabledWithBlockMode())
       .UseRedirectValidation(o => o.AllowSameHostRedirectsToHttps())
       .UseWhen(context => !context.Request.Path.StartsWithSegments(new PathString("/umbraco")), a =>
       {
