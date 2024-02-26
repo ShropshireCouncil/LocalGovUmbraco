@@ -527,13 +527,15 @@ input:is([type="radio"], [type="checkbox"]) {
   margin: 2px;
 }
 
-input:is([type="radio"], [type="checkbox"]) + label {
+input:is([type="radio"], [type="checkbox"]) + label,
+input[type="checkbox"] + input[type="hidden"] + label {
   position: relative;
   min-height: 2.5rem;
   padding: calc(0.5rem + 4px) 0 calc(0.5rem + 4px) 3.5rem;
 }
 
-input:is([type="radio"], [type="checkbox"]) + label:before {
+input:is([type="radio"], [type="checkbox"]) + label:before,
+input[type="checkbox"] + input[type="hidden"] + label:before {
   content: '';
   display: block;
   position: absolute;
@@ -547,7 +549,8 @@ input:is([type="radio"], [type="checkbox"]) + label:before {
   z-index: 1;
 }
 
-input:is([type="radio"], [type="checkbox"]) + label:after {
+input:is([type="radio"], [type="checkbox"]) + label:after,
+input[type="checkbox"] + input[type="hidden"] + label:after {
   content: '';
   display: block;
   position: absolute;
@@ -557,13 +560,15 @@ input:is([type="radio"], [type="checkbox"]) + label:after {
   opacity: 0;
 }
 
-input:is([type="radio"], [type="checkbox"]):focus + label:before {
+input:is([type="radio"], [type="checkbox"]):focus + label:before,
+input[type="checkbox"]:focus + input[type="hidden"] + label:before {
   outline: 3px solid var(--gds-yellow);
   outline-offset: 0;
   box-shadow: inset 0 0 0 2px;
 }
 
-input[type="checkbox"] + label:after {
+input[type="checkbox"] + label:after,
+input[type="checkbox"] + input[type="hidden"] + label:after {
   width: 1.15rem;
   height: 0.5rem;
   transform: rotate(-45deg);
