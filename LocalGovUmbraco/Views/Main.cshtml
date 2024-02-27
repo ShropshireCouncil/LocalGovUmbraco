@@ -64,7 +64,7 @@
         </form>
       }
 
-      <nav-menu id="main-menu" aria-label="Menu" data-breakpoint="768" content="Umbraco.ContentAtRoot().SelectMany(content => (content.Children() ?? new List<IPublishedContent>()).Prepend(content))" recurseWhen="x => false" context="Umbraco.AssignedContentItem"></nav-menu>
+      <nav-menu id="main-menu" aria-label="Menu" data-breakpoint="768" content="Umbraco.ContentAtRoot().OfType<IndexPage>().SelectMany(content => (content.Children() ?? new List<IPublishedContent>()).Prepend(content))" recurseWhen="x => false" context="Umbraco.AssignedContentItem"></nav-menu>
     </div>
   </header>
 

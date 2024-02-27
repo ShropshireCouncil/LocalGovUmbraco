@@ -1,0 +1,49 @@
+@inherits UmbracoViewPage<ErrorPage>
+@using Examine;
+@using Examine.Search;
+@using System.Text.RegularExpressions;
+@inject IExamineManager examineManager;
+@section stylesheets {
+  <link href="~/css/errorpage.css" rel="stylesheet" asp-append-version="true" />
+}
+<article class="max-width">
+  @Model.Body
+
+  @if (Model.ShowSuggestions)
+  {
+    IExamineValue[] searchParameters = Context.Request.Path.ToExamineValues();
+    ISearchResults results = examineManager.GetSearchResults(searchParameters, new[] { "nodeName" }, new[] { "IndexPage", "ErrorPage", "SearchResults", "Newsflash" });
+    IEnumerable<Main> contentItems = results.Select(result => Umbraco.Content(result.Id)).OfType<Main>().Where(content => content.TemplateId > 0);
+
+    if (contentItems.Count() > 0)
+    {
+      <section id="suggestions">
+        <h2>Were you looking for&hellip;</h2>
+        <ul class="menu">
+          @foreach (IPublishedContent item in contentItems.Take(5))
+          {
+            <li>
+              <p><a href="@item.Url()">@item.Name</a></p>
+              @{
+                IEnumerable<string> ancestors = item.Ancestors<Main>().Where(x => x is not IndexPage).Reverse().Select(x => x.Name);
+                if (ancestors.Any())
+                {
+                  <div class="location">
+                    <span class="screen-reader-text">Found in:</span>
+                    <ul class="menu" data-horizontal>
+                      @foreach (string ancestor in ancestors)
+                      {
+                        <li>@ancestor</li>
+                      }
+                    </ul>
+                  </div>
+                }
+              }
+
+            </li>
+          }
+        </ul>
+      </section>
+    }
+  }
+</article>
