@@ -7,7 +7,8 @@
         <DefaultItemExcludes>$(DefaultItemExcludes);umbraco/**;</DefaultItemExcludes>
         <DefaultItemExcludes>$(DefaultItemExcludes);wwwroot/media/**;</DefaultItemExcludes>
         <Configurations>Development;Production</Configurations>
-    </PropertyGroup>
+        <UserSecretsId>ab994315-7e5e-41ea-9a00-7fcc95a05be0</UserSecretsId>
+  </PropertyGroup>
     
     <PropertyGroup>
         <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
