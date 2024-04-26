@@ -54,8 +54,8 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "13.2.2+79d241a")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("AltText")]
-		public virtual string AltText => this.Value<string>(_publishedValueFallback, "AltText");
+		[ImplementPropertyType("altText")]
+		public virtual string AltText => this.Value<string>(_publishedValueFallback, "altText");
 
 		///<summary>
 		/// Show Caption: Show the image alt text (or link name, if set) as a caption on the image.
@@ -68,8 +68,8 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		/// Max Height: The maximum height for the image
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "13.2.2+79d241a")]
-		[ImplementPropertyType("Height")]
-		public virtual int Height => this.Value<int>(_publishedValueFallback, "Height");
+		[ImplementPropertyType("height")]
+		public virtual int Height => this.Value<int>(_publishedValueFallback, "height");
 
 		///<summary>
 		/// Image
@@ -98,8 +98,8 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		/// Max Width: The maximum width for the image
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "13.2.2+79d241a")]
-		[ImplementPropertyType("Width")]
-		public virtual int Width => this.Value<int>(_publishedValueFallback, "Width");
+		[ImplementPropertyType("width")]
+		public virtual int Width => this.Value<int>(_publishedValueFallback, "width");
 
 		///<summary>
 		/// Custom CSS Classes
