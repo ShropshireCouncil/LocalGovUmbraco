@@ -6,7 +6,6 @@ angular.module("umbraco").controller("LocalGovUmbraco.PropertyEditors.MetaRobots
   const dateCoerce = x => !x instanceof Date ? !isNaN(Date.parse(x)) ? new Date(x) : null : x;
   const toggle = (a, v, x) => {
     let i = a.indexOf(v);
-    console.log(a, v, x);
     if (x && i < 0) {
       a.push(v);
     } else if (!x && i >= 0) {
