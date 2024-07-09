@@ -13,3 +13,5 @@
 
 /wwwroot/media/*
 !/wwwroot/media/.gitkeep
+
+appsettings.[Ll]ocal.json
