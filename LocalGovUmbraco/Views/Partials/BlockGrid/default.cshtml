@@ -22,6 +22,7 @@
           "block-type--" + item.Content.ContentType.Alias.Slug(),
           item.Content.Value<string?>("heading")?.Slug(),
           item.Content is IBlockStyles blockClasses ? blockClasses.Classes : null,
+          item.Content is FixedWidthRow rowClasses ? rowClasses.Classes : null,
           item.Content is FixedWidthRow rowAlignment && !rowAlignment.Alignment.IsNullOrWhiteSpace() ? "align-" + rowAlignment.Alignment.Slug() : null,
           item.Content is FixedWidthRow rowPad && !rowPad.Padding.IsNullOrWhiteSpace() ? "padding-" + rowPad.Padding.Slug() : null,
           item.Content is FixedWidthRow rowMargin && !rowMargin.Margin.IsNullOrWhiteSpace() ? "margin-" + rowMargin.Margin.Slug() : null,
