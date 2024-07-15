@@ -155,12 +155,26 @@ namespace LocalGovUmbraco.Extensions
     private static partial Regex NonAlphaNum();
 
     /// <summary>
+    /// Static list of camel case identifiers.
+    /// </summary>
+    private static readonly string[] _camelCase = ["([a-z])([A-Z])", "([0-9])([a-zA-Z])", "([a-zA-Z])([0-9])"];
+
+    /// <summary>
+    /// Break apart a camel cased string.
+    /// </summary>
+    /// 
+    /// <param name="input">The string to break apart.</param>
+    /// 
+    /// <returns>The string with spaces between each word.</returns>
+    public static string BreakUpCamelCase(this string input) => _camelCase.Aggregate(input, (string current, string pattern) => Regex.Replace(current, pattern, "$1 $2", RegexOptions.IgnorePatternWhitespace));
+
+    /// <summary>
     /// Generates a CSS safe slug for a given string.
     /// </summary>
     /// 
     /// <param name="input">The string to slug.</param>
     /// 
     /// <returns>A CSS safe slug.</returns>
-    public static string Slug(this string? input) => input is not null ? NonAlphaNum().Replace(string.Concat(input.Replace("\'", string.Empty).Select((x, i) => (i > 0 && char.IsUpper(x)) ? $" {x}" : x.ToString())).ToLower(), "-").Trim('-') : string.Empty;
+    public static string Slug(this string? input) => input is not null ? NonAlphaNum().Replace(input.Replace("\'", string.Empty).BreakUpCamelCase().ToLower(), "-").Trim('-') : string.Empty;
   }
 }
