@@ -14,7 +14,7 @@
   {
     foreach (EventInstance eventInstance in events)
   {
-      <partial name="Teaser" model="eventInstance.Content" view-data="new(ViewData)" view-data-depth="depth" view-data-show-excerpt="Model.ShowExcerpts" view-data-show-date="Model.ShowDate" view-data-show-image="Model.ShowImages" view-data-show-read-more="Model.ShowReadMore" />
+      <partial name="Teaser" model="eventInstance.Content" view-data="new(ViewData)" view-data-depth="depth" view-data-show-excerpt="Model.ShowExcerpts" view-data-show-date="Model.ShowDate" view-data-show-image="Model.ShowImages" view-data-show-read-more="Model.ShowReadMore" view-data-date="eventInstance.Start" />
     }
   }
   else
