@@ -1,4 +1,4 @@
-﻿@inherits UmbracoViewPage<Events>
+@inherits UmbracoViewPage<Events>
 @using LocalGovUmbraco.Events
 @using LocalGovUmbraco.PropertyEditors.EventInstances
 @Html.GetBlockGridHtml(Model.Body)
@@ -22,7 +22,7 @@
     int perPage = Model.PerPage != 0 ? Model.PerPage : 12;
     foreach (EventInstance instance in Context.Request.Paginate<EventInstance>(eventInstances, perPage))
     {
-      <partial name="Teaser" model="instance.Content" view-data="new(ViewData)" view-data-show-excerpt="Model.Excerpts" view-data-show-image="Model.Thumbnails" view-data-event-dates="new EventDate(instance.Start, instance.End)" />
+      <partial name="Teaser" model="instance.Content" view-data="new(ViewData)" view-data-show-excerpt="Model.Excerpts" view-data-show-image="Model.Thumbnails" view-data-date="instance.Start" />
     }
     <pagination count="eventInstances.Count()" context="Context.Request" perPage="perPage" class="max-width"></pagination>
   }
