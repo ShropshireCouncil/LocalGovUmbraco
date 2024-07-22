@@ -86,7 +86,7 @@ namespace LocalGovUmbraco.Extensions
     /// <returns>The truncated string.</returns>
     public static string Snippet(this string input, int length, string[] lookup)
     {
-      if (!lookup.Any())
+      if (lookup.Length == 0)
       {
         return input.Truncate(length, "…");
       }
