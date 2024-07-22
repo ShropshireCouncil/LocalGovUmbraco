@@ -40,7 +40,7 @@
           else
           {
             ViewDataDictionary<BlockGridModel> blockViewData = new(ViewData);
-            blockViewData.Add("dataDepth", depth);
+            blockViewData.Add("depth", depth);
             @await Html.PartialAsync("blocks/"+ item.Content.ContentType.Alias, item.Content, blockViewData);
 
             @foreach (BlockGridArea area in item.Areas)
