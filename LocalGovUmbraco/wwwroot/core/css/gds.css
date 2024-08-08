@@ -53,10 +53,6 @@
   --gds-arrow-right: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 15 13'%3E%3Cpath d='m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z'%3E%3C/path%3E%3C/svg%3E");
 }
 
-* {
-  box-sizing: border-box;
-}
-
 html {
   font: 400 16px/1.25 Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
