@@ -18,7 +18,7 @@ using Umbraco.Extensions;
 
 namespace Umbraco.Cms.Web.Common.PublishedModels
 {
-	/// <summary>YouTube Video</summary>
+	/// <summary>Embedded Video</summary>
 	[PublishedModel("video")]
 	public partial class Video : PublishedElementModel, IBlockStyles
 	{
@@ -50,7 +50,7 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		// properties
 
 		///<summary>
-		/// Youtube Embed Url
+		/// Embed Url: Please enter either a YouTube or Vimeo embed URL.
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "13.2.2+79d241a")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]

@@ -43,7 +43,8 @@ namespace LocalGovUmbraco
           ))
           .FontSources(s => s.Self())
           .FrameSources(s => s.CustomSources(
-            "https://www.youtube.com"
+            "https://www.youtube.com",
+            "https://player.vimeo.com"
           ))
           .ConnectSources(s => s.Self().CustomSources(
             "https://*.google-analytics.com",

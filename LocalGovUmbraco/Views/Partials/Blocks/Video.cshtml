@@ -1,5 +1,22 @@
 @inherits UmbracoViewPage<Video>
 @if (!Model.VideoUrl.IsNullOrWhiteSpace()) {
-  <iframe id="video-@Guid.NewGuid()" preload="none" src="@(new Uri(Model.VideoUrl).SetQuery(new() { { "modestbranding" , "1" }, { "rel" , "0" }, }))"></iframe>
+  try
+  {
+    Uri embedUrl = new(new Uri(Model.VideoUrl).GetLeftPart(UriPartial.Path));
+
+    if (embedUrl.Host.Contains("youtube", System.StringComparison.CurrentCultureIgnoreCase))
+    {
+      embedUrl = embedUrl.SetQuery(new() { { "modestbranding", "1" }, { "rel", "0" }, });
+    }
+    else if (embedUrl.Host.Contains("vimeo", System.StringComparison.CurrentCultureIgnoreCase))
+    {
+      embedUrl = embedUrl.SetQuery(new() { { "byline", "0" }, { "dnt", "1" }, });
+    }
+    <iframe id="video-@Guid.NewGuid()" preload="none" src="@Html.Raw(embedUrl)" name="Embedded nideo" class="video"></iframe>
+  }
+  catch (Exception)
+  {
+    <text>Invalid video URL</text>
+  }
 }
 
