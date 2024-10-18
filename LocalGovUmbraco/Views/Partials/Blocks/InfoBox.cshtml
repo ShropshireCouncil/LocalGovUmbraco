@@ -9,7 +9,7 @@
 }
 @if (Model.Links?.Any() ?? false)
 {
-  <ul class="menu">
+  <ul class="menu" data-horizontal>
     @foreach (Link link in Model.Links)
     {
       <li>
