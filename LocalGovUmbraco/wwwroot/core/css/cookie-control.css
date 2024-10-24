@@ -19,6 +19,8 @@
 
 .cookie-control-widget input[type="checkbox"] {
   all: revert;
+  height: 24px;
+  width: 24px;
 }
 
 .cookie-control-widget input[type="checkbox"] + label {
@@ -132,7 +134,7 @@
 
 .cookie-control-widget .form-element.checkbox {
   display: grid;
-  grid-template-columns: 30px 1fr;
+  grid-template-columns: 42px 1fr;
   gap: 5px;
 }
 
