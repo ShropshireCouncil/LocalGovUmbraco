@@ -141,7 +141,7 @@ h2, .heading-l, .legend-l, .label-l {
   font-size: 1.5rem;
 }
 
-h3, .heading-m, legend, .legend-m, label-m {
+h3, .heading-m, legend, .legend-m, .label-m {
   margin: 0 0 1rem;
   font-weight: 700;
   font-size: 1.25rem;
