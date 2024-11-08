@@ -527,7 +527,7 @@ input:is([type="radio"], [type="checkbox"]) + label,
 input[type="checkbox"] + input[type="hidden"] + label {
   position: relative;
   min-height: 2.5rem;
-  padding: calc(0.5rem + 4px) 0 calc(0.5rem + 4px) 3.5rem;
+  padding: 0 0 calc(0.5rem + 4px) 3.5rem;
 }
 
 input:is([type="radio"], [type="checkbox"]) + label:before,
@@ -585,7 +585,8 @@ input[type="radio"] + label:after {
   background-color: currentColor;
 }
 
-input:is([type="radio"], [type="checkbox"]):checked + label:after {
+input:is([type="radio"], [type="checkbox"]):checked + label:after,
+input[type="checkbox"]:checked + input[type="hidden"] + label:after {
   opacity: 1;
 }
 
