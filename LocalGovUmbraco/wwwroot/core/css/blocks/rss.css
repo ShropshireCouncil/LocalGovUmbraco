@@ -6,6 +6,7 @@
 .block-type--rss-feed article {
   display: flex;
   gap: 1rem;
+  align-items: start;
 }
 
 .block-type--rss-feed article img {
