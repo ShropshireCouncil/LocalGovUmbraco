@@ -50,7 +50,7 @@
         <a href="@settings.Url()" title="Return to @settings.SiteName homepage">
           @if (settings.Logo is MediaWithCrops logo)
           {
-            <img id="logo" src="@logo.GetCropUrl(280)" alt="@logo.Name">
+            <img id="logo" src="@logo.GetCropUrl(150)" alt="@settings.SiteName" width="150">
           }
           else
           {
@@ -136,7 +136,10 @@
       }
 
       <section id="copyright">
-        &copy; @settings.SiteName @settings.DescendantsOrSelf().Select(x => x.CreateDate.Year).Min()
+        @{
+          int copyrightYear = @settings.DescendantsOrSelf().Select(x => x.CreateDate.Year).Min();
+        }
+        &copy; @settings.Copyright.IfNullOrWhiteSpace(settings.SiteName) @(copyrightYear < DateTime.Now.Year ? Html.Raw($"{copyrightYear}&ndash;{DateTime.Now.Year}") : copyrightYear.ToString())
       </section>
     </div>
   </footer>

@@ -57,6 +57,14 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		public virtual bool Beta => this.Value<bool>(_publishedValueFallback, "beta");
 
 		///<summary>
+		/// Copyright holder
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "13.5.2+3431f76")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("copyright")]
+		public virtual string Copyright => this.Value<string>(_publishedValueFallback, "copyright");
+
+		///<summary>
 		/// Favicon
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "13.5.2+3431f76")]

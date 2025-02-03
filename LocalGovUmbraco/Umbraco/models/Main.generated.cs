@@ -73,6 +73,13 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		public virtual bool HideTitle => this.Value<bool>(_publishedValueFallback, "hideTitle");
 
 		///<summary>
+		/// Enforce child captions: Use this page's title as the default caption for all descendent pages.
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "13.5.2+3431f76")]
+		[ImplementPropertyType("inheritCaption")]
+		public virtual bool InheritCaption => this.Value<bool>(_publishedValueFallback, "inheritCaption");
+
+		///<summary>
 		/// Description
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "13.5.2+3431f76")]
