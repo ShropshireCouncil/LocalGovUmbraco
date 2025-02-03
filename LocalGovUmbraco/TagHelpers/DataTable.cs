@@ -1,5 +1,6 @@
 using LocalGovUmbraco.Extensions;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using System.Globalization;
 
 namespace LocalGovUmbraco.TagHelpers
 {
@@ -57,6 +58,15 @@ namespace LocalGovUmbraco.TagHelpers
       });
     }
 
+    /// <summary>
+    /// Check if a given string contains only a number.
+    /// </summary>
+    /// 
+    /// <param name="input">The string to check.</param>
+    /// 
+    /// <returns>The result of the check.</returns>
+    private static bool IsNumeric(string input) => decimal.TryParse(input.Trim().TrimEnd('%'), NumberStyles.Number | NumberStyles.AllowCurrencySymbol, CultureInfo.CurrentCulture, out _);
+
     /// <inheritdoc/>
     public override void Process(TagHelperContext context, TagHelperOutput output)
     {
@@ -83,11 +93,11 @@ namespace LocalGovUmbraco.TagHelpers
         int cellIndex = 1;
         foreach (KeyValuePair<string, string?> item in dict)
         {
-          output.Content.AppendHtml($"<dt data-key=\"{item.Key.Slug()}\" role=\"columnheader\" class=\"{(item.Value.IsNullOrWhiteSpace() ? "empty" : null)}\">");
+          output.Content.AppendHtml($"<dt data-key=\"{item.Key.Slug()}\" role=\"columnheader\" class=\"{(item.Value.IsNullOrWhiteSpace() ? "empty" : IsNumeric(item.Value) ? "number" : null)}\">");
           output.Content.Append(item.Key);
           output.Content.AppendHtml("</dt>");
 
-          output.Content.AppendHtml($"<dd data-key=\"{item.Key.Slug()}\" role=\"cell\" aria-cellindex=\"{cellIndex++}\" class=\"{(item.Value.IsNullOrWhiteSpace() ? "empty" : null)}\">");
+          output.Content.AppendHtml($"<dd data-key=\"{item.Key.Slug()}\" role=\"cell\" aria-cellindex=\"{cellIndex++}\" class=\"{(item.Value.IsNullOrWhiteSpace() ? "empty" : IsNumeric(item.Value) ? "number" : null)}\">");
           output.Content.Append(item.Value);
           output.Content.AppendHtml("</dd>");
         }
