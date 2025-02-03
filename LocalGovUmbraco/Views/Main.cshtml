@@ -25,6 +25,10 @@
   {
     <meta name="robots" content="@Model.MetaRobots">
   }
+  @foreach (KeyValuePair<string, string> meta in (settings.GlobalMetaTags ?? new()).Merge(Model.MetaTags).Where(x => !new[] { "robots", "keywords", "description" }.Contains(x.Key)))
+  {
+    <meta name="@meta.Key" content="@meta.Value">
+  }
 
   @if (settings.Favicon is MediaWithCrops icon)
   {

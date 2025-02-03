@@ -1,0 +1,25 @@
+<div ng-controller="LocalGovUmbraco.Dictionary" class="dictionary property-editor">
+  <datalist id="dictionary-key-autocomplete" ng-if="dictionaryKeys.length">
+    <option ng-repeat="key in dictionaryKeys track by $index">{{key}}</option>
+  </datalist>
+
+  <fieldset ng-repeat="datum in data track by $index">
+    <div class="form-element dictionary-key">
+      <label for="dictionary-key-{{$index}}" ng-hide="$index > 0">Key</label>
+      <input type="text" id="dictionary-key-{{$index}}" ng-model="datum[0]" list="dictionary-key-autocomplete" ng-change="updateKeys()" />
+    </div>
+    <div class="form-element dictionary-value">
+      <label for="dictionary-value-{{$index}}" ng-hide="$index > 0">Value</label>
+      <input type="text" id="dictionary-value-{{$index}}" ng-model="datum[1]" />
+    </div>
+    <div class="actions">
+      <span ng-hide="$index > 0">Actions</span>
+      <div class="button-wrapper">
+        <button type="button" class="up icon-only" title="Move up" ng-click="move($index, -1)" ng-disabled="$index <= 0">Move Up</button>
+        <button type="button" class="down icon-only" title="Move down" ng-click="move($index, 1)" ng-disabled="$index >= data.length - 1">Move down</button>
+        <button type="button" class="delete icon-only" title="Delete" ng-click="delete($index)">Delete</button>
+      </div>
+    </div>
+  </fieldset>
+  <button type="button" ng-click="data.push([null, null])" ng-disabled="hasEmpty()">Add new key/value pair</button>
+</div>

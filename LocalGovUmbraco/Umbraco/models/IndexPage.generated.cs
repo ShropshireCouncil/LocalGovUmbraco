@@ -81,6 +81,14 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		public virtual global::System.Collections.Generic.IEnumerable<global::Umbraco.Cms.Core.Models.Link> FooterLinks => this.Value<global::System.Collections.Generic.IEnumerable<global::Umbraco.Cms.Core.Models.Link>>(_publishedValueFallback, "footerLinks");
 
 		///<summary>
+		/// Global Meta Tags
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "13.5.2+3431f76")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("globalMetaTags")]
+		public virtual global::System.Collections.Generic.Dictionary<string, global:: System.String> GlobalMetaTags => this.Value<global::System.Collections.Generic.Dictionary<string, global:: System.String>>(_publishedValueFallback, "globalMetaTags");
+
+		///<summary>
 		/// Google Analytics: If you have a Google Analytics property, enter it here.
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "13.5.2+3431f76")]

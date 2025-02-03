@@ -97,6 +97,14 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		public virtual string MetaRobots => this.Value<string>(_publishedValueFallback, "metaRobots");
 
 		///<summary>
+		/// Custom Meta Tags
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "13.5.2+3431f76")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("metaTags")]
+		public virtual global::System.Collections.Generic.Dictionary<string, global:: System.String> MetaTags => this.Value<global::System.Collections.Generic.Dictionary<string, global:: System.String>>(_publishedValueFallback, "metaTags");
+
+		///<summary>
 		/// Priority
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "13.5.2+3431f76")]

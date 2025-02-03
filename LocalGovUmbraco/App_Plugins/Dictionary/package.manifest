@@ -1,0 +1,34 @@
+{
+  "propertyEditors": [
+    {
+      "alias": "LocalGovUmbraco.Dictionary",
+      "name": "Dictionary",
+      "icon": "icon-books",
+      "group": "Common",
+      "allowPackageTelemetry": false,
+      "bundleOptions": "Independent",
+      "editor": {
+        "view": "~/App_Plugins/Dictionary/index.html",
+        "valueType": "JSON"
+      },
+      "prevalues": {
+        "fields": [
+          {
+            "label": "Show contextual auto-complete",
+            "key": "autocomplete",
+            "view": "boolean"
+          }
+        ]
+      },
+      "defaultConfig": {
+        "autocomplete": true
+      }
+    }
+  ],
+  "javascript": [
+    "~/App_Plugins/Dictionary/controller.js"
+  ],
+  "css": [
+    "~/App_Plugins/Dictionary/styles.css"
+  ]
+}
