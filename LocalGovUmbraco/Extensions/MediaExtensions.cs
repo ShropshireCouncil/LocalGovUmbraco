@@ -1,7 +1,7 @@
 using Umbraco.Cms.Core.Models;
 using Umbraco.Cms.Core.Models.PublishedContent;
 
-namespace ShropshireGov.Extensions
+namespace LocalGovUmbraco.Extensions
 {
   public enum FileType
   {
