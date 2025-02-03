@@ -40,7 +40,7 @@ namespace LocalGovUmbraco.Extensions
     /// <returns>The inverted <see cref="IEnumerable{Dictionary{TKey, TValue}}"/>.</returns>
     public static Dictionary<TKey, IEnumerable<TValue?>> InvertKeyValues<TKey, TValue>(this IEnumerable<Dictionary<TKey, TValue?>> source) where TKey : IEquatable<TKey>
     {
-      Dictionary<TKey, IEnumerable<TValue?>> data = new();
+      Dictionary<TKey, IEnumerable<TValue?>> data = [];
       foreach (Dictionary<TKey, TValue?> dict in source)
       {
         foreach (KeyValuePair<TKey, TValue?> item in dict)

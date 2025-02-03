@@ -53,7 +53,7 @@ namespace LocalGovUmbraco.Extensions
     /// <returns>The converted <see cref="Dictionary{string, string?}"/></returns>
     public static Dictionary<string, string?> ToDictionary(this NameValueCollection collection)
     {
-      Dictionary<string, string?> dict = new();
+      Dictionary<string, string?> dict = [];
       foreach (KeyValuePair<string, string?> entry in collection)
       {
         dict.Add(entry.Key, entry.Value);

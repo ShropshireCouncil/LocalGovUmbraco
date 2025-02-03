@@ -1,3 +1,4 @@
+using LocalGovUmbraco.Extensions;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using System.Collections.Specialized;
 using System.Web;
@@ -36,8 +37,6 @@ namespace LocalGovUmbraco.Extensions
 
 namespace LocalGovUmbraco.TagHelpers
 {
-  using LocalGovUmbraco.Extensions;
-
   /// <summary>
   /// Tag helper for generating pagination links
   /// </summary>
@@ -114,7 +113,7 @@ namespace LocalGovUmbraco.TagHelpers
 
       if (MaxDisplay != 0)
       {
-        int balance = (MaxDisplay + (MaxDisplay % 2 - 1)) / 2;
+        int balance = (MaxDisplay + ((MaxDisplay % 2) - 1)) / 2;
         for (int i = 1; i <= pageCount; ++i)
         {
           if (MaxDisplay < 0 || pageCount <= MaxDisplay || i == 1 || i == pageCount || (i >= currentPage && i <= MaxDisplay - currentPage) || (i <= currentPage && i >= pageCount - MaxDisplay) || (i >= currentPage - balance && i <= currentPage + balance))

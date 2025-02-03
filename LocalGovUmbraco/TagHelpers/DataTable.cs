@@ -47,7 +47,7 @@ namespace LocalGovUmbraco.TagHelpers
       IEnumerable<string> keys = eKeys.Skip(1).Aggregate(new HashSet<string>(eKeys.First()), (h, e) => h.Union(e).ToHashSet());
       return data.Select((x, i) =>
       {
-        Dictionary<string, string?> dict = new();
+        Dictionary<string, string?> dict = [];
         foreach (string key in keys)
         {
           dict.Add(key, x.GetValue(key));

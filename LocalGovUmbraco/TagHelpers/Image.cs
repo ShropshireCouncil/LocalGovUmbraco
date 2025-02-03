@@ -96,9 +96,9 @@ namespace LocalGovUmbraco.TagHelpers
         output.SuppressOutput();
         return;
       }
-      
-      Height = Height is int && Height != 0 ? Math.Abs(Height.Value) : null;
-      Width = Width is int && Width != 0 ? Math.Abs(Width.Value) : null;
+
+      Height = Height is int and not 0 ? Math.Abs(Height.Value) : null;
+      Width = Width is int and not 0 ? Math.Abs(Width.Value) : null;
 
       output.TagName = "picture";
       if (!Caption.IsNullOrWhiteSpace())
