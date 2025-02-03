@@ -1,5 +1,6 @@
-@using Examine
+@using Examine;
 @using Examine.Search;
+@using Umbraco.Cms.Core.Models.Blocks;
 @using Umbraco.Cms.Infrastructure.Examine;
 @inherits UmbracoViewPage<SearchResults>
 @inject IExamineManager examineManager;
@@ -21,7 +22,7 @@
         IndexTypes.Content => Umbraco.Content(x.Id),
         IndexTypes.Media => Umbraco.Media(x.Id),
         _ => null,
-      }).WhereNotNull().Where(x => (x is Main content && content.TemplateId > 0) || x is UmbracoMediaArticle);
+      }).WhereNotNull().Where(x => (x is Main content && content.TemplateId > 0) || x is UmbracoMediaArticle || (x is Redirect redirect && redirect.Destination?.Type == LinkType.External));
 
       if (items.Any())
       {
