@@ -33,23 +33,9 @@
           <article class="@item.Name.Slug() @shortStringHelper.SplitPascalCasing(@item.ContentType.Alias, ' ').Slug()">
             <h2 class="heading"><a href="@item.Url()">@item.Name</a></h2>
             <small><a href="@item.Url()">@item.Url()</a></small>
-            @if (item.Value("body") is Umbraco.Cms.Core.Models.Blocks.BlockGridModel body)
+            @if (GetSnippet(item, searchParameters.Select(x => x.Value).ToArray()) is IHtmlEncodedString snippet)
             {
-              string[] snippetParams = searchParameters.Select(x => x.Value).ToArray();
-              string snippet = Html.GetBlockGridHtml(body, "snippet").PlainText().Snippet(350, snippetParams);
-              if (!snippet.IsNullOrWhiteSpace())
-              {
-                <p>
-                  @snippet.Highlight(snippetParams.Where(x => x.Length > 3).ToArray());
-                </p>
-              }
-
-            }
-            else if (item.Value("metaDesc") is string metadesc && !metadesc.IsNullOrWhiteSpace())
-            {
-              <p>
-                @metadesc;
-              </p>
+              <p>@snippet</p>
             }
           </article>
         }
@@ -67,3 +53,25 @@
     }
   }
 </section>
+
+@functions {
+  public IHtmlEncodedString? GetSnippet(IPublishedContent item, params string[] highlights)
+  {
+    if (item is Main content && content.Value<BlockGridModel>("body") is BlockGridModel blocks)
+    {
+      return Html.GetBlockGridHtml(blocks, "snippet").PlainText().Snippet(350, highlights).Highlight(highlights.Where(x => x.Length > 3).ToArray());
+    }
+
+    if (item.Value<string>("metaDesc") is string metaDesc && !metaDesc.IsNullOrWhiteSpace())
+    {
+      return new HtmlEncodedString(HtmlEncoder.Encode(metaDesc));
+    }
+
+    if (item.Value<string>("description") is string description && !description.IsNullOrWhiteSpace())
+    {
+      return new HtmlEncodedString(HtmlEncoder.Encode(description));
+    }
+
+    return null;
+  }
+}
