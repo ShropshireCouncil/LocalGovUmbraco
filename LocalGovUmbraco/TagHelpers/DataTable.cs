@@ -32,6 +32,12 @@ namespace LocalGovUmbraco.TagHelpers
     }
 
     /// <summary>
+    /// Callback function to generate class values for a given row.
+    /// </summary>
+    [HtmlAttributeName("rowClasses")]
+    public Func<Dictionary<string, string?>, string[]>? RowClasses { get; set; }
+
+    /// <summary>
     /// Normalise the <see cref="IEnumerable{Dictionary{string, string?}}"/> ensuring all <see cref="Dictionary<string, string?>"/> contain the same keys.
     /// </summary>
     /// 
@@ -88,7 +94,12 @@ namespace LocalGovUmbraco.TagHelpers
       int rowIndex = 1;
       foreach (Dictionary<string, string?> dict in Data)
       {
-        output.Content.AppendHtml($"<dl class=\"row\" role=\"row\" aria-rowindex=\"{rowIndex}\">");
+        string[] rowClasses = ["row"];
+        if (RowClasses is not null)
+        {
+          rowClasses = [.. rowClasses.Concat(RowClasses(dict).Select(Extensions.StringExtensions.Slug).Distinct())];
+        }
+        output.Content.AppendHtml($"<dl class=\"{string.Join(" ", rowClasses)}\" role=\"row\" aria-rowindex=\"{rowIndex}\">");
 
         int cellIndex = 1;
         foreach (KeyValuePair<string, string?> item in dict)
