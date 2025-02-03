@@ -11,3 +11,7 @@
 .block-type--fixed-width-row .block-grid {
   gap: 1rem;
 }
+
+.block-type--fixed-width-row .block-grid + .block-grid {
+  margin-top: 1rem;
+}
