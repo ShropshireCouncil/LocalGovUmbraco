@@ -1,5 +1,6 @@
 @inherits UmbracoViewPage<Video>
-@if (!Model.VideoUrl.IsNullOrWhiteSpace()) {
+@if (!Model.VideoUrl.IsNullOrWhiteSpace())
+{
   try
   {
     Uri embedUrl = new(new Uri(Model.VideoUrl).GetLeftPart(UriPartial.Path));

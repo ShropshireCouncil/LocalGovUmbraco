@@ -16,18 +16,25 @@
           continue;
         }
 
-        IEnumerable<string> classes = new[]
-        {
-          "block",
-          "block-type--" + item.Content.ContentType.Alias.Slug(),
-          item.Content.Value<string?>("heading")?.Slug(),
-          item.Content is IBlockStyles blockClasses ? blockClasses.Classes : null,
-          item.Content is FixedWidthRow rowClasses ? rowClasses.Classes : null,
-          item.Content is FixedWidthRow rowAlignment && !rowAlignment.Alignment.IsNullOrWhiteSpace() ? "align-" + rowAlignment.Alignment.Slug() : null,
-          item.Content is FixedWidthRow rowPad && !rowPad.Padding.IsNullOrWhiteSpace() ? "padding-" + rowPad.Padding.Slug() : null,
-          item.Content is FixedWidthRow rowMargin && !rowMargin.Margin.IsNullOrWhiteSpace() ? "margin-" + rowMargin.Margin.Slug() : null,
-        }.Distinct().WhereNotNull();
-        <div id="@(item.Content.Value("htmlId") ?? "block-" + item.Content.Key)" class="@string.Join(" ", classes)" data-col-span="@item.ColumnSpan" data-row-span="@item.RowSpan" data-align="@((item.Content as IBlockStyles)?.VerticalAlignment.Slug())" data-justify="@((item.Content as IBlockStyles)?.HorizontalAlignment.Slug())">
+		IEnumerable<string?> classes = new[]
+		{
+		  "block",
+		  "block-type--" + item.Content.ContentType.Alias.Slug(),
+		  item.Content.Value<string?>("heading")?.Slug(),
+		  item.Content is IBlockStyles blockClasses ? blockClasses.Classes : null
+		};
+
+		if (item.Content is FixedWidthRow rowData)
+		{
+		  classes = classes.Concat(new[] {
+			  rowData.Classes,
+			  !rowData.Alignment.IsNullOrWhiteSpace() ? "align-" + rowData.Alignment.Slug() : null,
+			  !rowData.Padding.IsNullOrWhiteSpace() ? "padding-" + rowData.Padding.Slug() : null,
+			  !rowData.Margin.IsNullOrWhiteSpace() ? "margin-" + rowData.Margin.Slug() : null,
+		  });          
+		}
+
+		<div id="@(item.Content.Value("htmlId") ?? "block-" + item.Content.Key)" class="@string.Join(" ", classes.Distinct().WhereNotNull())" data-col-span="@item.ColumnSpan" data-row-span="@item.RowSpan" data-align="@((item.Content as IBlockStyles)?.VerticalAlignment.Slug())" data-justify="@((item.Content as IBlockStyles)?.HorizontalAlignment.Slug())">
           @if (item.Content is FixedWidthRow)
           {
             <div class="inner max-width">

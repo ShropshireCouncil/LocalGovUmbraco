@@ -116,7 +116,7 @@ namespace LocalGovUmbraco.Models.Rss
     /// <summary>
     /// A list of RSS items
     /// </summary>
-    private readonly List<Item> _items = new();
+    private readonly List<Item> _items = [];
 
     /// <summary>
     /// A sorted list of RSS items, with the most recently published items first.
