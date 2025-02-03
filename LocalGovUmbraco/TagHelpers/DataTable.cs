@@ -1,5 +1,5 @@
+using LocalGovUmbraco.Extensions;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using System.Text.RegularExpressions;
 
 namespace LocalGovUmbraco.TagHelpers
 {
@@ -57,20 +57,6 @@ namespace LocalGovUmbraco.TagHelpers
       });
     }
 
-    /// <summary>
-    /// Regex to match non-alphanumeric characters.
-    /// </summary>
-    [GeneratedRegex("[^\\da-z]+")]
-    private static partial Regex NonAlphaNum();
-
-    /// <summary>
-    /// Convert a string into a CSS safe slug.
-    /// </summary>
-    /// 
-    /// <param name="input">The converted string.</param>
-    /// <returns></returns>
-    private static string Slug(string input) => NonAlphaNum().Replace(string.Concat(input.Replace("\'", string.Empty).Select((x, i) => i > 0 && char.IsUpper(x) ? $" {x}" : x.ToString())).ToLower(), "-");
-
     /// <inheritdoc/>
     public override void Process(TagHelperContext context, TagHelperOutput output)
     {
@@ -97,11 +83,11 @@ namespace LocalGovUmbraco.TagHelpers
         int cellIndex = 1;
         foreach (KeyValuePair<string, string?> item in dict)
         {
-          output.Content.AppendHtml($"<dt data-key=\"{Slug(item.Key)}\" role=\"columnheader\" class=\"{(item.Value.IsNullOrWhiteSpace() ? "empty" : null)}\">");
+          output.Content.AppendHtml($"<dt data-key=\"{item.Key.Slug()}\" role=\"columnheader\" class=\"{(item.Value.IsNullOrWhiteSpace() ? "empty" : null)}\">");
           output.Content.Append(item.Key);
           output.Content.AppendHtml("</dt>");
 
-          output.Content.AppendHtml($"<dd data-key=\"{Slug(item.Key)}\" role=\"cell\" aria-cellindex=\"{cellIndex++}\" class=\"{(item.Value.IsNullOrWhiteSpace() ? "empty"  : null)}\">");
+          output.Content.AppendHtml($"<dd data-key=\"{item.Key.Slug()}\" role=\"cell\" aria-cellindex=\"{cellIndex++}\" class=\"{(item.Value.IsNullOrWhiteSpace() ? "empty" : null)}\">");
           output.Content.Append(item.Value);
           output.Content.AppendHtml("</dd>");
         }

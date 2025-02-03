@@ -1,5 +1,5 @@
+using LocalGovUmbraco.Extensions;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using System.Text.RegularExpressions;
 using Umbraco.Cms.Core.Models.PublishedContent;
 
 namespace LocalGovUmbraco.TagHelpers
@@ -50,9 +50,6 @@ namespace LocalGovUmbraco.TagHelpers
     [HtmlAttributeName("context")]
     public IPublishedContent? Context { get; set; }
 
-    [GeneratedRegex("[^\\da-z]+")]
-    private static partial Regex AlphaNum();
-
     /// <summary>
     /// Generate CSS classes for a given piece of content.
     /// </summary>
@@ -62,10 +59,7 @@ namespace LocalGovUmbraco.TagHelpers
     /// <returns>A <see cref="List{string}"/> of CSS classes.</returns>
     private List<string> GenerateClasses(IPublishedContent content)
     {
-      List<string> classes = new()
-      {
-          AlphaNum().Replace(string.Concat(content.Name.Replace("\'", string.Empty).Select((x, i) => i > 0 && char.IsUpper(x) ? $" {x}" : x.ToString())).ToLower(), "-"),
-      };
+      List<string> classes = new() { content.Name.Slug() };
 
       if (Context is not null)
       {
