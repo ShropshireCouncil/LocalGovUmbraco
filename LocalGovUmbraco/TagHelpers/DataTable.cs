@@ -15,6 +15,12 @@ namespace LocalGovUmbraco.TagHelpers
     private IEnumerable<Dictionary<string, string?>>? _data;
 
     /// <summary>
+    /// The level of the heading
+    /// </summary>
+    [HtmlAttributeName("ariaLabel")]
+    public string? AriaLabel { get; set; }
+
+    /// <summary>
     /// The data for the table.
     /// </summary>
     [HtmlAttributeName("data")]
@@ -77,21 +83,31 @@ namespace LocalGovUmbraco.TagHelpers
 
       output.TagName = "div";
       output.Attributes.Add("data-table", null);
+      output.Attributes.Add("role", "table");
+      if (!AriaLabel.IsNullOrWhiteSpace())
+      {
+        output.Attributes.Add("arial-label", AriaLabel);
+      }
+
+      int rowIndex = 1;
       foreach (Dictionary<string, string?> dict in Data)
       {
-        output.Content.AppendHtml("<dl>");
+        output.Content.AppendHtml($"<dl class=\"row\" role=\"row\" aria-rowindex=\"{rowIndex}\">");
+
+        int cellIndex = 1;
         foreach (KeyValuePair<string, string?> item in dict)
         {
-          output.Content.AppendHtml($"<dt data-key=\"{Slug(item.Key)}\" class=\"{(item.Value.IsNullOrWhiteSpace() ? "empty" : null)}\">");
+          output.Content.AppendHtml($"<dt data-key=\"{Slug(item.Key)}\" role=\"columnheader\" class=\"{(item.Value.IsNullOrWhiteSpace() ? "empty" : null)}\">");
           output.Content.Append(item.Key);
           output.Content.AppendHtml("</dt>");
 
-          output.Content.AppendHtml($"<dd data-key=\"{Slug(item.Key)}\" class=\"{(item.Value.IsNullOrWhiteSpace() ? "empty" : null)}\">");
+          output.Content.AppendHtml($"<dd data-key=\"{Slug(item.Key)}\" role=\"cell\" aria-cellindex=\"{cellIndex++}\" class=\"{(item.Value.IsNullOrWhiteSpace() ? "empty"  : null)}\">");
           output.Content.Append(item.Value);
           output.Content.AppendHtml("</dd>");
         }
 
         output.Content.AppendHtml("</dl>");
+        rowIndex++;
       }
     }
   }
