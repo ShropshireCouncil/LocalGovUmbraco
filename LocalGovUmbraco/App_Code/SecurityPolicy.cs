@@ -19,7 +19,7 @@ namespace LocalGovUmbraco
       .UseXfo(o => o.SameOrigin())
       .UseReferrerPolicy(o => o.StrictOrigin())
       .UseRedirectValidation(o => o.AllowSameHostRedirectsToHttps())
-      .UseWhen(context => !context.Request.Path.StartsWithSegments(new PathString("/umbraco")), a =>
+      .UseWhen(context => !context.Request.Path.StartsWithSegments(new PathString("/umbraco")) || context.Request.Path.StartsWithSegments(new PathString("/umbraco/preview")), a =>
       {
         if (a.ApplicationServices.GetRequiredService<IRuntimeState>().EnableInstaller())
         {
