@@ -30,7 +30,8 @@
         }
 
         <article>
-          @if (Model.Image && imgSrc is not null) {
+          @if (Model.Image && imgSrc is not null)
+          {
             <img src="@imgSrc" alt="@item.Title" loading="lazy"/>
           }
           <div class="inner">
@@ -75,11 +76,11 @@
         </article>
       }
     </div>
-    
-    @if(Model.ArchiveLink is Link archiveLink)
+
+    @if (Model.ArchiveLink is Link archiveLink)
     {
       <div class="article-archive">
-        <a href="@archiveLink.Url" target="@archiveLink.Target">@archiveLink.Name</a>
+        <a href="@archiveLink.Url" target="@archiveLink.Target" class="button">@archiveLink.Name</a>
       </div>
     }
   }
