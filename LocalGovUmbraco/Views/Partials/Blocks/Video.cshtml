@@ -13,7 +13,7 @@
     {
       embedUrl = embedUrl.SetQuery(new() { { "byline", "0" }, { "dnt", "1" }, });
     }
-    <iframe id="video-@Guid.NewGuid()" preload="none" src="@Html.Raw(embedUrl)" name="Embedded nideo" class="video"></iframe>
+    <iframe id="video-@Guid.NewGuid()" preload="none" src="@Html.Raw(embedUrl)" name="Embedded Video" class="video"></iframe>
   }
   catch (Exception)
   {
