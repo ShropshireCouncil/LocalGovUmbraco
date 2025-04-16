@@ -1,15 +1,16 @@
 /.config
-/Properties
+/[Pp]roperties
 
 /[Uu]mbraco/*
-!/[Uu]mbraco/Data/
-/[Uu]mbraco/Data/*
-!/[Uu]mbraco/Data/UmbracoForms/
-!/[Uu]mbraco/Models/
+!/[Uu]mbraco/[Dd]ata/
+/[Uu]mbraco/[Dd]ata/*
+!/[Uu]mbraco/[Dd]ata/[Uu]mbraco[Ff]orms/
+!/[Uu]mbraco/[Mm]odels/
 
-/[Uu][Ss]ync/*/Content
-/[Uu][Ss]ync/*/Domains
-/[Uu][Ss]ync/*/Media
+/[Uu][Ss]ync/*/[Cc]ontent
+/[Uu][Ss]ync/*/[Dd]omains
+/[Uu][Ss]ync/*/[Mm]edia
+/[Uu][Ss]ync/*/[Ff]orms
 
 /wwwroot/media/*
 !/wwwroot/media/.gitkeep
