@@ -1,0 +1,26 @@
+@using Folder=Umbraco.Cms.Web.Common.PublishedModels.Folder;
+@inherits UmbracoViewPage<IEnumerable<MediaWithCrops>?>
+@{
+  int depth = (ViewData.GetValue("depth") as int?) ?? 0;
+  int gridCols = (ViewData.GetValue("grid-cols") as int?) ?? 12;
+  int colSpan = (int) Math.Ceiling(((double) gridCols / 12) * (12 / (Math.Clamp((ViewData.GetValue("columns") as int? ?? 3), 1, 4))));
+}
+
+@if (ViewData.GetValue("heading") is string heading && !heading.IsNullOrWhiteSpace())
+{
+  <heading level="@(2 + depth++)" class="heading">@heading</heading>
+}
+
+@if (Model?.Any() ?? false)
+{
+  <div class="block-grid" data-grid-columns="@gridCols">
+    @foreach (IPublishedContent file in Model.SelectMany(x => x.Content is Folder folder ? folder.Descendants() : x.Content.AsEnumerableOfOne()).Where(x => x is not Folder))
+    {
+      <div class="block block-type--pinned-action attachment icon icon-@file.Classification().ToString().Slug()" data-col-span="@colSpan" data-row-span="1">
+        <heading level="@(2 + depth)" class="heading">
+          <a href="@file.MediaUrl()" target="_blank">@file.Name</a>
+        </heading>
+      </div>
+    }
+  </div>
+}
