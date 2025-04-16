@@ -60,5 +60,8 @@ namespace LocalGovUmbraco.PropertyEditors.EventInstances
 
       return diff;
     }
+
+    /// <inheritdoc/>
+    public override string ToString() => Start.ToString("yyyy'-'MM'-'dd") + (!Start.Equals(End) ? "-" + End.ToString("yyyy'-'MM'-'dd") : null);
   }
 }
